@@ -1,5 +1,11 @@
 ﻿@import url("root.css");
 
+*, p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     overflow:hidden;
 }
@@ -22,4 +28,21 @@ body {
 
 .description {
     color: #4F646F;
+    font-size:11px;
+}
+
+.steps .activatedStep{
+    color:var(--gold);
+}
+
+.steps{
+    width:100%;
+    height:240px;
+    margin-top:50px;
+}
+
+.btn-already-has-account{
+    color:var(--lightwhite);
+    background-color:var(--lightblue);
+    border-radius:80px;
 }

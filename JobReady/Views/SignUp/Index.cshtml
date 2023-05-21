@@ -4,6 +4,7 @@
 @{
     Layout = null;
     ViewData["Title"] = "SignUp";
+    // TODO: add link to LoginController to the hyperlink tag <a>
 }
 <!DOCTYPE HTML>
 <!DOCTYPE html>
@@ -19,17 +20,38 @@
 </head>
 <body>
 <div class="d-flex vw-100 vh-100">
-    <div class="d-flex flex-column vh-100 steps-container">
+    <div class="d-flex flex-column vh-100 steps-container justify-content-between">
+        <div>
         <img src="~/assets/logo/blueLogo.svg" alt="JobReady Blue Logo" class="img-resize"/>
-        <div class="d-flex flex-row steps step1">
-                <img src="~/icons/tick-circle.svg"/>
-                <div class="d-flex flex-column">
+        <div class="steps d-flex flex-column justify-content-around">
+                <div class="d-flex flex-row step1 gap-2 activatedStep">
+                <img src="~/icons/tick-circle.svg" alt="tick" id="tick1"/>
+                <div>
                     <p>Account Type</p>
                     <p class="description">Select the account you want to create</p>
                 </div>
+            </div>
+                <div class="d-flex flex-row step2 gap-2">
+                    <img src="~/icons/tick-circle.svg" alt="tick" id="tick2" />
+                    <div>
+                        <p>User Information</p>
+                        <p class="description">Please provide your name and email and choose password</p>
+                    </div>
+            </div>
+                <div class="d-flex flex-row step3 gap-2">
+                    <img src="~/icons/tick-circle.svg" alt="tick" id="tick3" />
+                    <div>
+                        <p>Profile Details</p>
+                        <p class="description">Share more info within your profile!</p>
+                    </div>
+            </div>
+                </div>
+            </div>
+        <div class="d-flex flex-column gap-2">
+
+            <a role="button" class="btn btn-already-has-account">Already has an account</a>
+                <p class="text-center color-light-blue">&copy; JobReady @DateTime.Now.Year</p>
         </div>
-        <div class="d-flex flex-row steps step2"></div>
-        <div class="d-flex flex-row steps step3"></div>
     </div>
     <div class="d-flex vh-100 form-side">
 
@@ -38,5 +60,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/signup.js" asp-append-version="true"></script>
 </body>
 </html>

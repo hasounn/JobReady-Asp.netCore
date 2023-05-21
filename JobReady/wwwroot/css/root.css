@@ -1,4 +1,9 @@
 ﻿:root {
     --lightwhite: #F4FAFF;
     --lightblue: #139BE4;
+    --gold: #B87333;
+}
+
+.color-light-blue{
+    color:var(--lightblue);
 }
