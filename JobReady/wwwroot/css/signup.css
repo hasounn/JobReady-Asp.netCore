@@ -1,0 +1,16 @@
+﻿@import url("root.css");
+
+body {
+    overflow:hidden;
+}
+
+.steps-container {
+    width: 30.125rem;
+    background-color: var(--lightwhite);
+}
+
+.form-side {
+    width:100%;
+    background: linear-gradient(130.87deg, #1B5B75 -1.02%, #139BE4 49.98%, #8DD7FF 128.72%);
+    backdrop-filter: blur(2px);
+}
