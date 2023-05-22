@@ -19,27 +19,39 @@
     <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
 </head>
 <body>
-<div class="d-flex vw-100 vh-100">
+<div class="d-flex flex-lg-row flex-column vw-100 vh-100">
     <div class="d-flex flex-column vh-100 steps-container justify-content-between">
         <div>
         <img src="~/assets/logo/blueLogo.svg" alt="JobReady Blue Logo" class="img-resize"/>
-        <div class="steps d-flex flex-column justify-content-around">
-                <div class="d-flex flex-row step1 gap-2 activatedStep">
-                <img src="~/icons/tick-circle.svg" alt="tick" id="tick1"/>
+        <div class="steps d-flex flex-lg-column flex-row justify-content-around gap-3 gap-lg-0">
+                <div class="d-flex flex-lg-row flex-column step step1 gap-2 activatedStep">
+                        <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
                 <div>
                     <p>Account Type</p>
                     <p class="description">Select the account you want to create</p>
                 </div>
             </div>
-                <div class="d-flex flex-row step2 gap-2">
-                    <img src="~/icons/tick-circle.svg" alt="tick" id="tick2" />
+                    <div class="d-flex flex-lg-row flex-column step step2 gap-2">
+                        <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
                     <div>
                         <p>User Information</p>
                         <p class="description">Please provide your name and email and choose password</p>
                     </div>
             </div>
-                <div class="d-flex flex-row step3 gap-2">
-                    <img src="~/icons/tick-circle.svg" alt="tick" id="tick3" />
+                    <div class="d-flex flex-lg-row flex-column  step step3 gap-2">
+                        <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
                     <div>
                         <p>Profile Details</p>
                         <p class="description">Share more info within your profile!</p>
@@ -53,13 +65,144 @@
                 <p class="text-center color-light-blue">&copy; JobReady @DateTime.Now.Year</p>
         </div>
     </div>
-    <div class="d-flex vh-100 form-side">
+    <div class="d-flex flex-column justify-content-center align-items-center form-side">
+            @using (Html.BeginForm("Registry", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate" } ) )
+            {
+                @Html.AntiForgeryToken()
+                <section class="form-step form-one d-flex flex-lg-column flex-row active-step">
+                    <input type="hidden" value="student" id="accountType"/>
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
+                        <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
+                            <div class="choice selected">
+                                <img src="~/icons/user.svg"/>
+                            </div>
+                            <h5 class="color-gray-asset1">Student</h5>
+                        </div>
+                        <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
+                            <div class="choice">
+                                <img src="~/icons/Instructor.svg" class="m-1"/>
+                            </div>
+                            <h5 class="color-gray-asset1">Instructor</h5>
+                        </div>
+                        <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
+                            <div class="choice">
+                                <img src="~/icons/companybuilding.svg" />
+                            </div>
+                            <h5 class="color-gray-asset1">Company</h5>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-step form-two d-flex flex-lg-column flex-row">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-lg-center gap-5">
+                        <div class="d-flex flex-column w-50 gap-4">
+                            <div class="input-data">
+                                <input type="text" id="fullname" required>
+                                <div class="underline"></div>
+                                <label for="fullname">Full Name</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="email" id="email" required>
+                                <div class="underline"></div>
+                                <label for="email">Email Address</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="tel" id="phonenb" required>
+                                <div class="underline"></div>
+                                <label for="phonenb">Phone Number</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="text" id="dob" required onfocus="this.type='date'" onblur="this.type='text'">
+                                <div class="underline"></div>
+                                <label for="dob">Date Of Birth</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="password" id="pwd" required>
+                                <div class="underline"></div>
+                                <label for="pwd">Password</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="password" id="confirmpwd" required>
+                                <div class="underline"></div>
+                                <label for="confirmpwd">Confirm Password</label>
+                            </div>
+                        </div>
+                        <img src="~/assets/images/step2SignUp.svg" class="image-resize align-self-center align-self-lg-start"/>
+                    </div>
+                </section>
+                <section class="form-step form-three d-flex flex-lg-row flex-column">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
+                        <div class="d-flex flex-column w-50 gap-4">
+                            <div class="input-data">
+                                <input type="text" id="university" required>
+                                <div class="underline"></div>
+                                <label for="university">University</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="text" id="major" required>
+                                <div class="underline"></div>
+                                <label for="major">Major</label>
+                            </div>
+                            <div class="input-data">
+                                <label for="headline">Headline</label>
+                                <textarea id="headline" required></textarea>
+                                <div class="underline"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
+                                <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImage rounded-circle" />
+                                <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler disable-select">
+                                    <input type="file" id="fileInput" class="hidden" onchange="previewImage('fileInput','previewImage')" />
+                                    <p>Add Profile Picture</p>
+                                    <img src="~/icons/galleryedit.svg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
+                <section class="form-step form-three d-flex flex-lg-row flex-column">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
+                        <div class="d-flex flex-column w-50 gap-4">
+                            <div class="input-data">
+                                <input type="text" id="industry" required>
+                                <div class="underline"></div>
+                                <label for="industry">Industry</label>
+                            </div>
+                            <div class="input-data">
+                                <input type="text" pattern="^[0-9]+ - [0-9]+$" id="companySize" required title="Please enter text such '2 - 3000'">
+                                <div class="underline"></div>
+                                <label for="companySize">Company Size</label>
+                            </div>
+                            <div class="input-data">
+                                <label for="hcompany">Headline</label>
+                                <textarea id="hcompany" required></textarea>
+                                <div class="underline"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
+                                <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImageCompany rounded-circle" />
+                                <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler1 disable-select">
+                                    <input type="file" id="fileInput1" class="hidden" onchange="previewImage('fileInput1','previewImageCompany')" />
+                                    <p>Add Profile Picture</p>
+                                    <img src="~/icons/galleryedit.svg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="d-flex gap-2 btn-group flex-row align-items-center align-self-end group">
+                    <button class="btn btn-prev">Back</button>
+                    <button class="btn btn-next">Next</button>
+                    <button class="btn btn-submit">Create</button>
+                </section>
+            }
     </div>
 </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/signup.js" asp-append-version="true"></script>
 </body>
 </html>
