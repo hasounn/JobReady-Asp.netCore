@@ -7,8 +7,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
   workflow_dispatch:
-
+ 
 jobs:
   build:
     runs-on: windows-latest
