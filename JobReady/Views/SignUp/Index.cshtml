@@ -23,37 +23,37 @@
     <div class="d-flex flex-column vh-100 steps-container justify-content-between">
         <div>
         <img src="~/assets/logo/blueLogo.svg" alt="JobReady Blue Logo" class="img-resize"/>
-        <div class="steps d-flex flex-lg-column flex-row justify-content-around gap-3 gap-lg-0">
-                <div class="d-flex flex-lg-row flex-column step step1 gap-2 activatedStep">
+        <div class="steps d-flex flex-lg-column flex-row justify-content-around gap-3 gap-md-0">
+                <div class="d-flex flex-lg-row flex-column step step1 gap-2 align-items-lg-start align-items-center activatedStep">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                 <div>
-                    <p>Account Type</p>
+                    <p class="text-center text-lg-start">Account Type</p>
                     <p class="description">Select the account you want to create</p>
                 </div>
             </div>
-                    <div class="d-flex flex-lg-row flex-column step step2 gap-2">
+                    <div class="d-flex flex-lg-row flex-column step step2 gap-2 align-items-lg-start align-items-center">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     <div>
-                        <p>User Information</p>
+                            <p class="text-center text-lg-start">User Information</p>
                         <p class="description">Please provide your name and email and choose password</p>
                     </div>
             </div>
-                    <div class="d-flex flex-lg-row flex-column  step step3 gap-2">
+                    <div class="d-flex flex-lg-row flex-column step step3 gap-2 align-items-lg-start align-items-center">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     <div>
-                        <p>Profile Details</p>
+                            <p class="text-center text-lg-start">Profile Details</p>
                         <p class="description">Share more info within your profile!</p>
                     </div>
             </div>
@@ -69,7 +69,7 @@
             @using (Html.BeginForm("Registry", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate" } ) )
             {
                 @Html.AntiForgeryToken()
-                <section class="form-step form-one d-flex flex-lg-column flex-row active-step">
+                <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
                     <input type="hidden" value="student" id="accountType"/>
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
                         <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
@@ -92,8 +92,8 @@
                         </div>
                     </div>
                 </section>
-                <section class="form-step form-two d-flex flex-lg-column flex-row">
-                    <div class="d-flex flex-lg-row flex-column p-3 align-items-lg-center gap-5">
+                <section class="form-step form-two d-flex flex-md-row flex-column align-items-center justify-content-center">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-md-center gap-5">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
                                 <input type="text" id="fullname" required oninput="validate(this); validateInputs('form-two')">
@@ -126,10 +126,10 @@
                                 <label for="confirmpwd">Confirm Password</label>
                             </div>
                         </div>
-                        <img src="~/assets/images/step2SignUp.svg" class="image-resize align-self-center align-self-lg-start"/>
+                        <img src="~/assets/images/step2SignUp.svg" class="image-resize align-self-center align-self-md-start"/>
                     </div>
                 </section>
-                <section class="form-step form-three d-flex flex-lg-row flex-column">
+                <section class="form-step form-three d-flex flex-md-row flex-column align-items-center justify-content-center">
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
@@ -161,7 +161,7 @@
                     </div>
                 </section>
 
-                <section class="form-step form-four d-flex flex-lg-row flex-column">
+                <section class="form-step form-four d-flex flex-md-row flex-column align-items-center justify-content-center">
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">

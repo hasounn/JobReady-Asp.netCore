@@ -12,6 +12,8 @@ const fileInput = document.querySelector("#fileInput");
 const fileInput1 = document.querySelector("#fileInput1");
 const fileHandler = document.querySelector(".file-handler");
 const fileHandler1 = document.querySelector(".file-handler1");
+const txtarea = document.querySelector(".form-three textarea");
+const txtarea1 = document.querySelector(".form-four textarea");
 let active = 1;
 
 //Event Listeners
@@ -22,6 +24,21 @@ nextBtn.addEventListener("click", (e) => {
         active = step.length;
     }
     updateProgress();
+    if (active === 2) {
+        validateInputs("form-two");
+    } else if (active === 3) {
+        if (accountType.value === "company") {
+            validateInputs("form-four");
+            if (txtarea1.value.trim() !== "") {
+                validateTextarea(txtarea1);
+            }
+        } else {
+            validateInputs("form-three");
+            if(txtarea.value.trim() !== "") {
+                validateTextarea(txtarea);
+            }
+        }
+    }
 });
 prevBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -30,6 +47,9 @@ prevBtn.addEventListener("click", (e) => {
         active = 1;
     }
     updateProgress();
+    if (active === 2) {
+        validateInputs("form-two");
+    }
 });
 
 textarea.addEventListener("keyup", e => {
@@ -160,16 +180,20 @@ const validate = (input) => {
     } else {
         input.classList.add('input-invalid');
     }
+
+    if (input.type === "password" && input.getAttribute("id") == "confirmpwd") {
+        validatePassword();
+    }
 }
 
 const validateInputs = (formStep) => {
+    console.log('entered');
     const inputs = document.querySelectorAll("."+formStep+ " input");
     let count = 0;
     let length = inputs.length;
     if (formStep == "form-three" || formStep == "form-four") {
         length++;
     }
-console.log(inputs)
     inputs.forEach(input => {
         
         if (input.value.trim() !== "" && input.validity.valid) {
@@ -212,8 +236,9 @@ const validatePassword = () => {
         confirmpwd.classList.remove("input-invalid");
         validateInputs("form-two");
     } else {
-        pwd.classList.add("input-invalid");
         confirmpwd.classList.add("input-invalid");
+        confirmpwd.classList.add("input-invalid");
+        pwd.classList.add("input-invalid");
         nextBtn.disabled = true;
     }
 }

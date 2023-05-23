@@ -6,10 +6,6 @@
     box-sizing: border-box;
 }
 
-body {
-    overflow:hidden;
-}
-
 .steps-container {
     width: 30.125rem;
     background-color: var(--lightwhite);
@@ -55,7 +51,7 @@ body {
 .form-step{
     background-color:var(--lightwhite);
     width:750px;
-    height:356px;
+    height:450px;
     padding:30px;
     border-radius:30px;
 }
@@ -258,11 +254,17 @@ form > .form-step{
     width:50%;
 }
 
-
-@media only screen and (max-width: 768px) {
-    body{
-        overflow:auto
+@media (min-width:1px) and (max-width:1000px){
+    .steps-container {
+        height: 200px;
+        width: 100vw;
     }
+    .img-resize {
+        width: 33%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
     .steps-container{
         height:200px;
         width:100vw;
@@ -270,6 +272,11 @@ form > .form-step{
 
     .form-side{
         height:fit-content;
+    }
+
+    .form-step {
+        height: 852px;
+        width: 350px;
     }
 
     .image-resize {
