@@ -42,6 +42,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Download artifact from build job
@@ -57,3 +58,9 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C3DF7B3EA3044698806505987B09EF7 }}
           package: .
+  final:
+    runs-on: windows-latest
+    if: ${{ github.ref != 'refs/heads/master' }}
+    steps:
+      - name: Set workflow status as success
+        run: echo "##[set-output name=workflow-result;]success"
