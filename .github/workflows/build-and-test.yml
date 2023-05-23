@@ -9,7 +9,7 @@ on:
 
 env:
   DOTNET_VERSION: '7.x' # The .NET SDK version to use
-
+  TESTING_ENV_VAR: 'Testing'
 jobs:
   build-and-test:
 
