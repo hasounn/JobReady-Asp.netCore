@@ -79,7 +79,7 @@ const changeColorTick = () => {
 
 const updateProgress = () => {
     step.forEach((s, i) => {
-        if (i == (active - 1)) {
+        if (i == (active - 1)) {;
             s.classList.remove("doneStep");
             s.classList.add("activatedStep");
             changeColorTick();
@@ -88,6 +88,13 @@ const updateProgress = () => {
                 
             } else {
                 formSteps[i].classList.add("active-step");
+            }
+            if (accountType.value == "company" && i === 1) {
+                const label = document.querySelector("label[for='dob']");
+                label.textContent = "Founded";
+            } else {
+                const label = document.querySelector("label[for='dob']");
+                label.textContent = "Date Of Birth";
             }
         } else {
             if (i < active - 1) {
@@ -109,10 +116,12 @@ const updateProgress = () => {
 
     if (active === 1) {
         prevBtn.disabled = true;
+        nextBtn.disabled = false;
     } else if (active === step.length) {
         nextBtn.disabled = true;
-    } else {
-        nextBtn.disabled = false;
+        submitBtn.disabled = true;
+    } else if (active > 0) {
+        nextBtn.disabled = true;
         prevBtn.disabled = false;
     }
 }
@@ -144,6 +153,71 @@ const removeSelections = () => {
         choice.classList.remove("selected");
     })
 }
+
+const validate = (input) => {
+    if (input.validity.valid) {
+        input.classList.remove('input-invalid');
+    } else {
+        input.classList.add('input-invalid');
+    }
+}
+
+const validateInputs = (formStep) => {
+    const inputs = document.querySelectorAll("."+formStep+ " input");
+    let count = 0;
+    let length = inputs.length;
+    if (formStep == "form-three" || formStep == "form-four") {
+        length++;
+    }
+console.log(inputs)
+    inputs.forEach(input => {
+        
+        if (input.value.trim() !== "" && input.validity.valid) {
+            count++;
+        }
+    });
+    if (count == length) {
+        if (active < 3) {
+            nextBtn.disabled = false;
+        } else {
+            submitBtn.disabled = false;
+        }
+    } else {
+        if (active === 1) {
+            nextBtn.disabled = false;
+        } else if (active < 3) {
+            nextBtn.disabled = true;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+}
+
+const validateTextarea = (arg) => {
+    if (arg.value.trim() !== "") {
+        arg.classList.remove("input-invalid");
+        submitBtn.disabled = false;
+    } else {
+        arg.classList.add("input-invalid");
+        submitBtn.disabled = true;
+    }
+}
+
+const validatePassword = () => {
+    const pwd = document.querySelector("#pwd");
+    const confirmpwd = document.querySelector("#confirmpwd");
+
+    if (pwd.value === confirmpwd.value) {
+        pwd.classList.remove("input-invalid");
+        confirmpwd.classList.remove("input-invalid");
+        validateInputs("form-two");
+    } else {
+        pwd.classList.add("input-invalid");
+        confirmpwd.classList.add("input-invalid");
+        nextBtn.disabled = true;
+    }
+}
+
 
 //Calls
 changeColorTick();

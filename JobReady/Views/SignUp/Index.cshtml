@@ -96,32 +96,32 @@
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-lg-center gap-5">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
-                                <input type="text" id="fullname" required>
+                                <input type="text" id="fullname" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label for="fullname">Full Name</label>
                             </div>
                             <div class="input-data">
-                                <input type="email" id="email" required>
+                                <input type="email" id="email" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label for="email">Email Address</label>
                             </div>
                             <div class="input-data">
-                                <input type="tel" id="phonenb" required>
+                                <input type="tel" id="phonenb" pattern="(\+\d{1,3})?\d{8,}" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label for="phonenb">Phone Number</label>
                             </div>
                             <div class="input-data">
-                                <input type="text" id="dob" required onfocus="this.type='date'" onblur="this.type='text'">
+                                <input type="text" id="dob" required onfocus="this.type='date'" onblur="this.type='text'" oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label for="dob">Date Of Birth</label>
                             </div>
                             <div class="input-data">
-                                <input type="password" id="pwd" required>
+                                <input type="password" id="pwd" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label for="pwd">Password</label>
                             </div>
                             <div class="input-data">
-                                <input type="password" id="confirmpwd" required>
+                                <input type="password" id="confirmpwd" required oninput="validatePassword(); validate(this)">
                                 <div class="underline"></div>
                                 <label for="confirmpwd">Confirm Password</label>
                             </div>
@@ -130,25 +130,25 @@
                     </div>
                 </section>
                 <section class="form-step form-three d-flex flex-lg-row flex-column">
-                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
-                                <input type="text" id="university" required>
+                                <input type="text" id="university" required oninput="validate(this); validateInputs('form-three')">
                                 <div class="underline"></div>
                                 <label for="university">University</label>
                             </div>
                             <div class="input-data">
-                                <input type="text" id="major" required>
+                                <input type="text" id="major" required oninput="validate(this); validateInputs('form-three')">
                                 <div class="underline"></div>
                                 <label for="major">Major</label>
                             </div>
                             <div class="input-data">
                                 <label for="headline">Headline</label>
-                                <textarea id="headline" required></textarea>
+                                <textarea id="headline" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
                             </div>
                         </div>
-                        <div>
+                        <div class="d-flex w-100 align-items-center justify-content-center">
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImage rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler disable-select">
@@ -161,26 +161,26 @@
                     </div>
                 </section>
 
-                <section class="form-step form-three d-flex flex-lg-row flex-column">
-                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
+                <section class="form-step form-four d-flex flex-lg-row flex-column">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
-                                <input type="text" id="industry" required>
+                                <input type="text" id="industry" required oninput="validate(this); validateInputs('form-four')">
                                 <div class="underline"></div>
                                 <label for="industry">Industry</label>
                             </div>
                             <div class="input-data">
-                                <input type="text" pattern="^[0-9]+ - [0-9]+$" id="companySize" required title="Please enter text such '2 - 3000'">
+                                <input type="text" pattern="^[0-9]+ - [0-9]+$" id="companySize" required title="Please enter text such '2 - 3000'" oninput="validate(this); validateInputs('form-four')">
                                 <div class="underline"></div>
                                 <label for="companySize">Company Size</label>
                             </div>
                             <div class="input-data">
                                 <label for="hcompany">Headline</label>
-                                <textarea id="hcompany" required></textarea>
+                                <textarea id="hcompany" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
                             </div>
                         </div>
-                        <div>
+                        <div class="d-flex w-100 align-items-center justify-content-center">
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImageCompany rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler1 disable-select">
