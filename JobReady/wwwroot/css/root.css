@@ -1,0 +1,23 @@
+﻿:root {
+    --lightwhite: #F4FAFF;
+    --lightblue: #139BE4;
+    --gold: #B87333;
+    --gray-asset1: #4B4B4B;
+    --gray-asset2: #818181;
+}
+
+.color-light-blue{
+    color:var(--lightblue);
+}
+
+.color-gray-asset1 {
+    color: var(--gray-asset1);
+}
+
+.hidden {
+    display: none;
+}
+
+.disable-select{
+    user-select:none;
+}
