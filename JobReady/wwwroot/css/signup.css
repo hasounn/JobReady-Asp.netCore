@@ -254,13 +254,25 @@ form > .form-step{
     width:50%;
 }
 
-@media (min-width:1px) and (max-width:1000px){
+.previewImage,.previewImageCompany {
+    width: 250px;
+    height: 250px;
+}
+
+@media (min-width:1px) and (max-width:1000px) {
     .steps-container {
         height: 200px;
         width: 100vw;
     }
     .img-resize {
         width: 33%;
+    }
+}
+
+@media only screen and (min-width:1800px){
+    .form-step {
+        width: 950px;
+        height: 650px;
     }
 }
 
@@ -285,5 +297,9 @@ form > .form-step{
 
     label{
         font-size:14px;
+    }
+    .previewImage, .previewImageCompany {
+        width: 150px;
+        height: 150px;
     }
 }
