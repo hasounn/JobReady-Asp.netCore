@@ -164,6 +164,7 @@ const previewImage = (arg, c) => {
 const changeSelected = (arg) => {
     removeSelections();
     arg.children[0].classList.add("selected");
+    document.querySelector("form").reset();
     accountType.value = arg.children[1].textContent.toLowerCase();
 }
 const removeSelections = () => {
