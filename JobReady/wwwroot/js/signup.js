@@ -110,10 +110,10 @@ const updateProgress = () => {
                 formSteps[i].classList.add("active-step");
             }
             if (accountType.value == "company" && i === 1) {
-                const label = document.querySelector("label[for='dob']");
+                const label = document.querySelector("label[for='Dob']");
                 label.textContent = "Founded";
             } else {
-                const label = document.querySelector("label[for='dob']");
+                const label = document.querySelector("label[for='Dob']");
                 label.textContent = "Date Of Birth";
             }
         } else {
