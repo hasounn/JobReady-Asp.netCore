@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center form-side">
-            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", novalidate = "novalidate" }))
+            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", novalidate = "novalidate", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
@@ -75,19 +75,19 @@
                             <div class="choice selected">
                                 <img src="~/icons/user.svg"/>
                             </div>
-                            <h5 class="color-gray-asset1">Student</h5>
+                            <h5 class="color-gray-asset1">@UserAccountType.Student.ToString()</h5>
                         </div>
                         <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
                             <div class="choice">
                                 <img src="~/icons/Instructor.svg" class="m-1"/>
                             </div>
-                            <h5 class="color-gray-asset1">Instructor</h5>
+                            <h5 class="color-gray-asset1">@UserAccountType.Instructor.ToString()</h5>
                         </div>
                         <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
                             <div class="choice">
                                 <img src="~/icons/companybuilding.svg" />
                             </div>
-                            <h5 class="color-gray-asset1">Company</h5>
+                            <h5 class="color-gray-asset1">@UserAccountType.Company.ToString()</h5>
                         </div>
                     </div>
                 </section>
@@ -120,7 +120,7 @@
                                 <label asp-for="Dob"></label>
                             </div>
                             <div class="input-data">
-                                <input type="password" asp-for="Password" id="pwd" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="password" asp-for="Password" id="pwd" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@#$%^&+=]).{8,}$" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
                                 <label asp-for="Password">Password</label>
                             </div>
@@ -156,7 +156,7 @@
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImage rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler disable-select">
-                                    <input type="file" asp-for="ProfileImage" id="fileInput" class="hidden" onchange="previewImage('fileInput','previewImage')" />
+                                    <input type="file" asp-for="ProfileImage" id="fileInput" accept="image/*" class="hidden" onchange="previewImage('fileInput','previewImage')" />
                                     <p>Add Profile Picture</p>
                                     <img src="~/icons/galleryedit.svg"/>
                                 </div>
@@ -179,7 +179,7 @@
                                 <label asp-for="CompanySize"></label>
                             </div>
                             <div class="input-data">
-                                <label  asp-for="Overview"></label>
+                                <label asp-for="Overview"></label>
                                 <textarea id="hcompany" asp-for="Overview" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
                             </div>
@@ -188,7 +188,7 @@
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" class="previewImageCompany rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler1 disable-select">
-                                    <input type="file" asp-for="ProfileImage" id="fileInput1" class="hidden" onchange="previewImage('fileInput1','previewImageCompany')" />
+                                    <input type="file" asp-for="ProfileImage" id="fileInput1" accept="image/*" class="hidden" onchange="previewImage('fileInput1','previewImageCompany')" />
                                     <p>Add Profile Picture</p>
                                     <img src="~/icons/galleryedit.svg" />
                                 </div>
