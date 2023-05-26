@@ -188,7 +188,6 @@ const validate = (input) => {
 }
 
 const validateInputs = (formStep) => {
-    console.log('entered');
     const inputs = document.querySelectorAll("."+formStep+ " input");
     let count = 0;
     let length = inputs.length;

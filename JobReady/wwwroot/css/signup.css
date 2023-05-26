@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+body{
+    overflow:hidden;
+}
+
 .steps-container {
     width: 30.125rem;
     background-color: var(--lightwhite);
@@ -266,9 +270,20 @@ form > .form-step{
     .steps-container {
         height: 200px;
         width: 100vw;
+        padding: 33px 20px 21px 25px;
     }
     .img-resize {
         width: 33%;
+    }
+    .steps {
+        margin-top: 17px;
+        margin-bottom: 17px;
+    }
+}
+
+@media only screen and (max-width:767.5px) {
+    .input-data .underline:before {
+        bottom: -2px;
     }
 }
 
@@ -280,6 +295,10 @@ form > .form-step{
 }
 
 @media only screen and (max-width: 1000px) {
+    body{
+        overflow:auto;
+        overflow-x:hidden;
+    }
     .steps-container{
         height:200px;
         width:100vw;
