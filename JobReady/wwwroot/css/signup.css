@@ -230,10 +230,10 @@ form > .form-step{
     transition:all 0.25s ease-in;
 }
 
-    .btn-next:hover, .btn-submit:hover {
+.btn-next:hover, .btn-submit:hover {
         color: rgba(244, 250, 255, 0.8);
         background: var(--lightblue);
-    }
+}
 
 .btn-group .btn-submit, .btn-group .btn-prev{
     display:none;

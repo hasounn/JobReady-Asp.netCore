@@ -21,6 +21,8 @@ namespace JobReady.Data.DTO
         public string Password { get; set; }
         [DisplayName("Gender")]
         public string Gender { get; set; }
+        [DisplayName("Location")]
+        public string Location { get; set; }
         [DisplayName("Headline")]
         public string Headline { get; set; }
         public IFormFile ProfileImage { get; set; }
