@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center form-side">
-            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", novalidate = "novalidate", enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
@@ -141,9 +141,11 @@
                                 <div class="underline"></div>
                                 <label asp-for="Location"></label>
                             </div>
-                            <div class="input-data">
-                                <label asp-for="Gender"></label>
-                                <select type="text" asp-for="Gender" id="gender" required></select>
+                            <div class="input-data d-flex flex-column">
+                                <label asp-for="Gender" class="gender"></label>
+                                <select type="text" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" id="gender" required onclick="validateSelect(this)">
+                                    <option value="---" disabled selected></option>
+                                </select>
                                 <div class="underline"></div>
                             </div>
                             <div class="input-data">

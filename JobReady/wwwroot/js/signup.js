@@ -10,10 +10,16 @@ const textarea = document.querySelector("#headline");
 const fileInput = document.querySelector("#fileInput");
 const fileHandler = document.querySelector(".file-handler");
 const txtarea = document.querySelector(".form-three textarea");
-const txtarea1 = document.querySelector(".form-four textarea");
+const selectGender = document.querySelector(".form-three select");
 let active = 1;
+let selected = 0;
 
 //Event Listeners
+document.addEventListener("DOMContentLoaded", function () {
+    var selectElement = document.getElementById("gender");
+    selectElement.selectedIndex = -1; // Deselect any option by default
+});
+
 nextBtn.addEventListener("click", (e) => {
     e.preventDefault();
     active++;
@@ -30,6 +36,9 @@ nextBtn.addEventListener("click", (e) => {
         }
     }
 });
+
+selectGender.addEventListener("click", () => { selected++; });
+
 prevBtn.addEventListener("click", (e) => {
     e.preventDefault();
     active--;
@@ -157,9 +166,7 @@ const validateInputs = (formStep) => {
     const inputs = document.querySelectorAll("."+formStep+ " input");
     let count = 0;
     let length = inputs.length;
-    if (formStep == "form-three" || formStep == "form-four") {
-        length++;
-    }
+  
     inputs.forEach(input => {
         
         if (input.value.trim() !== "" && input.validity.valid) {
@@ -169,8 +176,10 @@ const validateInputs = (formStep) => {
     if (count == length) {
         if (active < 3) {
             nextBtn.disabled = false;
-        } else {
+        } else if (active == 3 && validateSelect(".form-three select") && validateTextarea(".form-three textarea")) {
             submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
         }
     } else {
         if (active === 1) {
@@ -184,12 +193,22 @@ const validateInputs = (formStep) => {
 }
 
 const validateTextarea = (arg) => {
-    if (arg.value.trim() !== "") {
+    const select = typeof arg === 'string' ? document.querySelector(arg) : arg;
+    if (arg.value.trim() !== "" && validateSelect(".form-three select")) {
         arg.classList.remove("input-invalid");
-        submitBtn.disabled = false;
+        if (typeof arg === 'string') {
+            return true;
+        } else {
+            submitBtn.disabled = false;
+        }
+        
     } else {
         arg.classList.add("input-invalid");
-        submitBtn.disabled = true;
+        if (typeof arg === 'string') {
+            return false;
+        } else {
+            submitBtn.disabled = true;
+        }
     }
 }
 
@@ -206,6 +225,34 @@ const validatePassword = () => {
         confirmpwd.classList.add("input-invalid");
         pwd.classList.add("input-invalid");
         nextBtn.disabled = true;
+    }
+}
+
+const validateSelect = (arg) => {
+    const select = typeof arg === 'string' ? document.querySelector(arg) : arg;
+    if (selected > 0) {
+        if (select.options[select.selectedIndex].value === "---") {
+            select.parentElement.children[0].classList.add("input-invalid");
+            if (typeof arg === 'string') {
+                return false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        } else {
+            select.parentElement.children[0].classList.remove("input-invalid");
+            select.parentElement.children[0].classList.add("valid");
+            if (typeof arg === 'string') {
+                return true;
+            } else {
+                submitBtn.disabled = false;
+            }
+        }
+    }else{
+        if (typeof arg === 'string') {
+            return false;
+        } else {
+            submitBtn.disabled = true;
+        }
     }
 }
 
