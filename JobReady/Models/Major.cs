@@ -5,9 +5,9 @@ namespace JobReady;
 public class Major
 {
     [Key]
-    public long Id;
+    public long Id { get; set; }
 
     [Required]
-    public string Name;
+    public string Name { get; set; }
 
 }
