@@ -7,11 +7,8 @@ const nextBtn = document.querySelector(".btn-next");
 const prevBtn = document.querySelector(".btn-prev");
 const submitBtn = document.querySelector(".btn-submit");
 const textarea = document.querySelector("#headline");
-const hcompany = document.querySelector("#hcompany");
 const fileInput = document.querySelector("#fileInput");
-const fileInput1 = document.querySelector("#fileInput1");
 const fileHandler = document.querySelector(".file-handler");
-const fileHandler1 = document.querySelector(".file-handler1");
 const txtarea = document.querySelector(".form-three textarea");
 const txtarea1 = document.querySelector(".form-four textarea");
 let active = 1;
@@ -27,16 +24,9 @@ nextBtn.addEventListener("click", (e) => {
     if (active === 2) {
         validateInputs("form-two");
     } else if (active === 3) {
-        if (accountType.value === "company") {
-            validateInputs("form-four");
-            if (txtarea1.value.trim() !== "") {
-                validateTextarea(txtarea1);
-            }
-        } else {
             validateInputs("form-three");
             if(txtarea.value.trim() !== "") {
                 validateTextarea(txtarea);
-            }
         }
     }
 });
@@ -58,18 +48,9 @@ textarea.addEventListener("keyup", e => {
     textarea.style.height = `${scHeight}px`;
 });
 
-hcompany.addEventListener("keyup", e => {
-    hcompany.style.height = "20px";
-    let scHeight = e.target.scrollHeight;
-    hcompany.style.height = `${scHeight}px`;
-});
 
 fileHandler.addEventListener("click", () => {
     fileInput.click();
-})
-
-fileHandler1.addEventListener("click", () => {
-    fileInput1.click();
 })
 
 //Functions
@@ -103,19 +84,7 @@ const updateProgress = () => {
             s.classList.remove("doneStep");
             s.classList.add("activatedStep");
             changeColorTick();
-            if (accountType.value == "company" && i === step.length - 1) {
-                formSteps[i + 1].classList.add("active-step");
-                
-            } else {
                 formSteps[i].classList.add("active-step");
-            }
-            if (accountType.value == "company" && i === 1) {
-                const label = document.querySelector("label[for='Dob']");
-                label.textContent = "Founded";
-            } else {
-                const label = document.querySelector("label[for='Dob']");
-                label.textContent = "Date Of Birth";
-            }
         } else {
             if (i < active - 1) {
                 s.classList.remove("activatedStep");
@@ -127,9 +96,6 @@ const updateProgress = () => {
                 s.classList.remove("doneStep");
                 changeColorTick();
                 formSteps[i].classList.remove("active-step");
-                if (i === step.length - 1 && accountType.value === "company") {
-                    formSteps[i+1].classList.remove("active-step");
-                }
             }
         }
     })

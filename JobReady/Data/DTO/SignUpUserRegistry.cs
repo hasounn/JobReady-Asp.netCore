@@ -19,18 +19,10 @@ namespace JobReady.Data.DTO
         public DateTime Dob { get; set; }
         [DisplayName("Password")]
         public string Password { get; set; }
-        [DisplayName("University")]
-        public string? University { get; set; }
-        [DisplayName("Major")]
-        public string? Major { get; set; }
+        [DisplayName("Gender")]
+        public string Gender { get; set; }
         [DisplayName("Headline")]
-        public string? Headline { get; set; }
-        [DisplayName("Industry")]
-        public string? Industry { get; set; }
-        [DisplayName("Company Size")]
-        public string? CompanySize { get; set; }
-        [DisplayName("Overview")]
-        public string? Overview { get; set; }
+        public string Headline { get; set; }
         public IFormFile ProfileImage { get; set; }
     }
 }
