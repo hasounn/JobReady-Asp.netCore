@@ -23,7 +23,12 @@ public class UserAccount
     [Required]
     public UserAccountType AccountType { get; set; }
 
-    public long IndustryId { get; set; }
+    public Gender? Gender { get; set; }
+
+    [Required]
+    public long PhoneNumber { get; set; }
+
+    public long? IndustryId { get; set; }
     public Industry Industry { get; set; }
 
     [StringLength(200)]
@@ -34,10 +39,17 @@ public class UserAccount
 
     [StringLength(100)]
     public string Location { get; set; }
+
     public ICollection<UserSkill> Skills { get; set; }
+
     public ICollection<Follower> Followings { get; set; }
+
     public ICollection<Follower> Followers { get; set; }
 
+    [Required]
+    public DateTime UserDate { get; set; }
+
     public DateTime CreatedOn { get; set; }
+
     public DateTime ModifiedOn { get; set; }
 }

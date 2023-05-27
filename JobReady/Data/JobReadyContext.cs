@@ -19,6 +19,11 @@ public class JobReadyContext : DbContext
     public DbSet<PostEngagement> PostEngagements { get; set; }
     public DbSet<Recommendation> Recommendations { get; set; }
     public DbSet<JobSkill> JobSkills { get; set; }
+    public DbSet<University> Universities { get; set; }
+    public DbSet<Faculty> Faculties { get; set; }
+    public DbSet<Major> Majors { get; set; }
+    public DbSet<UniversityMajor> UniversityMajors { get; set; }
+    public DbSet<FileLink> FileLinks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
