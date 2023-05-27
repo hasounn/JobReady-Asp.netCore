@@ -20,7 +20,11 @@ namespace JobReady.Data.DTO
         [DisplayName("Password")]
         public string Password { get; set; }
         [DisplayName("Gender")]
+<<<<<<< HEAD
         public Gender Gender { get; set; }
+=======
+        public string Gender { get; set; }
+>>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
         [DisplayName("Location")]
         public string Location { get; set; }
         [DisplayName("Headline")]

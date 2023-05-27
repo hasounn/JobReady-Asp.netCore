@@ -159,6 +159,7 @@ form > .form-step{
     transition: all 0.3s ease;
 }
 
+<<<<<<< HEAD
 .gender{
     position:relative!important;
     bottom:0!important;
@@ -171,6 +172,8 @@ form > .form-step{
     color:var(--lightblue);
 }
 
+=======
+>>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
     .input-data label[for="Headline"], .input-data label[for="Overview"] {
         position: relative;
         bottom: 0;
