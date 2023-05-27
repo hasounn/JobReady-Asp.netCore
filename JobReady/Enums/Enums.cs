@@ -8,6 +8,13 @@ public enum UserAccountType
     Company
 }
 
+public enum Gender
+{
+    Female,
+    Male,
+    PreferNotToSay
+}
+
 public enum JobType
 {
     Internship,
@@ -30,4 +37,11 @@ public enum RecommendationStatus
     Pending,
     Accepted,
     Rejected
+}
+
+public enum ObjectType
+{
+    UserAccount,
+    Post,
+    JobPost
 }
