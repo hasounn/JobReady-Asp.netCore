@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JobReady.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobReady;
 
@@ -24,6 +25,7 @@ public class JobReadyContext : DbContext
     public DbSet<Major> Majors { get; set; }
     public DbSet<UniversityMajor> UniversityMajors { get; set; }
     public DbSet<FileLink> FileLinks { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

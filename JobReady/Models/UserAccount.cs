@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using JobReady.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobReady;
@@ -52,6 +53,7 @@ public class UserAccount
     public ICollection<Follower> Followings { get; set; }
 
     public ICollection<Follower> Followers { get; set; }
+    public ICollection<Message> Messages { get; set; }
 
     [Required]
     public DateTime UserDate { get; set; }
