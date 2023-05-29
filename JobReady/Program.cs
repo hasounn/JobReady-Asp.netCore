@@ -1,4 +1,5 @@
 using JobReady;
+using JobReady.Hubs;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<JobReadyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -25,6 +27,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.MapHub<ChatHub>("/Chat/Index");
 
 app.UseAuthorization();
 
