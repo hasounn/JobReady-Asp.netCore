@@ -5,13 +5,13 @@ namespace JobReady.Controllers
 {
     public class SignUpController : Controller
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(SignUpUserRegistry model)
+        public IActionResult Index(SignUpUserRegistry model)
         {
             if(ModelState.IsValid)
             {
