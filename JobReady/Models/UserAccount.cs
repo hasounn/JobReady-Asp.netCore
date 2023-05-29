@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobReady;
 
@@ -15,7 +16,7 @@ public class UserAccount
     [StringLength(50)]
     public string Username { get; set; }
 
-    [Display(Name = "Email address")]
+    [DisplayName("Email Address")]
     [Required(ErrorMessage = "The email address is required")]
     [EmailAddress(ErrorMessage = "Invalid Email Address")]
     public string Email { get; set; }

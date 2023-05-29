@@ -1,4 +1,6 @@
-﻿namespace JobReady;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JobReady;
 
 public enum UserAccountType
 {
@@ -12,15 +14,19 @@ public enum Gender
 {
     Female,
     Male,
+    [Display(Name = "Prefer Not To Say")]
     PreferNotToSay
 }
 
 public enum JobType
 {
     Internship,
+    [Display(Name = "Entry Level")]
     EntryLevel,
+    [Display(Name = "Part Time")]
     PartTime,
     Freelance,
+    [Display(Name = "Research Assistant")]
     ResearchAssistant
 }
 

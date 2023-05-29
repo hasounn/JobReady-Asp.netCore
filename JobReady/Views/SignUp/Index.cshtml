@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model JobReady.Data.DTO.SignUpUserRegistry;
 @{
     Layout = null;
     ViewData["Title"] = "SignUp";
@@ -24,37 +22,37 @@
     <div class="d-flex flex-column vh-100 steps-container justify-content-between">
         <div>
         <img src="~/assets/logo/blueLogo.svg" alt="JobReady Blue Logo" class="img-resize"/>
-        <div class="steps d-flex flex-lg-column flex-row justify-content-around gap-3 gap-md-0">
-                <div class="d-flex flex-lg-row flex-column step step1 gap-2 align-items-lg-start align-items-center activatedStep">
+        <div class="steps d-flex flex-column justify-content-around gap-3 gap-md-0">
+                <div class="d-flex flex-row step step1 gap-2 align-items-lg-start align-items-center activatedStep">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                 <div>
-                    <p class="text-center text-lg-start">Account Type</p>
+                    <p>Account Type</p>
                     <p class="description">Select the account you want to create</p>
                 </div>
             </div>
-                    <div class="d-flex flex-lg-row flex-column step step2 gap-2 align-items-lg-start align-items-center">
+                    <div class="d-flex flex-row step step2 gap-2 align-items-lg-start align-items-center">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     <div>
-                            <p class="text-center text-lg-start">User Information</p>
+                            <p>User Information</p>
                         <p class="description">Please provide your name and email and choose password</p>
                     </div>
             </div>
-                    <div class="d-flex flex-lg-row flex-column step step3 gap-2 align-items-lg-start align-items-center">
+                    <div class="d-flex flex-row step step3 gap-2 align-items-lg-start align-items-center">
                         <svg class="tick" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                     <div>
-                            <p class="text-center text-lg-start">Profile Details</p>
+                            <p>Profile Details</p>
                         <p class="description">Share more info within your profile!</p>
                     </div>
             </div>
@@ -67,59 +65,68 @@
         </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center form-side">
-            @using (Html.BeginForm("Registry", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate" } ) )
+<<<<<<< HEAD
+            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", enctype = "multipart/form-data" }))
+=======
+            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", novalidate = "novalidate", enctype = "multipart/form-data" }))
+>>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
             {
                 @Html.AntiForgeryToken()
                 <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
-                    <input type="hidden" value="student" id="accountType"/>
+                    <input type="hidden" asp-for="Type" value="student" id="accountType"/>
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5">
                         <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
                             <div class="choice selected">
                                 <img src="~/icons/user.svg"/>
                             </div>
-                            <h5 class="color-gray-asset1">Student</h5>
+                            <h5 class="color-gray-asset1">@UserAccountType.Student.ToString()</h5>
                         </div>
                         <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
                             <div class="choice">
                                 <img src="~/icons/Instructor.svg" class="m-1"/>
                             </div>
-                            <h5 class="color-gray-asset1">Instructor</h5>
+                            <h5 class="color-gray-asset1">@UserAccountType.Instructor.ToString()</h5>
                         </div>
-                        <div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
+                        <!--<div class="choice-container h-100 d-flex flex-column justify-content-between align-items-center gap-2" onclick="changeSelected(this)">
                             <div class="choice">
                                 <img src="~/icons/companybuilding.svg" />
                             </div>
-                            <h5 class="color-gray-asset1">Company</h5>
-                        </div>
+                            <h5 class="color-gray-asset1">@UserAccountType.Company.ToString()</h5>
+                        </div>-->
                     </div>
                 </section>
                 <section class="form-step form-two d-flex flex-md-row flex-column align-items-center justify-content-center">
-                    <div class="d-flex flex-lg-row flex-column p-3 align-items-md-center gap-5">
-                        <div class="d-flex flex-column w-50 gap-4">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-md-center justify-content-lg-start justify-content-center gap-5">
+                        <div class="d-flex flex-column w-100 gap-4">
                             <div class="input-data">
-                                <input type="text" id="fullname" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="text" asp-for="FullName" id="fullname" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label for="fullname">Full Name</label>
+                                <label for="fullname" asp-for="FullName"></label>
                             </div>
                             <div class="input-data">
-                                <input type="email" id="email" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="text" asp-for="Username" id="username" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label for="email">Email Address</label>
+                                <label asp-for="Username"></label>
                             </div>
                             <div class="input-data">
-                                <input type="tel" id="phonenb" pattern="(\+\d{1,3})?\d{8,}" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="email" asp-for="EmailAddress" id="email" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label for="phonenb">Phone Number</label>
+                                <label asp-for="EmailAddress"></label>
                             </div>
                             <div class="input-data">
-                                <input type="text" id="dob" required onfocus="this.type='date'" onblur="this.type='text'" oninput="validate(this); validateInputs('form-two')">
+                                <input type="tel" asp-for="PhoneNumber" id="phonenb" pattern="(\+\d{1,3})?\d{8,}" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label for="dob">Date Of Birth</label>
+                                <label asp-for="PhoneNumber"></label>
                             </div>
                             <div class="input-data">
-                                <input type="password" id="pwd" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="text" asp-for="Dob" id="dob" required onfocus="this.type='date'" onblur="this.type='text'" oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label for="pwd">Password</label>
+                                <label asp-for="Dob"></label>
+                            </div>
+                            <div class="input-data">
+                                <input type="password" asp-for="Password" id="pwd" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@#$%^&+=]).{8,}$" required oninput="validate(this); validateInputs('form-two')">
+                                <div class="underline"></div>
+                                <label asp-for="Password">Password</label>
                             </div>
                             <div class="input-data">
                                 <input type="password" id="confirmpwd" required oninput="validatePassword(); validate(this)">
@@ -127,25 +134,39 @@
                                 <label for="confirmpwd">Confirm Password</label>
                             </div>
                         </div>
-                        <img src="~/assets/images/step2SignUp.svg" class="image-resize align-self-center align-self-md-start"/>
+                        <img src="~/assets/images/step2SignUp.svg" class="image-resize align-self-center"/>
                     </div>
                 </section>
                 <section class="form-step form-three d-flex flex-md-row flex-column align-items-center justify-content-center">
-                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
-                        <div class="d-flex flex-column w-50 gap-4">
+                    <div class="d-flex flex-lg-row flex-column p-3 align-items-center justify-content-center justify-content-lg-start gap-5 w-100">
+                        <div class="d-flex flex-column w-100 gap-4">
                             <div class="input-data">
-                                <input type="text" id="university" required oninput="validate(this); validateInputs('form-three')">
+                                <input type="text" asp-for="Location" id="university" required oninput="validate(this); validateInputs('form-three')">
+<<<<<<< HEAD
                                 <div class="underline"></div>
-                                <label for="university">University</label>
+                                <label asp-for="Location"></label>
+                            </div>
+                            <div class="input-data d-flex flex-column">
+                                <label asp-for="Gender" class="gender"></label>
+                                <select type="text" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" id="gender" required onclick="validateSelect(this)">
+                                    <option value="---" disabled selected></option>
+                                </select>
+                                <div class="underline"></div>
                             </div>
                             <div class="input-data">
-                                <input type="text" id="major" required oninput="validate(this); validateInputs('form-three')">
+=======
                                 <div class="underline"></div>
-                                <label for="major">Major</label>
+                                <label asp-for="Location"></label>
                             </div>
                             <div class="input-data">
-                                <label for="headline">Headline</label>
-                                <textarea id="headline" required oninput="validateTextarea(this)"></textarea>
+                                <label asp-for="Gender"></label>
+                                <select type="text" asp-for="Gender" id="gender" required></select>
+                                <div class="underline"></div>
+                            </div>
+                            <div class="input-data">
+>>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
+                                <label asp-for="Headline"></label>
+                                <textarea id="headline" asp-for="Headline" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
                             </div>
                         </div>
@@ -153,7 +174,7 @@
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" width="90%" class="previewImage rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler disable-select">
-                                    <input type="file" id="fileInput" class="hidden" onchange="previewImage('fileInput','previewImage')" />
+                                    <input type="file" asp-for="ProfileImage" id="fileInput" accept="image/*" class="hidden" onchange="previewImage('fileInput','previewImage')" />
                                     <p>Add Profile Picture</p>
                                     <img src="~/icons/galleryedit.svg"/>
                                 </div>
@@ -162,22 +183,22 @@
                     </div>
                 </section>
 
-                <section class="form-step form-four d-flex flex-md-row flex-column align-items-center justify-content-center">
+                <!--<section class="form-step form-four d-flex flex-md-row flex-column align-items-center justify-content-center">
                     <div class="d-flex flex-lg-row flex-column p-3 align-items-center gap-5 w-100">
                         <div class="d-flex flex-column w-50 gap-4">
                             <div class="input-data">
-                                <input type="text" id="industry" required oninput="validate(this); validateInputs('form-four')">
+                                <input type="text" asp-for="Industry" id="industry" required oninput="validate(this); validateInputs('form-four')">
                                 <div class="underline"></div>
-                                <label for="industry">Industry</label>
+                                <label asp-for="Industry"></label>
                             </div>
                             <div class="input-data">
-                                <input type="text" pattern="^[0-9]+ - [0-9]+$" id="companySize" required title="Please enter text such '2 - 3000'" oninput="validate(this); validateInputs('form-four')">
+                                <input type="text" asp-for="CompanySize" pattern="^[0-9]+ - [0-9]+$" id="companySize" required title="Please enter text such '2 - 3000'" oninput="validate(this); validateInputs('form-four')">
                                 <div class="underline"></div>
-                                <label for="companySize">Company Size</label>
+                                <label asp-for="CompanySize"></label>
                             </div>
                             <div class="input-data">
-                                <label for="hcompany">Headline</label>
-                                <textarea id="hcompany" required oninput="validateTextarea(this)"></textarea>
+                                <label asp-for="Overview"></label>
+                                <textarea id="hcompany" asp-for="Overview" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
                             </div>
                         </div>
@@ -185,14 +206,14 @@
                             <div class="image-to-select d-flex flex-column align-items-center justify-content-center p-3 mx-2 gap-3">
                                 <img src="~/assets/images/image-placeholder.png" alt="image-to-select-placeholder" class="previewImageCompany rounded-circle" />
                                 <div role="button" class="d-flex flex-row align-items-center justify-content-center w-100 gap-2 file-handler1 disable-select">
-                                    <input type="file" id="fileInput1" class="hidden" onchange="previewImage('fileInput1','previewImageCompany')" />
+                                    <input type="file" asp-for="ProfileImage" id="fileInput1" accept="image/*" class="hidden" onchange="previewImage('fileInput1','previewImageCompany')" />
                                     <p>Add Profile Picture</p>
                                     <img src="~/icons/galleryedit.svg" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>-->
 
                 <section class="d-flex gap-2 btn-group flex-row align-items-center align-self-end group">
                     <button class="btn btn-prev">Back</button>
