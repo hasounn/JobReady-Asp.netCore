@@ -64,11 +64,7 @@
         </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center form-side">
-<<<<<<< HEAD
             @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", enctype = "multipart/form-data" }))
-=======
-            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", novalidate = "novalidate", enctype = "multipart/form-data" }))
->>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
             {
                 @Html.AntiForgeryToken()
                 <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
@@ -141,7 +137,7 @@
                         <div class="d-flex flex-column w-100 gap-4">
                             <div class="input-data">
                                 <input type="text" asp-for="Location" id="university" required oninput="validate(this); validateInputs('form-three')">
-<<<<<<< HEAD
+
                                 <div class="underline"></div>
                                 <label asp-for="Location"></label>
                             </div>
@@ -153,17 +149,6 @@
                                 <div class="underline"></div>
                             </div>
                             <div class="input-data">
-=======
-                                <div class="underline"></div>
-                                <label asp-for="Location"></label>
-                            </div>
-                            <div class="input-data">
-                                <label asp-for="Gender"></label>
-                                <select type="text" asp-for="Gender" id="gender" required></select>
-                                <div class="underline"></div>
-                            </div>
-                            <div class="input-data">
->>>>>>> 3ce565a47d5e93159fc9b35b61385687ab80cd80
                                 <label asp-for="Headline"></label>
                                 <textarea id="headline" asp-for="Headline" required oninput="validateTextarea(this)"></textarea>
                                 <div class="underline"></div>
