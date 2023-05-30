@@ -10,38 +10,97 @@
     <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JobReady</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <header class="navBar-header">
+        <nav class="navbar navbar-expand-md navbar-light fixed-left nav-Color">
+            <div class="d-flex flex-row w-100 justify-content-between align-items-center">
+            <img src="~/assets/logo/blueLogo.svg" class="logo-resize"/>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+            </div>
+            <div class="collapse navbar-collapse w-100 d-flex flex-column h-100 justify-content-lg-between" id="navbarNav">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M9.02 2.84004L3.63 7.04004C2.73 7.74004 2 9.23004 2 10.36V17.77C2 20.09 3.89 21.99 6.21 21.99H17.79C20.11 21.99 22 20.09 22 17.78V10.5C22 9.29004 21.19 7.74004 20.2 7.05004L14.02 2.72004C12.62 1.74004 10.37 1.79004 9.02 2.84004Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 17.99V14.99" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p>Home</p>
+                            </div></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Search" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M25 25L16.7774 16.7774M9.32696 17.6539C10.4205 17.6539 11.5033 17.4385 12.5135 17.0201C13.5238 16.6016 14.4418 15.9882 15.215 15.215C15.9882 14.4418 16.6016 13.5238 17.0201 12.5135C17.4385 11.5033 17.6539 10.4205 17.6539 9.32696C17.6539 8.23344 17.4385 7.15064 17.0201 6.14037C16.6016 5.1301 15.9882 4.21214 15.215 3.43891C14.4418 2.66568 13.5238 2.05232 12.5135 1.63385C11.5033 1.21538 10.4205 1 9.32696 1C7.11851 1 5.00052 1.8773 3.43891 3.43891C1.8773 5.00052 1 7.11851 1 9.32696C1 11.5354 1.8773 13.6534 3.43891 15.215C5.00052 16.7766 7.11851 17.6539 9.32696 17.6539Z" stroke="#535657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p>Search</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Notifications" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M12.02 2.90991C8.70997 2.90991 6.01997 5.59991 6.01997 8.90991V11.7999C6.01997 12.4099 5.75997 13.3399 5.44997 13.8599L4.29997 15.7699C3.58997 16.9499 4.07997 18.2599 5.37997 18.6999C9.68997 20.1399 14.34 20.1399 18.65 18.6999C19.86 18.2999 20.39 16.8699 19.73 15.7699L18.58 13.8599C18.28 13.3399 18.02 12.4099 18.02 11.7999V8.90991C18.02 5.60991 15.32 2.90991 12.02 2.90991Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" />
+                                    <path class="path" d="M13.87 3.19994C13.56 3.10994 13.24 3.03994 12.91 2.99994C11.95 2.87994 11.03 2.94994 10.17 3.19994C10.46 2.45994 11.18 1.93994 12.02 1.93994C12.86 1.93994 13.58 2.45994 13.87 3.19994Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M15.02 19.0601C15.02 20.7101 13.67 22.0601 12.02 22.0601C11.2 22.0601 10.44 21.7201 9.90002 21.1801C9.36002 20.6401 9.02002 19.8801 9.02002 19.0601" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" />
+                                </svg>
+                                <p>Notifications</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <p>Post</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M22.2477 14.8251C20.9432 12.5644 21.7269 9.66779 24 8.35087L21.5558 4.11713C20.8577 4.52604 20.0446 4.76082 19.1785 4.76082C16.5665 4.76082 14.4488 2.62918 14.4488 0H9.55895C9.56517 0.811609 9.36305 1.6341 8.9277 2.38663C7.62322 4.64732 4.72039 5.41539 2.44416 4.10625L0 8.33998C0.704328 8.73957 1.31381 9.32573 1.74605 10.0767C3.04898 12.3343 2.26846 15.2247 0.00466445 16.5447L2.44882 20.7784C3.14537 20.3726 3.95232 20.141 4.81524 20.141C7.41954 20.141 9.53097 22.2586 9.54496 24.8769H14.4348C14.4333 24.0731 14.6354 23.2599 15.0661 22.5152C16.369 20.2576 19.2641 19.488 21.5387 20.7893L23.9829 16.5556C23.2832 16.156 22.6784 15.5714 22.2477 14.8251ZM12.0016 17.476C9.22 17.476 6.96398 15.2216 6.96398 12.4385C6.96398 9.65535 9.21845 7.40088 12.0016 7.40088C14.7831 7.40088 17.0391 9.65535 17.0391 12.4385C17.0391 15.2216 14.7847 17.476 12.0016 17.476Z" fill="#535657" />
+                                </svg>
+
+
+
+                                <p>Settings</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+
+                                <p>Profile</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - JobReady - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div class="dark-main-bg w-100 vh-100">
+        @RenderBody()
         </div>
-    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
