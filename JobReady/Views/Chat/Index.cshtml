@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Chat Room";
+    Layout = "_ChatLayout";
+}
+
+<div class="chatroom d-flex flex-row w-100 vh-100">
+    <div class="d-flex flex-column bg-dark w-25 h-100" id="people">
+        <div class="d-flex flex-row w-100 align-items-center gap-3 p-3 person">
+            <img src="~/icons/profile-circle.svg" width="40px" alt="profile-user"/>
+            <div class="d-flex flex-column gap-2 w-100">
+                <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                    <p class="user-name">Santiago</p>
+                    <p class="last-time">7:05 PM</p>
+                </div>
+                <p class="chat-text">Santiago: Hello</p>
+            </div>
+        </div>
+    </div>
+
+    <!--PartialView-->
+    <div class="d-flex flex-column w-75" id="chat">
+        <div class="d-flex flex-row w-100 align-items-center gap-3 p-3 identifier">
+            <img src="~/icons/profile-circle.svg" width="40px" alt="profile-user" />
+            <p class="name-chat">Santiago</p>
+           </div>
+        
+        <div class="d-flex flex-column chat-place">
+            <div class="d-flex flex-column mt-auto">
+                <div class="d-flex flex-column chat-me-container">
+                    <div class="chat-me d-flex flex-column">
+                        <p>Hello</p>
+                        <p class="timesent">7:05 PM</p>
+                    </div>
+                    <p class="text-end pe-4">Seen</p>
+                </div>
+                <div class="d-flex flex-column chat-other-container">
+                    <div class="chat-other d-flex flex-column">
+                        <p>Hello</p>
+                        <p class="timesent">7:05 PM</p>
+                    </div>
+                    <p class="ps-4">Seen</p>
+                </div>
+           </div>
+        </div>
+        <div class="d-flex flex-column w-100 bottom-form">
+            <form method="post" class="h-100">
+                <div class="d-flex flex-row h-100 w-100 justify-content-between align-items-center gap-2 p-4">
+                <textarea id="msgText" maxlength="1500"></textarea>
+                    <svg class="send" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="send-bg" d="M9.51002 4.22989L18.07 8.50989C21.91 10.4299 21.91 13.5699 18.07 15.4899L9.51002 19.7699C3.75002 22.6499 1.40002 20.2899 4.28002 14.5399L5.15002 12.8099C5.37002 12.3699 5.37002 11.6399 5.15002 11.1999L4.28002 9.45989C1.40002 3.70989 3.76002 1.34989 9.51002 4.22989ZM5.44002 11.9999H10.84Z" fill="none" />
+                        <path class="send-path" d="M5.44002 11.9999H10.84M9.51002 4.22989L18.07 8.50989C21.91 10.4299 21.91 13.5699 18.07 15.4899L9.51002 19.7699C3.75002 22.6499 1.40002 20.2899 4.28002 14.5399L5.15002 12.8099C5.37002 12.3699 5.37002 11.6399 5.15002 11.1999L4.28002 9.45989C1.40002 3.70989 3.76002 1.34989 9.51002 4.22989Z" stroke="#535657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--End PartialView-->
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+<script src="~/js/signrReqHandler.js"></script>
