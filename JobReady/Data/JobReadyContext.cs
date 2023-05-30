@@ -42,7 +42,6 @@ public class JobReadyContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Message>()
-<<<<<<< HEAD
          .HasOne(m => m.Sender)
          .WithMany()
          .HasForeignKey(m => m.SenderID);
@@ -51,11 +50,6 @@ public class JobReadyContext : DbContext
             .HasOne(m => m.Receiver)
             .WithMany()
             .HasForeignKey(m => m.ReceiverID);
-=======
-                .HasOne<UserAccount>(a => a.Sender)
-                .WithMany(d => d.Messages)
-                .HasForeignKey(d => d.UserID);
->>>>>>> f462fb55f0982a97ab83aeb0ff86f5381d8d0645
 
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
         {
