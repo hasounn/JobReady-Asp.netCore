@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Outfit:wght@400;700&display=swap');
 @import url("root.css");
 
 *,p{
@@ -62,6 +63,7 @@ body{
     padding: 2px 20px 2px 8px;
     margin-left:-10px;
     width:fit-content;
+    animation:fade-in 0.25s ease-in;
 }
     .nav-item.active p {
         color: var(--lightwhite);
@@ -73,6 +75,10 @@ body{
 
 .nav-item.active .settings-path {
     fill:var(--lightwhite);
+}
+
+.nav-item.fade-out{
+    animation:fade-out 0.25s ease-out forwards;
 }
 
 .navbar-toggler, .navbar-toggler:focus{
@@ -138,5 +144,23 @@ body{
     .logo-resize {
         width: 25%;
         margin:0;
+    }
+}
+
+@keyframes fade-in {
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }

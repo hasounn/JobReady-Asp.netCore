@@ -1,0 +1,29 @@
+﻿@import url("root.css");
+
+.filter-news{
+    background:var(--lightwhite);
+    padding:10px 20px;
+    gap:4em;
+    border-radius:55px;
+    color:var(--grayish-blue);
+    font-family:'League Gothic', sans-serif;
+}
+
+.filter-news-item {
+    gap:0.24em;
+    padding: 10px 15px;
+}
+
+.filter-news-item.active{
+    color:var(--lightblue);
+    background-color:var(--lightblue-faded);
+    border-radius:55px;
+    font-size:18px;
+}
+    .filter-news-item.active .homepage-path {
+        stroke: var(--lightblue);
+    }
+
+.title{
+    font-size:2rem;
+}
