@@ -18,9 +18,9 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse w-100 d-flex flex-column h-100 justify-content-lg-between" id="navbarNav">
-                <ul class="navbar-nav w-100">
-                    <li class="nav-item">
+            <div class="collapse navbar-collapse w-100 d-flex flex-column h-100 justify-content-lg-between gap-lg-0 gap-3" id="navbarNav">
+                <ul class="navbar-nav d-flex flex-column gap-3 w-100">
+                    <li class="nav-item active">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,22 +60,18 @@
                                     <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-
                                 <p>Post</p>
                             </div>
                         </a>
                     </li>
                 </ul>
-                <ul class="navbar-nav w-100">
+                <ul class="navbar-nav d-flex flex-column gap-3 w-100">
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">
-                            <div class="d-flex flex-row gap-3">
-                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path class="path" d="M22.2477 14.8251C20.9432 12.5644 21.7269 9.66779 24 8.35087L21.5558 4.11713C20.8577 4.52604 20.0446 4.76082 19.1785 4.76082C16.5665 4.76082 14.4488 2.62918 14.4488 0H9.55895C9.56517 0.811609 9.36305 1.6341 8.9277 2.38663C7.62322 4.64732 4.72039 5.41539 2.44416 4.10625L0 8.33998C0.704328 8.73957 1.31381 9.32573 1.74605 10.0767C3.04898 12.3343 2.26846 15.2247 0.00466445 16.5447L2.44882 20.7784C3.14537 20.3726 3.95232 20.141 4.81524 20.141C7.41954 20.141 9.53097 22.2586 9.54496 24.8769H14.4348C14.4333 24.0731 14.6354 23.2599 15.0661 22.5152C16.369 20.2576 19.2641 19.488 21.5387 20.7893L23.9829 16.5556C23.2832 16.156 22.6784 15.5714 22.2477 14.8251ZM12.0016 17.476C9.22 17.476 6.96398 15.2216 6.96398 12.4385C6.96398 9.65535 9.21845 7.40088 12.0016 7.40088C14.7831 7.40088 17.0391 9.65535 17.0391 12.4385C17.0391 15.2216 14.7847 17.476 12.0016 17.476Z" fill="#535657" />
+                            <div class="d-flex flex-row align-items-center gap-3">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="settings-path" d="M22.2477 14.8251C20.9432 12.5644 21.7269 9.66779 24 8.35087L21.5558 4.11713C20.8577 4.52604 20.0446 4.76082 19.1785 4.76082C16.5665 4.76082 14.4488 2.62918 14.4488 0H9.55895C9.56517 0.811609 9.36305 1.6341 8.9277 2.38663C7.62322 4.64732 4.72039 5.41539 2.44416 4.10625L0 8.33998C0.704328 8.73957 1.31381 9.32573 1.74605 10.0767C3.04898 12.3343 2.26846 15.2247 0.00466445 16.5447L2.44882 20.7784C3.14537 20.3726 3.95232 20.141 4.81524 20.141C7.41954 20.141 9.53097 22.2586 9.54496 24.8769H14.4348C14.4333 24.0731 14.6354 23.2599 15.0661 22.5152C16.369 20.2576 19.2641 19.488 21.5387 20.7893L23.9829 16.5556C23.2832 16.156 22.6784 15.5714 22.2477 14.8251ZM12.0016 17.476C9.22 17.476 6.96398 15.2216 6.96398 12.4385C6.96398 9.65535 9.21845 7.40088 12.0016 7.40088C14.7831 7.40088 17.0391 9.65535 17.0391 12.4385C17.0391 15.2216 14.7847 17.476 12.0016 17.476Z" fill="#535657" />
                                 </svg>
-
-
-
                                 <p>Settings</p>
                             </div>
                         </a>
