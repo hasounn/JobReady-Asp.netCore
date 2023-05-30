@@ -4,7 +4,11 @@
   "libraries": [
     {
       "library": "@aspnet/signalr@3.0.0-preview6.19307.2",
+<<<<<<< HEAD
       "destination": "wwwroot/lib/aspnet/signalr/",
+=======
+      "destination": "wwwroot/lib/signalr/",
+>>>>>>> f462fb55f0982a97ab83aeb0ff86f5381d8d0645
       "files": [
         "dist/browser/signalr.js",
         "dist/browser/signalr.min.js"

@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+body{
+    overflow:hidden;
+}
+
 .steps-container {
     width: 30.125rem;
     background-color: var(--lightwhite);
@@ -28,7 +32,10 @@
     color: #4F646F;
     font-size:11px;
 }
-
+.tick{
+    width:24px!important;
+    height:24px!important;
+}
 .steps .activatedStep{
     color:var(--gold);
 }
@@ -152,7 +159,19 @@ form > .form-step{
     transition: all 0.3s ease;
 }
 
-    .input-data label[for="headline"], .input-data label[for="hcompany"] {
+.gender{
+    position:relative!important;
+    bottom:0!important;
+}
+
+.gender.input-invalid{
+    color:var(--error);
+}
+.gender.valid{
+    color:var(--lightblue);
+}
+
+    .input-data label[for="Headline"], .input-data label[for="Overview"] {
         position: relative;
         bottom: 0;
         left: 0;
@@ -223,10 +242,10 @@ form > .form-step{
     transition:all 0.25s ease-in;
 }
 
-    .btn-next:hover, .btn-submit:hover {
+.btn-next:hover, .btn-submit:hover {
         color: rgba(244, 250, 255, 0.8);
         background: var(--lightblue);
-    }
+}
 
 .btn-group .btn-submit, .btn-group .btn-prev{
     display:none;
@@ -263,9 +282,20 @@ form > .form-step{
     .steps-container {
         height: 200px;
         width: 100vw;
+        padding: 33px 20px 21px 25px;
     }
     .img-resize {
         width: 33%;
+    }
+    .steps {
+        margin-top: 17px;
+        margin-bottom: 17px;
+    }
+}
+
+@media only screen and (max-width:767.5px) {
+    .input-data .underline:before {
+        bottom: -2px;
     }
 }
 
@@ -277,6 +307,10 @@ form > .form-step{
 }
 
 @media only screen and (max-width: 1000px) {
+    body{
+        overflow:auto;
+        overflow-x:hidden;
+    }
     .steps-container{
         height:200px;
         width:100vw;

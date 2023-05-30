@@ -7,16 +7,19 @@ const nextBtn = document.querySelector(".btn-next");
 const prevBtn = document.querySelector(".btn-prev");
 const submitBtn = document.querySelector(".btn-submit");
 const textarea = document.querySelector("#headline");
-const hcompany = document.querySelector("#hcompany");
 const fileInput = document.querySelector("#fileInput");
-const fileInput1 = document.querySelector("#fileInput1");
 const fileHandler = document.querySelector(".file-handler");
-const fileHandler1 = document.querySelector(".file-handler1");
 const txtarea = document.querySelector(".form-three textarea");
-const txtarea1 = document.querySelector(".form-four textarea");
+const selectGender = document.querySelector(".form-three select");
 let active = 1;
+let selected = 0;
 
 //Event Listeners
+document.addEventListener("DOMContentLoaded", function () {
+    var selectElement = document.getElementById("gender");
+    selectElement.selectedIndex = -1; // Deselect any option by default
+});
+
 nextBtn.addEventListener("click", (e) => {
     e.preventDefault();
     active++;
@@ -27,19 +30,15 @@ nextBtn.addEventListener("click", (e) => {
     if (active === 2) {
         validateInputs("form-two");
     } else if (active === 3) {
-        if (accountType.value === "company") {
-            validateInputs("form-four");
-            if (txtarea1.value.trim() !== "") {
-                validateTextarea(txtarea1);
-            }
-        } else {
             validateInputs("form-three");
             if(txtarea.value.trim() !== "") {
                 validateTextarea(txtarea);
-            }
         }
     }
 });
+
+selectGender.addEventListener("click", () => { selected++; });
+
 prevBtn.addEventListener("click", (e) => {
     e.preventDefault();
     active--;
@@ -58,18 +57,9 @@ textarea.addEventListener("keyup", e => {
     textarea.style.height = `${scHeight}px`;
 });
 
-hcompany.addEventListener("keyup", e => {
-    hcompany.style.height = "20px";
-    let scHeight = e.target.scrollHeight;
-    hcompany.style.height = `${scHeight}px`;
-});
 
 fileHandler.addEventListener("click", () => {
     fileInput.click();
-})
-
-fileHandler1.addEventListener("click", () => {
-    fileInput1.click();
 })
 
 //Functions
@@ -103,19 +93,7 @@ const updateProgress = () => {
             s.classList.remove("doneStep");
             s.classList.add("activatedStep");
             changeColorTick();
-            if (accountType.value == "company" && i === step.length - 1) {
-                formSteps[i + 1].classList.add("active-step");
-                
-            } else {
                 formSteps[i].classList.add("active-step");
-            }
-            if (accountType.value == "company" && i === 1) {
-                const label = document.querySelector("label[for='dob']");
-                label.textContent = "Founded";
-            } else {
-                const label = document.querySelector("label[for='dob']");
-                label.textContent = "Date Of Birth";
-            }
         } else {
             if (i < active - 1) {
                 s.classList.remove("activatedStep");
@@ -127,9 +105,6 @@ const updateProgress = () => {
                 s.classList.remove("doneStep");
                 changeColorTick();
                 formSteps[i].classList.remove("active-step");
-                if (i === step.length - 1 && accountType.value === "company") {
-                    formSteps[i+1].classList.remove("active-step");
-                }
             }
         }
     })
@@ -165,7 +140,7 @@ const changeSelected = (arg) => {
     removeSelections();
     arg.children[0].classList.add("selected");
     document.querySelector("form").reset();
-    accountType.value = arg.children[1].textContent.toLowerCase();
+    accountType.value = arg.children[1].textContent;
 }
 const removeSelections = () => {
     const choices = document.querySelectorAll(".choice");
@@ -188,13 +163,10 @@ const validate = (input) => {
 }
 
 const validateInputs = (formStep) => {
-    console.log('entered');
     const inputs = document.querySelectorAll("."+formStep+ " input");
     let count = 0;
     let length = inputs.length;
-    if (formStep == "form-three" || formStep == "form-four") {
-        length++;
-    }
+  
     inputs.forEach(input => {
         
         if (input.value.trim() !== "" && input.validity.valid) {
@@ -204,8 +176,10 @@ const validateInputs = (formStep) => {
     if (count == length) {
         if (active < 3) {
             nextBtn.disabled = false;
-        } else {
+        } else if (active == 3 && validateSelect(".form-three select") && validateTextarea(".form-three textarea")) {
             submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
         }
     } else {
         if (active === 1) {
@@ -219,12 +193,22 @@ const validateInputs = (formStep) => {
 }
 
 const validateTextarea = (arg) => {
-    if (arg.value.trim() !== "") {
+    const select = typeof arg === 'string' ? document.querySelector(arg) : arg;
+    if (arg.value.trim() !== "" && validateSelect(".form-three select")) {
         arg.classList.remove("input-invalid");
-        submitBtn.disabled = false;
+        if (typeof arg === 'string') {
+            return true;
+        } else {
+            submitBtn.disabled = false;
+        }
+        
     } else {
         arg.classList.add("input-invalid");
-        submitBtn.disabled = true;
+        if (typeof arg === 'string') {
+            return false;
+        } else {
+            submitBtn.disabled = true;
+        }
     }
 }
 
@@ -241,6 +225,34 @@ const validatePassword = () => {
         confirmpwd.classList.add("input-invalid");
         pwd.classList.add("input-invalid");
         nextBtn.disabled = true;
+    }
+}
+
+const validateSelect = (arg) => {
+    const select = typeof arg === 'string' ? document.querySelector(arg) : arg;
+    if (selected > 0) {
+        if (select.options[select.selectedIndex].value === "---") {
+            select.parentElement.children[0].classList.add("input-invalid");
+            if (typeof arg === 'string') {
+                return false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        } else {
+            select.parentElement.children[0].classList.remove("input-invalid");
+            select.parentElement.children[0].classList.add("valid");
+            if (typeof arg === 'string') {
+                return true;
+            } else {
+                submitBtn.disabled = false;
+            }
+        }
+    }else{
+        if (typeof arg === 'string') {
+            return false;
+        } else {
+            submitBtn.disabled = true;
+        }
     }
 }
 

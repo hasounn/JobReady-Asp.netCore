@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobReady.Models;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobReady;
 
@@ -15,7 +17,7 @@ public class UserAccount
     [StringLength(50)]
     public string Username { get; set; }
 
-    [Display(Name = "Email address")]
+    [DisplayName("Email Address")]
     [Required(ErrorMessage = "The email address is required")]
     [EmailAddress(ErrorMessage = "Invalid Email Address")]
     public string Email { get; set; }
@@ -51,6 +53,7 @@ public class UserAccount
     public ICollection<Follower> Followings { get; set; }
 
     public ICollection<Follower> Followers { get; set; }
+    public ICollection<Message> Messages { get; set; }
 
     [Required]
     public DateTime UserDate { get; set; }
