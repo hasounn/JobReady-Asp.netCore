@@ -17,6 +17,10 @@ namespace JobReady.Controllers
             _context = context;
         }
 
+        public IActionResult Index() {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult GetAllMessages()
         {
@@ -45,7 +49,7 @@ namespace JobReady.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteMessage(long id)
         {
-            var existingMessage = GetMessageFromDataSource(id);
+            var existingMessage = GetMessageFromDataSource(id, id, id);
 
             if (existingMessage == null)
             {
@@ -57,11 +61,19 @@ namespace JobReady.Controllers
             return NoContent(); // Return 204 No Content to indicate successful deletion
         }
 
-        private List<Message>  GetAllMessageFromDataSource(long senderId,long receiverId)
+        private List<Message>  GetAllMessagesFromDataSource(long senderId,long receiverId)
         {
             
             return _context.Messages.Where(m => m.SenderID == senderId && m.ReceiverID == receiverId)
                             .ToList();
+        }
+
+
+        private Message GetMessageFromDataSource(long senderId, long receiverId, long MessageID)
+        {
+
+            return _context.Messages.FirstOrDefault(m => m.SenderID == senderId && m.ReceiverID == receiverId && m.Id== MessageID);
+                            
         }
 
         private long GenerateNewId()
