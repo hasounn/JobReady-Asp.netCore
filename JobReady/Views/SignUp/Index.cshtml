@@ -1,4 +1,4 @@
-﻿@model JobReady.Data.DTO.SignUpUserRegistry;
+﻿@model JobReady.UserAccountDetails;
 @{
     Layout = null;
     ViewData["Title"] = "SignUp";
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center form-side">
-            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Create", "SignUp", FormMethod.Post, new { @class = "d-flex flex-column align-items-center justify-content-center w-100 p-5 m-5 form-adequate", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <section class="form-step form-one d-flex flex-md-row flex-column align-items-center justify-content-center active-step">
@@ -104,9 +104,9 @@
                                 <label asp-for="Username"></label>
                             </div>
                             <div class="input-data">
-                                <input type="email" asp-for="EmailAddress" id="email" required oninput="validate(this); validateInputs('form-two')">
+                                <input type="email" asp-for="Email" id="email" required oninput="validate(this); validateInputs('form-two')">
                                 <div class="underline"></div>
-                                <label asp-for="EmailAddress"></label>
+                                <label asp-for="Email"></label>
                             </div>
                             <div class="input-data">
                                 <input type="tel" asp-for="PhoneNumber" id="phonenb" pattern="(\+\d{1,3})?\d{8,}" required oninput="validate(this); validateInputs('form-two')">
@@ -114,9 +114,10 @@
                                 <label asp-for="PhoneNumber"></label>
                             </div>
                             <div class="input-data">
-                                <input type="text" asp-for="Dob" id="dob" required onfocus="this.type='date'" onblur="this.type='text'" oninput="validate(this); validateInputs('form-two')">
+                                <input type="text" asp-for="UserDate" id="dob" required onfocus="this.type='date'" onblur="this.type='text'" oninput="validate(this); validateInputs('form-two')">
+                                
                                 <div class="underline"></div>
-                                <label asp-for="Dob"></label>
+                                <label asp-for="UserDate"></label>
                             </div>
                             <div class="input-data">
                                 <input type="password" asp-for="Password" id="pwd" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@#$%^&+=]).{8,}$" required oninput="validate(this); validateInputs('form-two')">

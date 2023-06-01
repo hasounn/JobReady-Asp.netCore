@@ -11,28 +11,28 @@ namespace JobReady.Controllers
 {
     public class IndustryController : Controller
     {
-        private readonly JobReadyContext _context;
+        private readonly JobReadyContext context;
 
         public IndustryController(JobReadyContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: Industry
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Industries.ToListAsync());
+              return View(await context.Industries.ToListAsync());
         }
 
         // GET: Industry/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || _context.Industries == null)
+            if (id == null || context.Industries == null)
             {
                 return NotFound();
             }
 
-            var industry = await _context.Industries
+            var industry = await context.Industries
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (industry == null)
             {
@@ -57,8 +57,8 @@ namespace JobReady.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(industry);
-                await _context.SaveChangesAsync();
+                context.Add(industry);
+                await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(industry);
@@ -67,12 +67,12 @@ namespace JobReady.Controllers
         // GET: Industry/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.Industries == null)
+            if (id == null || context.Industries == null)
             {
                 return NotFound();
             }
 
-            var industry = await _context.Industries.FindAsync(id);
+            var industry = await context.Industries.FindAsync(id);
             if (industry == null)
             {
                 return NotFound();
@@ -96,8 +96,8 @@ namespace JobReady.Controllers
             {
                 try
                 {
-                    _context.Update(industry);
-                    await _context.SaveChangesAsync();
+                    context.Update(industry);
+                    await context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,12 +118,12 @@ namespace JobReady.Controllers
         // GET: Industry/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null || _context.Industries == null)
+            if (id == null || context.Industries == null)
             {
                 return NotFound();
             }
 
-            var industry = await _context.Industries
+            var industry = await context.Industries
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (industry == null)
             {
@@ -138,23 +138,23 @@ namespace JobReady.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Industries == null)
+            if (context.Industries == null)
             {
                 return Problem("Entity set 'JobReadyContext.Industries'  is null.");
             }
-            var industry = await _context.Industries.FindAsync(id);
+            var industry = await context.Industries.FindAsync(id);
             if (industry != null)
             {
-                _context.Industries.Remove(industry);
+                context.Industries.Remove(industry);
             }
             
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool IndustryExists(long id)
         {
-          return _context.Industries.Any(e => e.Id == id);
+          return context.Industries.Any(e => e.Id == id);
         }
     }
 }
