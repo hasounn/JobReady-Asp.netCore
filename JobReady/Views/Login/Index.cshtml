@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+    // TODO : link model
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JobReady</title>
+    <link rel="icon" href="~/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
+
+
+
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="d-flex flex-lg-row flex-column vw-100 vh-100">
+        <div class="d-flex flex-column w-50 vh-100 justify-content-center align-items-center justify-content-center mobile-flex-width">
+           
+            <div class="d-flex flex-column w-100 h-100 align-items-center justify-content-center">
+                <form class="d-flex flex-column p-5 gap-4 w-100" asp-controller="Login" asp-action="Index" method="post">
+                    <input class="custom-design" type="text" id="username" name="username" placeholder="Username" required/>
+                    <div class="d-flex flex-row pswrdicn align-items-center justify-content-between custom-div-design">
+                            <input type="password" id="password" name="password" placeholder="Password" required/>
+                            <img src="~/icons/eye.svg" alt="eye" class="eye m-3">
+                    </div>
+
+                    <input class="submitbtn" type="submit" value="Log In">
+                    <p class="register-text">Don't have an account? <a asp-controller="SignUp" asp-action="Index">Register</a></p>
+                </form>
+            </div>
+           
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center logo-side">
+            <img src="~/assets/logo/whiteLogo.svg" alt="JobReady white Logo" class="img-resize" />
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/login.js"></script>
+</body>
+</html>
