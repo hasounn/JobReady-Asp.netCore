@@ -13,9 +13,10 @@ html {
   min-height: 100%;
 }
 
-body{
-    display:flex;
-    flex-direction:row;
+body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 }
 
 .nav-item p {
@@ -91,7 +92,7 @@ body{
     height: 2.5em!important;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1000px) {
     html {
         font-size: 16px;
     }
@@ -115,6 +116,29 @@ body{
             }
 }
 
+@media(min-width:768px) and (max-width: 1000px){
+    body {
+        flex-direction: column;
+    }
+    .navbar.fixed-left{
+        padding:15px 30px;
+    }
+    .navbar.fixed-left:not(:has(.show)) ul {
+        display: none !important;
+    }
+    .navbar-expand-md .navbar-toggler {
+        display: block;
+    }
+    .navbar.fixed-left:not(:has(.show)) {
+        height: 115px;
+        width: 100% !important;
+    }
+    .logo-resize {
+        width: 25%;
+        margin-top: 15px;
+    }
+}
+
 @media (max-width:768px){
 
     body {
@@ -125,6 +149,9 @@ body{
     .nav-Color{
         width:100%;
         height:329px;
+    }
+    .navbar.fixed-left:not(:has(.show)) ul {
+        display: none !important;
     }
 
     .navbar.fixed-left:has(.show) {
@@ -137,9 +164,6 @@ body{
 
     .navbar.fixed-left:not(:has(.show)) {
         height:115px;
-    }
-    .navbar.fixed-left:not(:has(.show)) ul {
-        display:none !important;
     }
     .logo-resize {
         width: 25%;

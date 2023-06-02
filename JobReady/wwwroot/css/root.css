@@ -18,6 +18,10 @@
     color: var(--gray-asset1);
 }
 
+.color-grayish-blue {
+    color: var(--grayish-blue);
+}
+
 .hidden {
     display: none;
 }

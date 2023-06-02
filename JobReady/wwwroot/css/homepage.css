@@ -7,6 +7,8 @@
     border-radius:55px;
     color:var(--grayish-blue);
     font-family:'League Gothic', sans-serif;
+    cursor:pointer;
+    user-select:none;
 }
 
 .filter-news-item {
@@ -24,6 +26,72 @@
         stroke: var(--lightblue);
     }
 
-.title{
-    font-size:2rem;
+.post{
+    background:var(--lightwhite);
+    width:calc(100% - 100px);
+    height:fit-content;
+    padding:1em;
+    border-radius:20px;
+}
+
+.img-post{
+    width:55px;
+}
+
+.dot-post{
+    font-size:24px;
+}
+.jobs {
+    all:unset;
+    border:none;
+    position:fixed;
+    right: 0;
+    background: var(--lightwhite);
+    height: fit-content;
+    width:145px;
+    top: 45px;
+    border-radius: 12px 0 0 12px;
+    font-family: 'League Gothic', sans-serif;
+    font-weight: 500;
+    font-size: 1.35em;
+}
+.job-text-handle{
+    width:120px;
+}
+
+.arrow-jobOpps-handle {
+    padding-left: 5px;
+}
+
+.jobOpps {
+    background: var(--lightwhite);
+    position: relative;
+    height:100vh;
+    max-width:400px;
+    width:100%;
+}
+
+.offcanvas-title{
+    font-family:'League Gothic', sans-serif;
+    font-size:2.5em;
+}
+imageJobOpp{
+    width:80px;
+}
+.jobOpp{
+    width:fit-content;
+    padding:10px;
+}
+
+.location{
+    font-size:14px;
+}
+.timeOn{
+    font-size:12px;
+}
+
+@media only screen and (max-width:1023.5px) {
+    .jobs {
+        top: 150px;
+    }
 }

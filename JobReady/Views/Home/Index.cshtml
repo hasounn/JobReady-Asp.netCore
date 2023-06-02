@@ -1,10 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    //TODO: linking DTO and partial using ajax to manipulate data("filter-news-item")
         
 }
 <link rel="stylesheet" href="~/css/homepage.css">
 
-<div class="w-100 vh-100 dark-main-bg">
+<div class="w-100 height-fix dark-main-bg">
     <div class="d-flex flex-column w-100 h-auto">
             <div class="d-flex flex-row align-items-center justify-content-center text-center mt-4">
                 <div class="d-flex flex-row justify-content-around align-items-center filter-news">
@@ -31,7 +32,27 @@
                 </div>
             </div>
     </div>
-    <div class="d-flex flex-column poats gap-4">
+    <div class="d-flex flex-column w-100">
+        <div class="w-100 d-flex flex-column w-100 align-items-center mt-5 gap-4 posts">
+            <partial name="_Posts" />
+        </div>
+    </div>
+    <button class="jobs p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <div class="d-flex flex-row">
+            <img src="~/icons/arrow-left-1.svg" class="arrow-jobOpps-handle" />
+            <p class="color-light-blue text-capitalize jobs-text-handle">job opportunities</p>
+        </div>
+    </button>
 
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title color-light-blue text-capitalize" id="offcanvasRightLabel">job opportunities</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <partial name="_JobsOpps" />
+        </div>
     </div>
 </div>
+
+<script src="~/js/homepage.js"></script>

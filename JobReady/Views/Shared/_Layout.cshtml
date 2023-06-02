@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="navBar-header">
-        <nav class="navbar navbar-expand-md navbar-light fixed-left nav-Color">
+        <nav class="navbar navbar-expand-md navbar-light fixed-left nav-Color flex-column flex-column">
             <div class="d-flex flex-row w-100 justify-content-between align-items-center">
             <img src="~/assets/logo/blueLogo.svg" class="logo-resize"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,9 +93,9 @@
         </nav>
     </header>
     
-    <div class="w-100 vh-100">
+    <div class="w-100 vh-100 head-div">
         @RenderBody()
-        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
