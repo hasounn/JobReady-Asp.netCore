@@ -71,9 +71,14 @@
     width:100%;
 }
 
-.offcanvas-title{
-    font-family:'League Gothic', sans-serif;
-    font-size:2.5em;
+.offcanvas{
+    border-radius:15px 0 0 15px;
+    padding:10px;
+}
+
+.offcanvas-title {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 2.5em;
 }
 imageJobOpp{
     width:80px;
