@@ -9,9 +9,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - JobReady</title>
@@ -19,10 +16,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
-
-
-
-    <title>Login Page</title>
+    <title>@ViewData["Title"] - JobReady</title>
 </head>
 <body>
     <div class="d-flex flex-lg-row flex-column vw-100 vh-100">
@@ -32,7 +26,7 @@
                 <form class="d-flex flex-column p-5 gap-4 w-100" asp-controller="Login" asp-action="Index" method="post">
                     <input class="custom-design" type="text" id="username" name="username" placeholder="Username" required/>
                     <div class="d-flex flex-row pswrdicn align-items-center justify-content-between custom-div-design">
-                            <input type="password" id="password" name="password" placeholder="Password" required/>
+                            <input type="password" class="w-100" id="password" name="password" placeholder="Password" required/>
                             <img src="~/icons/eye.svg" alt="eye" class="eye m-3">
                     </div>
 
