@@ -1,10 +1,13 @@
 ﻿:root {
     --lightwhite: #F4FAFF;
     --lightblue: #139BE4;
+    --lightblue-faded:#70BAE180;
     --gold: #B87333;
     --gray-asset1: #4B4B4B;
     --gray-asset2: #818181;
+    --grayish-blue: #535657;
     --error: #722F37;
+    --dark-bg1: #38434F;
 }
 
 .color-light-blue{
@@ -13,6 +16,10 @@
 
 .color-gray-asset1 {
     color: var(--gray-asset1);
+}
+
+.color-grayish-blue {
+    color: var(--grayish-blue);
 }
 
 .hidden {

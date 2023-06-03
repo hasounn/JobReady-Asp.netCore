@@ -1,4 +1,7 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Outfit:wght@400;700&display=swap');
+@import url("root.css");
+
+*,p{
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -6,23 +9,182 @@
 
 html {
   font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.nav-item p {
+    color:var(--grayish-blue);
+    font-weight:400;
+}
+
+.navBar-header {
+    max-width: 329px;
+    width: 100%;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.navbar.fixed-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    padding: 30px;
+    gap:4em;
+    
+}
+
+.nav-Color{
+    background-color:var(--lightwhite);
+    width:100% !important;
+}
+
+.dark-main-bg{
+    background-color:var(--dark-bg1);
+}
+
+.logo-resize {
+    width: 50%;
+    margin-top:35px;
+}
+
+.nav-item.active {
+    background: var(--lightblue);
+    border-radius: 50px;
+    padding: 2px 20px 2px 8px;
+    margin-left:-10px;
+    width:fit-content;
+    animation:fade-in 0.25s ease-in;
+}
+    .nav-item.active p {
+        color: var(--lightwhite);
+    }
+
+.nav-item.active .path {
+    stroke:var(--lightwhite);
+}
+
+.nav-item.active .settings-path {
+    fill:var(--lightwhite);
+}
+
+.nav-item.fade-out{
+    animation:fade-out 0.25s ease-out forwards;
+}
+
+.navbar-toggler, .navbar-toggler:focus{
+    all: unset;
+    padding:2px 20px 2px 20px;
+}
+
+.navbar-toggler-icon {
+    width: 2.5em!important;
+    height: 2.5em!important;
+}
+
+@media only screen and (min-width: 1000px) {
+    html {
+        font-size: 16px;
+    }
+
+    .navbar.fixed-left {
+        bottom: 0;
+        width: 329px !important;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+    }
+
+        .navbar.fixed-left .navbar-collapse {
+            flex-grow: 0;
+            flex-direction: column;
+            width: 100%;
+        }
+
+            .navbar.fixed-left .navbar-collapse .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+            }
+}
+
+@media(min-width:768px) and (max-width: 1000px){
+    body {
+        flex-direction: column;
+    }
+    .navbar.fixed-left{
+        padding:15px 30px;
+    }
+    .navbar.fixed-left:not(:has(.show)) ul {
+        display: none !important;
+    }
+    .navbar-expand-md .navbar-toggler {
+        display: block;
+    }
+    .navbar.fixed-left:not(:has(.show)) {
+        height: 115px;
+        width: 100% !important;
+    }
+    .logo-resize {
+        width: 25%;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width:768px){
+
+    body {
+        flex-direction: column;
+        gap:8em;
+    }
+
+    .nav-Color{
+        width:100%;
+        height:329px;
+    }
+    .navbar.fixed-left:not(:has(.show)) ul {
+        display: none !important;
+    }
+
+    .navbar.fixed-left:has(.show) {
+        bottom: 0;
+        width: 100%!important;
+        height: fit-content;
+        flex-flow: column nowrap;
+        max-height:500px!important;
+    }
+
+    .navbar.fixed-left:not(:has(.show)) {
+        height:115px;
+    }
+    .logo-resize {
+        width: 25%;
+        margin:0;
+    }
+}
+
+@keyframes fade-in {
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
