@@ -31,7 +31,7 @@ namespace JobReady.Controllers
         public IActionResult Create(UserAccountDetails source)
         {
             source.Validate();
-            var existing = (from x in context.UserAccounts
+            var existing = (from x in context.UserAccount
                             where
                             x.Email == source.Email
                             && x.IsEmailVerified

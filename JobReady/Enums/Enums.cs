@@ -30,6 +30,13 @@ public enum JobType
     ResearchAssistant
 }
 
+public enum LocationType
+{
+    [Display(Name = "On-Site")]
+    Onsite,
+    Hybrid,
+    Remote
+}
 public enum EngagementType
 {
     Comment,
@@ -51,4 +58,29 @@ public enum ObjectType
     UserAccount,
     Post,
     JobPost
+}
+
+public enum DegreeType
+{
+    BachelorOfArts,
+    BachelorOfScience,
+    BachelorOfBusinessAdministration,
+    BachelorOfEngineering,
+    BachelorOfEducation,
+    BachelorOfFineArts,
+    MasterOfArts,
+    MasterOfScience,
+    MasterOfBusinessAdministration,
+    MasterOfEducation,
+    MasterOfEngineering,
+    MasterOfFineArts,
+    DoctorOfPhilosophy,
+    DoctorOfMedicine,
+    DoctorOfEducation,
+    JurisDoctor,
+    DoctorOfDentalSurgery,
+    DoctorOfDentalMedicine,
+    AssociateOfArts,
+    AssociateOfScience,
+    Other
 }
