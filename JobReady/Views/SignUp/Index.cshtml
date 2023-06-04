@@ -2,8 +2,6 @@
 @{
     Layout = null;
     ViewData["Title"] = "SignUp";
-    // TODO: add link to LoginController to the hyperlink tag <a>
-    // TODO : link model
 }
 <!DOCTYPE HTML>
 <html lang="en">
@@ -59,7 +57,7 @@
             </div>
         <div class="d-flex flex-column gap-2">
 
-            <a role="button" class="btn btn-already-has-account">Already has an account</a>
+            <a role="button" class="btn btn-already-has-account" asp-controller="Login" asp-action="Index">Already has an account</a>
                 <p class="text-center color-light-blue">&copy; JobReady @DateTime.Now.Year</p>
         </div>
     </div>
