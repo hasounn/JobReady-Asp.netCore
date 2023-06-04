@@ -1,0 +1,94 @@
+﻿*{
+    margin:0;
+    padding:0;
+   box-sizing:border-box;
+}
+/* Hide the password default eye toggle icon */
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}
+
+
+.register-text {
+    color: #535657;
+    text-align: center;
+    font-size: 16px;
+    margin-top:-10px;
+    font-weight:500;
+}
+    .register-text a {
+        text-decoration:none;
+        color: #139BE4;
+    }
+
+.submitbtn {
+    height: 40px;
+    background: #139BE4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    color: white;
+    font-size: 20px;
+    font-weight:700;
+    margin-top:3em;
+    border: none;
+}
+.logo-side {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(130.87deg, #1B5B75 -1.02%, #139BE4 49.98%, #8DD7FF 128.72%);
+    backdrop-filter: blur(2px);
+}
+
+.custom-design {
+    all:unset;
+    height: 40px;
+    background: #DEE7E7;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    margin: 30px 0 10px 0;
+    font-size: 24px;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+}
+
+.custom-div-design {
+    all:unset;
+    height: 40px;
+    background: #DEE7E7;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    font-size: 24px;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+}
+
+.custom-div-design input{
+    all:unset;
+}
+
+#username,
+#password {
+    padding-left: 15px;
+}
+
+.img-resize{
+    width:50%;
+}
+
+@media only screen and (max-width:768.5px){
+    .img-resize {
+        width: 25%;
+    }
+}
+@media only screen and (max-width:1200.5px){
+    .mobile-flex-width {
+        width: 100% !important;
+    }
+}
