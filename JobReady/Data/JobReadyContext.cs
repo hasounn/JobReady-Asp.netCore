@@ -8,22 +8,24 @@ public class JobReadyContext : DbContext
     {
     }
 
-    public DbSet<UserAccount> UserAccounts { get; set; }
-    public DbSet<Follower> Followers { get; set; }
-    public DbSet<Industry> Industries { get; set; }
-    public DbSet<JobApplication> JobApplications { get; set; }
-    public DbSet<JobPost> JobPosts { get; set; }
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<Skill> Skills { get; set; }
-    public DbSet<UserSkill> UserSkills { get; set; }
-    public DbSet<PostEngagement> PostEngagements { get; set; }
-    public DbSet<Recommendation> Recommendations { get; set; }
-    public DbSet<JobSkill> JobSkills { get; set; }
-    public DbSet<University> Universities { get; set; }
-    public DbSet<Faculty> Faculties { get; set; }
-    public DbSet<Major> Majors { get; set; }
-    public DbSet<UniversityMajor> UniversityMajors { get; set; }
-    public DbSet<FileLink> FileLinks { get; set; }
+    public DbSet<UserAccount> UserAccount { get; set; }
+    public DbSet<Follower> Follower { get; set; }
+    public DbSet<Industry> Industry{ get; set; }
+    public DbSet<JobApplication> JobApplication { get; set; }
+    public DbSet<JobPost> JobPost { get; set; }
+    public DbSet<Post> Post { get; set; }
+    public DbSet<Skill> Skill { get; set; }
+    public DbSet<UserSkill> UserSkill { get; set; }
+    public DbSet<PostEngagement> PostEngagement { get; set; }
+    public DbSet<Recommendation> Recommendation { get; set; }
+    public DbSet<JobSkill> JobSkill { get; set; }
+    public DbSet<University> University { get; set; }
+    public DbSet<Faculty> Faculty { get; set; }
+    public DbSet<Major> Major { get; set; }
+    public DbSet<UniversityMajor> UniversityMajor { get; set; }
+    public DbSet<FileLink> FileLink { get; set; }
+    public DbSet<Education> Education { get; set; }
+    public DbSet<Experience> Experience { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

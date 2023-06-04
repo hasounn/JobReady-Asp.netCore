@@ -21,18 +21,18 @@ namespace JobReady.Controllers
         // GET: Industry
         public async Task<IActionResult> Index()
         {
-              return View(await context.Industries.ToListAsync());
+              return View(await context.Industry.ToListAsync());
         }
 
         // GET: Industry/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || context.Industries == null)
+            if (id == null || context.Industry == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industries
+            var industry = await context.Industry
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (industry == null)
             {
@@ -67,12 +67,12 @@ namespace JobReady.Controllers
         // GET: Industry/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || context.Industries == null)
+            if (id == null || context.Industry == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industries.FindAsync(id);
+            var industry = await context.Industry.FindAsync(id);
             if (industry == null)
             {
                 return NotFound();
@@ -118,12 +118,12 @@ namespace JobReady.Controllers
         // GET: Industry/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null || context.Industries == null)
+            if (id == null || context.Industry == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industries
+            var industry = await context.Industry
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (industry == null)
             {
@@ -138,14 +138,14 @@ namespace JobReady.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (context.Industries == null)
+            if (context.Industry == null)
             {
                 return Problem("Entity set 'JobReadyContext.Industries'  is null.");
             }
-            var industry = await context.Industries.FindAsync(id);
+            var industry = await context.Industry.FindAsync(id);
             if (industry != null)
             {
-                context.Industries.Remove(industry);
+                context.Industry.Remove(industry);
             }
             
             await context.SaveChangesAsync();
@@ -154,7 +154,7 @@ namespace JobReady.Controllers
 
         private bool IndustryExists(long id)
         {
-          return context.Industries.Any(e => e.Id == id);
+          return context.Industry.Any(e => e.Id == id);
         }
     }
 }
