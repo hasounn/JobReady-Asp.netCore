@@ -139,11 +139,16 @@ body {
     }
 }
 
+@media (max-width:1000px){
+    .head-div{
+        padding-top:8em;
+    }
+}
+
 @media (max-width:768px){
 
     body {
         flex-direction: column;
-        gap:8em;
     }
 
     .nav-Color{
