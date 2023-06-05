@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "TagCloud@2.3.2",
+      "destination": "wwwroot/TagCloud/",
+      "files": [
+        "dist/TagCloud.js",
+        "dist/TagCloud.min.js"
+      ]
+    }
+  ]
+}
