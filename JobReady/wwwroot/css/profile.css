@@ -247,15 +247,12 @@ body{
     }
 }
 
-<<<<<<< HEAD
 @media (max-width:1021px){
     .post{
         width:100%;
     }
 }
 
-=======
->>>>>>> 1f336292555f58fd0a0b7abd39f6567532165b84
 @media screen and (min-width:576px){
     .carousel-inner{
         display:flex;
