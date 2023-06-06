@@ -33,7 +33,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Adjust the expiration time as needed
     options.LoginPath = "/Login/Index"; // Customize the login page path
-    options.AccessDeniedPath = "/Error/AccessDenied"; // Customize the access denied page path
+    options.AccessDeniedPath = "/Login/Index"; // Customize the access denied page path
 });
 
 
