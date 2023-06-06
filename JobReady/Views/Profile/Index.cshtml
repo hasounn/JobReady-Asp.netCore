@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+<link rel="stylesheet" href="~/css/profile.css">
+
+<div class="d-flex flex-column gap-5 w-100 height-fix dark-main-bg p-5">
+    <div class="d-flex flex-column flex-lg-row w-100 h-auto justify-content-center gap-5">
+        <div class="image-and-button d-flex flex-column h-100 justify-content-between align-items-center gap-4">
+            <img src="~/assets/images/image-placeholder.png" class="rounded-circle img-sizing" />
+            <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
+        </div>
+        <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
+            <p class="fullname-p">Santiago Valdarrama <span class="username-span">&#8226; @@Santiago</span></p>
+            <div class="d-flex flex-row justify-content-lg-between justify-content-around width-fix">
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <p class="nb-of-posts">196</p>
+                    <p>Posts</p>
+                </div>
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16006 10.87C9.06006 10.86 8.94006 10.86 8.83006 10.87C6.45006 10.79 4.56006 8.84 4.56006 6.44C4.56006 3.99 6.54006 2 9.00006 2C11.4501 2 13.4401 3.99 13.4401 6.44C13.4301 8.84 11.5401 10.79 9.16006 10.87Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M16.41 4C18.35 4 19.91 5.57 19.91 7.5C19.91 9.39 18.41 10.93 16.54 11C16.46 10.99 16.37 10.99 16.28 11" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4.15997 14.56C1.73997 16.18 1.73997 18.82 4.15997 20.43C6.90997 22.27 11.42 22.27 14.17 20.43C16.59 18.81 16.59 16.17 14.17 14.56C11.43 12.73 6.91997 12.73 4.15997 14.56Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M18.3401 20C19.0601 19.85 19.7401 19.56 20.3001 19.13C21.8601 17.96 21.8601 16.03 20.3001 14.86C19.7501 14.44 19.0801 14.16 18.3701 14" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p><span class="nb-of-followers">35K</span> Followers</p>
+                </div>
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F4FAFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12.33 17.45C12.15 17.51 11.84 17.51 11.66 17.45C10.1 16.92 6.59998 14.69 6.59998 10.91C6.59998 9.24 7.93998 7.89001 9.59998 7.89001C10.58 7.89001 11.45 8.36001 12 9.10001C12.54 8.37001 13.42 7.89001 14.4 7.89001C16.06 7.89001 17.4 9.24 17.4 10.91C17.4 14.69 13.9 16.92 12.33 17.45Z" stroke="#F4FAFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <p><span class="nb-of-likes">70K</span> Likes</p>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100 headline">
+                <p class="fw-bold fs-6">Headline</p>
+                <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident rerum voluptatem debitis dignissimos. Explicabo consequuntur itaque officiis at facere adipisci, nobis accusantium iure natus facilis temporibus porro veritatis optio fugit, illo accusamus alias aliquid officia neque nemo. Animi, laboriosam culpa?</p>
+            </div>
+        </div>
+    </div>
+    <div class="all-divs d-flex flex-column gap-4">
+        <partial name="_Experience"/>
+        <partial name="_Education"/>
+        <div class="d-flex flex-column flex-lg-row gap-3">
+            <partial name="_Skills" />
+            <partial name="_Projects" />
+        </div>
+        <div class="d-flex flex-column gap-4">
+            <p class="yourposts-title">Your Posts</p>
+            <div class="posts">
+                <partial name="_Posts" />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var skills = [
+        'HTML', 'CSS', 'JAVASCRIPT',
+        'SWIFT', 'MONGOOSE', 'REACT',
+        'PYTHON', 'SASS',
+        'DJANGO', 'NODEJS', 'MONGODB',
+        'EXPRESS', 'MYSQL', 'JQUERY', 'JAVA'
+    ];
+</script>
+<script src="~/lib/TagCloud/dist/TagCloud.js"></script>
+<script src="~/js/profile.js"></script>

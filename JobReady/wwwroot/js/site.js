@@ -8,18 +8,18 @@
 
 window.addEventListener("load", () => {
     removeAllActives();
-    let url = window.location.href;
-    if (url.includes("Home")) {
+    let url = window.location.href.toLowerCase();
+    if (url.includes("home")) {
         home.classList.add("active");
-    } else if (url.includes("Search")) {
+    } else if (url.includes("search")) {
         search.classList.add("active");
-    } else if (url.includes("Notifications")) {
+    } else if (url.includes("notifications")) {
         notifs.classList.add("active");
-    } else if (url.includes("Post")) {
+    } else if (url.includes("post")) {
         post.classList.add("active");
-    } else if (url.includes("Settings")) {
+    } else if (url.includes("settings")) {
         settings.classList.add("active");
-    } else if (url.includes("Profile")) {
+    } else if (url.includes("profile")) {
         profile.classList.add("active");
     } else {
         home.classList.add("active");
