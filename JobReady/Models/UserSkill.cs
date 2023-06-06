@@ -9,7 +9,7 @@ public class UserSkill
     public long Id { get; set; }
 
     [Required]
-    public long UserAccountId { get; set; }
+    public string UserAccountId { get; set; }
     public UserAccount UserAccount { get; set; }
     [Required]
     public long SkillId { get; set; }

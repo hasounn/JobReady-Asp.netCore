@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobReady.Migrations
 {
     [DbContext(typeof(JobReadyContext))]
-    [Migration("20230527132927_AddFullNameIsVerifiedIsEmailVerifiedToUserAccount")]
-    partial class AddFullNameIsVerifiedIsEmailVerifiedToUserAccount
+    [Migration("20230605205828_InitializeDbWithIdentity")]
+    partial class InitializeDbWithIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,122 @@ namespace JobReady.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("JobReady.Education", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int?>("Degree")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("Grade")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("MajorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OtherDegree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MajorId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Education");
+                });
+
+            modelBuilder.Entity("JobReady.Experience", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CompanyId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmploymentType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("IndustryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsCurrentlyWorking")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LocationType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Experience");
+                });
 
             modelBuilder.Entity("JobReady.Faculty", b =>
                 {
@@ -55,7 +171,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculty");
                 });
 
             modelBuilder.Entity("JobReady.FileLink", b =>
@@ -73,8 +189,9 @@ namespace JobReady.Migrations
                     b.Property<long>("ContentSize")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -92,7 +209,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("FileLinks");
+                    b.ToTable("FileLink");
                 });
 
             modelBuilder.Entity("JobReady.Follower", b =>
@@ -106,14 +223,16 @@ namespace JobReady.Migrations
                     b.Property<DateTime>("FollowedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("FollowingId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("FollowingId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsNotificationOn")
                         .HasColumnType("bit");
 
-                    b.Property<long>("UserAccountId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserAccountId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -121,7 +240,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("UserAccountId");
 
-                    b.ToTable("Followers");
+                    b.ToTable("Follower");
                 });
 
             modelBuilder.Entity("JobReady.Industry", b =>
@@ -139,7 +258,7 @@ namespace JobReady.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Industries");
+                    b.ToTable("Industry");
                 });
 
             modelBuilder.Entity("JobReady.JobApplication", b =>
@@ -150,8 +269,9 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ApplicantId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ApplicantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("AppliedOn")
                         .HasColumnType("datetime2");
@@ -170,7 +290,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("JobPostId");
 
-                    b.ToTable("JobApplications");
+                    b.ToTable("JobApplication");
                 });
 
             modelBuilder.Entity("JobReady.JobPost", b =>
@@ -181,8 +301,9 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -207,7 +328,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("JobPosts");
+                    b.ToTable("JobPost");
                 });
 
             modelBuilder.Entity("JobReady.JobSkill", b =>
@@ -230,7 +351,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("JobSkills");
+                    b.ToTable("JobSkill");
                 });
 
             modelBuilder.Entity("JobReady.Major", b =>
@@ -247,7 +368,7 @@ namespace JobReady.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Majors");
+                    b.ToTable("Major");
                 });
 
             modelBuilder.Entity("JobReady.Post", b =>
@@ -263,8 +384,9 @@ namespace JobReady.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -273,7 +395,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("JobReady.PostEngagement", b =>
@@ -292,8 +414,9 @@ namespace JobReady.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -312,7 +435,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostEngagements");
+                    b.ToTable("PostEngagement");
                 });
 
             modelBuilder.Entity("JobReady.Recommendation", b =>
@@ -323,18 +446,21 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("InstructorId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("InstructorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InstructorReply")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<long>("StudentId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StudentRequest")
                         .IsRequired()
@@ -347,7 +473,7 @@ namespace JobReady.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Recommendations");
+                    b.ToTable("Recommendation");
                 });
 
             modelBuilder.Entity("JobReady.Skill", b =>
@@ -365,7 +491,7 @@ namespace JobReady.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skills");
+                    b.ToTable("Skill");
                 });
 
             modelBuilder.Entity("JobReady.University", b =>
@@ -389,7 +515,7 @@ namespace JobReady.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Universities");
+                    b.ToTable("University");
                 });
 
             modelBuilder.Entity("JobReady.UniversityMajor", b =>
@@ -412,35 +538,42 @@ namespace JobReady.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("UniversityMajors");
+                    b.ToTable("UniversityMajor");
                 });
 
             modelBuilder.Entity("JobReady.UserAccount", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("About")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
                     b.Property<int>("AccountType")
                         .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
@@ -462,30 +595,58 @@ namespace JobReady.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<long>("PhoneNumber")
-                        .HasColumnType("bigint");
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UserDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IndustryId");
 
-                    b.ToTable("UserAccounts");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("JobReady.UserSkill", b =>
@@ -499,8 +660,9 @@ namespace JobReady.Migrations
                     b.Property<long>("SkillId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserAccountId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserAccountId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -508,7 +670,191 @@ namespace JobReady.Migrations
 
                     b.HasIndex("UserAccountId");
 
-                    b.ToTable("UserSkills");
+                    b.ToTable("UserSkill");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("JobReady.Education", b =>
+                {
+                    b.HasOne("JobReady.Major", "Major")
+                        .WithMany()
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("JobReady.University", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("JobReady.UserAccount", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Major");
+
+                    b.Navigation("School");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("JobReady.Experience", b =>
+                {
+                    b.HasOne("JobReady.UserAccount", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("JobReady.Industry", "Industry")
+                        .WithMany()
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("JobReady.UserAccount", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Industry");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("JobReady.Faculty", b =>
@@ -704,6 +1050,57 @@ namespace JobReady.Migrations
                     b.Navigation("Skill");
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("JobReady.UserAccount", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("JobReady.UserAccount", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobReady.UserAccount", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("JobReady.UserAccount", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JobReady.JobPost", b =>

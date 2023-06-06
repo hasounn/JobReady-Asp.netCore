@@ -25,6 +25,6 @@ public class FileLink
     [Display(Name = "Created On")]
     public DateTime CreatedOn { get; set; }
     [Required]
-    public long CreatedById { get; set; }
+    public string CreatedById { get; set; }
     public UserAccount CreatedBy { get; set; }
 }

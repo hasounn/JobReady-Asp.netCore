@@ -8,7 +8,7 @@ public class Education
     public long Id { get; set; }
 
     [Required]
-    public long UserId { get; set; }
+    public string UserId { get; set; }
     public UserAccount User { get; set; }
 
     public long? SchoolId { get; set; }
