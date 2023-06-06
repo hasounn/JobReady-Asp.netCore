@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace JobReady;
 
-public class JobReadyContext : DbContext
+public class JobReadyContext : IdentityDbContext<UserAccount>
 {
     public JobReadyContext(DbContextOptions<JobReadyContext> options) : base(options)
     {
@@ -33,6 +35,7 @@ public class JobReadyContext : DbContext
         .HasOne(f => f.UserAccount)
         .WithMany(u => u.Followings)
         .HasForeignKey(f => f.UserAccountId)
+        .HasPrincipalKey(u => u.Id)
         .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Follower>()

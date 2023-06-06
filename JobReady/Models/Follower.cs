@@ -9,12 +9,12 @@ public class Follower
     public long Id { get; set; }
 
     [Required]
-    public long UserAccountId { get; set; }
+    public string UserAccountId { get; set; }
     public UserAccount UserAccount { get; set; }
 
     [Required]
     [Display(Name = "Following")]
-    public long FollowingId { get; set; }
+    public string FollowingId { get; set; }
     public UserAccount Following { get; set; }
 
     [Display(Name = "Followed On")]

@@ -13,8 +13,9 @@ public class Post
     public string Content { get; set; }
 
     [Required]
-    public long CreatedById { get; set; }
+    public string CreatedById { get; set; }
     public UserAccount CreatedBy { get; set; }
+
     [Required]
     public DateTime CreatedOn { get; set; }
 }
