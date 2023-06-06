@@ -1,0 +1,54 @@
+﻿@import url("root.css");
+
+.create-post-div{
+    max-width:calc(100% - 100px);
+    width:100%;
+    height:fit-content;
+    border-radius:28px;
+    background:var(--lightwhite);
+}
+
+.img-resizing{
+    width:60px;
+}
+
+.textarea-post{
+    all:unset;
+    height:30px;
+    max-height:200px;
+    overflow:visible;
+}
+
+.photo-video-choose{
+    user-select:none;
+    cursor:pointer;
+}
+.photo-video {
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+}
+
+.picture-wrapper{
+    background-color:#c7c7c7;
+    border-radius:25px;
+}
+
+.img-user{
+    width:100%;
+    max-width:200px;
+}
+
+.post-btn {
+    background: rgba(19, 155, 228, 0.7);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 4px 6px 4px rgba(0, 49, 221, 0.33);
+    border-radius: 20.5px;
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+    color:var(--lightwhite);
+}
+
+@media (max-width:580px) {
+    .create-post-div {
+        max-width: 100%;
+    }
+}
