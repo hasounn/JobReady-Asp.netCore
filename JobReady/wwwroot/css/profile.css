@@ -1,0 +1,266 @@
+﻿@import url("root.css");
+
+body{
+    color:var(--lightwhite);
+}
+.height-fix{
+    height:fit-content;
+}
+
+.img-sizing {
+    width: 150px;
+    box-shadow: 0px 0px 200px 33px rgba(162, 213, 255, 0.7);
+}
+
+.profile-btn {
+    color: var(--lightwhite);
+    padding: 8px 20px;
+    background: var(--lightblue);
+    filter: drop-shadow(0px 4px 9px #232C31);
+}
+
+.fullname-p{
+    font-weight:500;
+    font-size:18px;
+}
+
+.username-span{
+    font-weight:200;
+    color:var(--gray-asset3);
+    font-size:12px;
+}
+
+.nb-of-posts{
+    font-size:30px;
+    font-weight:700;
+}
+
+.nb-of-followers, .nb-of-likes {
+    font-weight: 700;
+}
+
+.width-fix{
+    width:50%;
+}
+
+.headline:last-child{
+    font-size:13px;
+}
+
+.glass-box {
+    width: 100%;
+    height: fit-content;
+    background: linear-gradient(95.17deg, rgba(244, 250, 255, 0.4) 1.22%, rgba(244, 250, 255, 0) 100%);
+    box-shadow: inset 8px 4px 4px rgba(244, 250, 255, 0.7);
+    border-radius: 36px;
+}
+
+.section-title{
+    font-size:18px;
+}
+
+    /*Joined Custom List*/
+
+    .joined-custom-list{
+        list-style-type:none;
+    }
+
+        .joined-custom-list > li {
+            position: relative;
+            margin:0;
+            padding-bottom: 1em;
+            padding-left: 20px;
+        }
+
+            .joined-custom-list > li:before {
+                background-color: var(--greenish-blue);
+                width: 3px;
+                content: '';
+                position: absolute;
+                top: 24px;
+                bottom: 0px;
+                left: 12.5px;
+                margin: 4px 0 3px 0;
+                border-radius: 5px;
+                filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.25));
+            }
+
+            /* Start the line further down on the first list item */
+            .joined-custom-list > li:first-child:before {
+                top:24px;
+            }
+
+            /* Stop the line short on the final list item */
+            .joined-custom-list > li:last-child:before {
+                top:-8px;
+                height: 6px;
+            }
+    
+            /* Styles for the SVG bullet points */
+            .bullet {
+                margin-left: -20px;
+                width: 38px;
+                fill: #50646F;
+                padding-right: 10px;
+                filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.25));
+            }
+
+            .joined-custom-list > li > section {
+                margin-top: -24px;
+                margin-left: 12px;
+            }
+                
+            .company-time, .uni-time{
+                font-size:11.5px;
+            }
+
+/*Custom List*/
+.custom-list {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+    .custom-list > li {
+        margin-bottom: 10px;
+        font-weight:200;
+    }
+
+        .custom-list > li:before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 24px;
+            margin-right: 10px;
+            margin-bottom: -2px;
+            position: relative;
+        }
+
+        .custom-list > li:nth-child(even):before {
+            background: url("../assets/bulletPoints/bullet-darkblue.svg");
+            background-repeat: no-repeat;
+            background-position: center 115%;
+        }
+
+        .custom-list > li:nth-child(odd):before {
+            background: url("../assets/bulletPoints/bullet-lightblue.svg");
+            background-repeat: no-repeat;
+            background-position: center 119%;
+        }
+
+/* Applying CSS to sphere */
+.tagcloud {
+    display: inline-block;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'League Gothic', cursive;
+    font-size: 20px;
+}
+
+/* Change color of each text in sphere on hover   */
+.tagcloud--item:hover {
+    color: #139be4;
+}
+
+.project-card {
+    background: linear-gradient(119.96deg, rgba(244, 250, 255, 0.6) 1.13%, rgba(244, 250, 255, 0.24) 100%);
+    box-shadow: inset 6px 4px 10px #F4FAFF;
+    border-radius: 35px;
+    max-width:380px;
+    width:100%;
+    padding:15px;
+}
+
+.project-card img{
+    width:100%;
+    border-radius:15px;
+}
+
+.project-name{
+    font-family:"League Gothic", sans-serif;
+    color:var(--gray-asset1);
+    font-size:1.5rem;
+}
+
+.project-visit {
+    background: linear-gradient(93.44deg, #139BE4 1.37%, rgba(19, 90, 228, 0.4) 103.74%);
+    border-radius: 5em;
+    max-width:101px;
+    max-height:29px;
+    width:100%;
+    height:100%;
+}
+
+.project-visit img{
+    width:18px;
+}
+
+.project-visit p{
+    text-decoration:none;
+    color:var(--lightwhite);
+    font-family:"League Gothic", sans-serif;
+    font-size:14px;
+}
+
+.yourposts-title {
+    position: relative;
+    display: inline-block;
+    color: var(--lightwhite);
+    width: 130px;
+    font-size: 42px;
+    font-family:"League Gothic", sans-serif;
+}
+
+    .yourposts-title::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
+
+.post {
+    background: var(--lightwhite);
+<<<<<<< HEAD
+    width: 100%;
+=======
+    width: calc(100% - 100px);
+>>>>>>> 1f336292555f58fd0a0b7abd39f6567532165b84
+    height: fit-content;
+    padding: 1em;
+    border-radius: 20px;
+}
+
+.img-post {
+    width: 55px;
+}
+
+.dot-post {
+    font-size: 24px;
+}
+
+@media (max-width:1168px){
+    .width-fix{
+        width:100%;
+    }
+}
+
+@media (max-width:1021px){
+    .post{
+        width:100%;
+    }
+}
+
+@media screen and (min-width:576px){
+    .carousel-inner{
+        display:flex;
+    }
+
+    .carousel-item{
+        display:block;
+        margin-right:0;
+        flex:0 0 calc(100%/1.25);
+    }
+}
