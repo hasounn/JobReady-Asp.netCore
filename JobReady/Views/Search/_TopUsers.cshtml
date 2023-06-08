@@ -1,0 +1,56 @@
+﻿@for(var i = 0 ; i<5; i++){
+    switch (i)
+    {
+        case 0:
+        <div class="d-flex flex-row align-item-center pill my-1 rounded-pill">
+            <div class="d-flex flex-row align-items-center gap-3 first-pill-part p-2">
+                <img src="~/assets/images/image-placeholder.png" class="img-resize rounded-circle"/>
+                    <p>Santiago Valdarrama</p>
+            </div>
+            <div class="d-flex flex-row gap-2 second-pill-part align-items-center justify-content-center" style="--accent-color:#0077B6;">
+                    <p class="fw-bold"><span class="fs-4">&#35;</span>1</p>
+            </div>
+        </div>
+            break;
+        case 1:
+            <div class="d-flex flex-row align-item-center my-1 pill rounded-pill">
+                <div class="d-flex flex-row align-items-center gap-3 first-pill-part p-2">
+                    <img src="~/assets/images/image-placeholder.png" class="img-resize rounded-circle" />
+                        <p>Santiago Valdarrama</p>
+                </div>
+                <div class="d-flex flex-row gap-2 second-pill-part align-items-center justify-content-center" style="--accent-color:#00B4D8;">
+                    <p class="fw-bold"><span class="fs-4">&#35;</span>2</p>
+                </div>
+            </div>
+            break;
+        case 2:
+            <div class="d-flex flex-row align-item-center my-1 pill rounded-pill">
+                <div class="d-flex flex-row align-items-center gap-3 first-pill-part p-2">
+                    <img src="~/assets/images/image-placeholder.png" class="img-resize rounded-circle" />
+                        <p>Santiago Valdarrama</p>
+                </div>
+                <div class="d-flex flex-row gap-2 second-pill-part align-items-center justify-content-center" style="--accent-color:#90E0EF;">
+                    <p class="fw-bold"><span class="fs-4">&#35;</span>3</p>
+                </div>
+            </div>
+            break;
+        default:
+            <div class="d-flex flex-row align-item-center my-1 pill rounded-pill">
+                <div class="d-flex flex-row align-items-center gap-3 first-pill-part one-side p-2">
+                    <img src="~/assets/images/image-placeholder.png" class="img-resize rounded-circle" />
+                        <p>Santiago Valdarrama</p>
+                </div>
+            </div>
+            break;
+    }
+}
+
+<div class="d-flex flex-row align-item-center my-1 pill rounded-pill view-more-pill">
+    <div class="d-flex flex-row align-items-center justify-content-center gap-3 first-pill-part one-side p-2">
+        <svg class="svg-width" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18" stroke="#139BE4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 18V6" stroke="#139BE4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p class="view-more-text">View More</p>
+    </div>
+</div>

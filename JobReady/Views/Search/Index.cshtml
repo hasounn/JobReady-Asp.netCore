@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+
+<link rel="stylesheet" href="~/css/search.css"/>
+
+<div class="d-flex flex-column h-auto p-5 w-100 gap-4 light-main-bg">
+    <p class="search-title">Search</p>
+    <form asp-controller="Search" asp-action="Search" method="post" class="d-flex flex-row">
+        <input type="text" placeholder="Search JobReady..." class="search-input w-100" />
+        <button class="search-btn">
+            <div class="d-flex flex-row allign-items-end gap-1">
+                <svg class="m-1" width="18" height="19" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 25L16.7774 16.7774M9.32696 17.6539C10.4205 17.6539 11.5033 17.4385 12.5135 17.0201C13.5238 16.6016 14.4418 15.9882 15.215 15.215C15.9882 14.4418 16.6016 13.5238 17.0201 12.5135C17.4385 11.5033 17.6539 10.4205 17.6539 9.32696C17.6539 8.23344 17.4385 7.15064 17.0201 6.14037C16.6016 5.1301 15.9882 4.21214 15.215 3.43891C14.4418 2.66568 13.5238 2.05232 12.5135 1.63385C11.5033 1.21538 10.4205 1 9.32696 1C7.11851 1 5.00052 1.8773 3.43891 3.43891C1.8773 5.00052 1 7.11851 1 9.32696C1 11.5354 1.8773 13.6534 3.43891 15.215C5.00052 16.7766 7.11851 17.6539 9.32696 17.6539Z" stroke="#F4FAFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <p>Find</p>
+            </div>
+        </button>
+    </form>
+    <p class="top-users-title">Top Users</p>
+    <div class="users d-flex flex-row flex-wrap gap-2">
+        <partial name="_TopUsers"/>
+    </div>
+    <p class="recent-posts-title">Recent Posts</p>
+    <div class="posts d-flex flex-column flex-wrap gap-3">
+        <partial name="_Posts" />
+    </div>
+</div>
