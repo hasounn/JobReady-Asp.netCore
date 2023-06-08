@@ -76,6 +76,7 @@
                             </div>
                         </a>
                     </li>
+                    <div class="d-flex flex-column flex-lg-row justify-content-lg-between justify-content-start">
                     <li class="nav-item" id="profile-nav">
                         <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
@@ -88,6 +89,21 @@
                             </div>
                         </a>
                     </li>
+                    <li class="nav-item logout" id="logout-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Logout" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M17.4399 14.62L19.9999 12.06L17.4399 9.5" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M9.76001 12.0601H19.93" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M11.76 20C7.34001 20 3.76001 17 3.76001 12C3.76001 7 7.34001 4 11.76 4" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+
+                                <p class="d-lg-none d-inline-block">Logout</p>
+                            </div>
+                        </a>
+                    </li>
+            </div>
                 </ul>
             </div>
         </nav>
