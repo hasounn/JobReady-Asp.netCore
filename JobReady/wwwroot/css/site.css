@@ -77,6 +77,29 @@ body {
 .nav-item.active .settings-path {
     fill:var(--lightwhite);
 }
+.nav-item:hover {
+    background: var(--dark-bg1);
+    border-radius: 50px;
+    padding: 2px 20px 2px 8px;
+    margin-left:-10px;
+    width:fit-content;
+    animation:fade-in 0.25s ease-in;
+}
+
+.logout:hover {
+    padding: 2px 8px 2px 8px;
+}
+    .nav-item:hover p {
+        color: var(--lightwhite);
+    }
+
+.nav-item:hover .path {
+    stroke:var(--lightwhite);
+}
+
+.nav-item:hover .settings-path {
+    fill:var(--lightwhite);
+}
 
 .nav-item.fade-out{
     animation:fade-out 0.25s ease-out forwards;
