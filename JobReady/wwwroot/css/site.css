@@ -52,6 +52,9 @@ body {
 .dark-main-bg{
     background-color:var(--dark-bg1);
 }
+.light-main-bg{
+    background-color:var(--lightgray);
+}
 
 .logo-resize {
     width: 50%;
