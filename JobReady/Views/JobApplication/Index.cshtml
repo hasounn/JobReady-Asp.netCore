@@ -16,7 +16,7 @@
         <div class="d-flex flex-column gap-3 ">
             <p class="company-name color-light-white fs-5 fw-bold text-lg-start text-center">Company:<br /><span class="name fs-6 fw-normal">Supportful</span></p>
             <a role="button" class="apply-btn">
-                <div class="d-flex flex-row align-items-center p-1 gap-2">
+                <div class="d-flex flex-row align-items-center p-1 gap-2" data-bs-toggle="modal" data-bs-target="#applyLetterModal">
                     <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -64,15 +64,21 @@
     </div>
 </div>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="applyLetterModal" tabindex="-1" aria-labelledby="applyLetterModal" aria-hidden="true">
+        <button type="button" class="btn close" data-bs-dismiss="modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="modal-title">Send A Letter of Motivation</h1>
             </div>
             <div class="modal-body">
-                ...
+                <textarea class="letter" placeholder="Enter your letter here ..."></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary rounded-pill">Send Letter</button>
