@@ -83,9 +83,25 @@
 imageJobOpp{
     width:80px;
 }
+
+.jobApp{
+    text-decoration:none;
+    color:inherit;
+}
+
+.jobApp:hover{
+    background:var(--gray-asset2);
+    color:var(--gold);
+}
+
+ .jobApp:hover .jobOpp {
+    background: var(--dark-bg1);
+    border-radius:10px;
+}
 .jobOpp{
     width:fit-content;
     padding:10px;
+    transition:0.15s ease-in;
 }
 
 .location{

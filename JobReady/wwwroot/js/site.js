@@ -19,10 +19,8 @@ window.addEventListener("load", () => {
         post.classList.add("active");
     } else if (url.includes("settings")) {
         settings.classList.add("active");
-    } else if (url.includes("profile")) {
+    } else if (url.includes("profile") && !url.includes("profile/id")) {
         profile.classList.add("active");
-    } else {
-        home.classList.add("active");
     }
 })
 
@@ -34,12 +32,14 @@ const removeAllActives = () => {
 
 navItems.forEach(item => {
     item.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent the default link behavior
         const active = document.querySelector(".active");
-        active.classList.add('fade-out'); // Add the fade-out class to initiate the animation
-        const a = item.querySelector("a"); //select the <a> in the item
-        setTimeout(function () {
-            window.location.href=a.href; // Navigate to the link's href after a delay
-        }, 200); // Adjust the duration of the fade-out animation (in milliseconds) and the delay before changing the href as needed
+        if (active) {
+            e.preventDefault(); // Prevent the default link behavior
+            active.classList.add('fade-out'); // Add the fade-out class to initiate the animation
+            const a = item.querySelector("a"); //select the <a> in the item
+            setTimeout(function () {
+                window.location.href = a.href; // Navigate to the link's href after a delay
+            }, 200); // Adjust the duration of the fade-out animation (in milliseconds) and the delay before changing the href as needed }
+        }
     });
 })

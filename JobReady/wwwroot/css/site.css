@@ -51,6 +51,7 @@ body {
 
 .dark-main-bg{
     background-color:var(--dark-bg1);
+    max-height:fit-content!important;
 }
 .light-main-bg{
     background-color:var(--lightgray);
