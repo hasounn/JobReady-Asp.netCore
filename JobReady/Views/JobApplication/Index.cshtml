@@ -81,10 +81,11 @@
                 <textarea class="letter" placeholder="Enter your letter here ..."></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary rounded-pill">Send Letter</button>
+                <a role="button" class="btn btn-primary rounded-pill" asp-controller="JobApplication" asp-action="Apply">Send Letter</a>
             </div>
         </div>
     </div>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/jobApplication.js"></script>

@@ -5,3 +5,10 @@
         container.style.setProperty('height', 'fit-content', 'important')
     }
 });
+
+$(".letter").each(function () {
+    this.setAttribute("style", "height: 40px;overflow-y:hidden;");
+}).on("input", function () {
+    this.style.height = 40 + "px";
+    this.style.height = (this.scrollHeight) + "px";
+});
