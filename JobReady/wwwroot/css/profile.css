@@ -221,25 +221,6 @@ body{
         clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
     }
 
-.post {
-    background: var(--lightwhite);
-    width: 100%;
-    height: fit-content;
-    padding: 1em;
-    border-radius: 20px;
-}
-
-.img-post {
-    width: 55px;
-}
-
-.dot-post {
-    font-size: 24px;
-}
-.time-post {
-    font-size: 12px;
-}   
-
 @media (max-width:1168px){
     .width-fix{
         width:100%;

@@ -27,19 +27,7 @@
     }
 
 .post{
-    background:var(--lightwhite);
-    width:calc(100% - 100px);
-    height:fit-content;
-    padding:1em;
-    border-radius:20px;
-}
-
-.img-post{
-    width:55px;
-}
-
-.dot-post{
-    font-size:24px;
+    width:calc(100% - 100px)!important;
 }
 .jobs {
     all:unset;
@@ -91,12 +79,8 @@ imageJobOpp{
 .location{
     font-size:14px;
 }
-.timeOn{
-    font-size:12px;
-}
-
-.time-post{
-    font-size:12px;
+.timeOn {
+    font-size: 12px;
 }
 
 @media only screen and (max-width:1023.5px) {
