@@ -89,10 +89,6 @@ body {
     width:fit-content;
     animation:fade-in 0.25s ease-in;
 }
-
-.logout:hover {
-    padding: 2px 8px 2px 8px;
-}
     .nav-item:hover p {
         color: var(--lightwhite);
     }
@@ -109,6 +105,19 @@ body {
     animation:fade-out 0.25s ease-out forwards;
 }
 
+.drop:hover {
+    background: transparent;
+    border-radius: 0;
+    padding:0;
+    margin-left: 0;
+    width: 100%;
+}
+
+
+.logout:hover {
+    padding: 2px 8px 2px 8px;
+}
+
 .navbar-toggler, .navbar-toggler:focus{
     all: unset;
     padding:2px 20px 2px 20px;
@@ -117,6 +126,32 @@ body {
 .navbar-toggler-icon {
     width: 2.5em!important;
     height: 2.5em!important;
+}
+
+.btn, .btn:focus, .btn:focus-visible, .btn:focus-within, .btn:active, .btn:active:focus, .btn:active:focus-visible, .btn:active:focus-within,
+a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:focus-visible, a:active:focus-within {
+    outline: none !important;
+    border: none !important;
+    appearance: none !important;
+    box-shadow: none;
+    padding-left: 10px;
+}
+
+#post-nav {
+    padding: 2px 20px 2px 0;
+}
+
+.drop-post{
+    border-bottom:1px solid var(--gray-asset3);
+}
+
+.dropdown-menu {
+    background: var(--dark-bg1);
+    color: var(--lightwhite);
+    border-radius: 15px;
+    width: fit-content !important;
+    margin-left: -5px;
+    overflow: clip;
 }
 
 @media only screen and (min-width: 1300px) {

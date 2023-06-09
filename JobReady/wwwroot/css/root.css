@@ -18,7 +18,7 @@
     color:var(--lightblue);
 }
 .color-light-white{
-    color:var(--lightwhite);
+    color:var(--lightwhite)!important;
 }
 
 .color-gray-asset1 {
@@ -35,4 +35,8 @@
 
 .disable-select{
     user-select:none;
+}
+
+.modal{
+    overflow:hidden!important;
 }
