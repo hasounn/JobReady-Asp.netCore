@@ -24,7 +24,7 @@ namespace JobReady.Controllers
             var photo = await context.FileLink.FindAsync(photoId);
             if(photo != null)
             {
-                return File(photo.ContentHash, photo.Name);
+                return File(photo.ContentHash, "image/png");
             }
             else
             {
