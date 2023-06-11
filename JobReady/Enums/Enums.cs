@@ -84,3 +84,13 @@ public enum DegreeType
     AssociateOfScience,
     Other
 }
+
+public enum JobLevel
+{
+    Internship,
+    Entry_Level,
+    Junior,
+    Trainee,
+    Apprentice,
+    Assistant
+}

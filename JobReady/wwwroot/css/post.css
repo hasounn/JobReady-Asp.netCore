@@ -19,6 +19,24 @@
         background: var(--lightblue);
         clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
     }
+    .create-new-job-post{
+    color:var(--lightwhite);
+    font-size:2.5em;
+    font-family:"League Gothic",sans-serif;
+    width:220px;
+    position:relative;
+}
+
+    .create-new-job-post::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
 .create-post-div {
     max-width: calc(100% - 100px);
     width: 100%;
@@ -64,6 +82,54 @@
     font-family: "League Gothic", sans-serif;
     font-size: 18px;
     color:var(--lightwhite);
+}
+
+#job-title{
+    all:unset;
+    background:var(--lightblue);
+    color:var(--lightwhite);
+    padding:5px 8px 5px 12px;
+    border-radius:50px;
+    width:320px;
+}
+
+#job-title::placeholder{
+    color:#e3e3e3d9;
+}
+
+.job-level-select {
+    position: relative;
+    display: inline-block;
+    width:fit-content;
+    
+}
+
+    .job-level-select select {
+        all: unset;
+        background: var(--lightblue);
+        color: var(--lightwhite);
+        padding: 3px 10px;
+        border-radius: 50px;
+        width: 150px;
+    }
+
+    .job-level-select img {
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        z-index:2;
+    }
+
+.skillset-item{
+    background:var(--lightgray);
+    color:var(--lightblue);
+    width:fit-content;
+    padding:3px 5px;
+    font-size:12px;
 }
 
 @media (max-width:580px) {
