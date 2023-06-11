@@ -27,6 +27,9 @@ builder.Services.AddIdentity<UserAccount, IdentityRole>(options =>
     .AddEntityFrameworkStores<JobReadyContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 // Configure authentication cookies
 builder.Services.ConfigureApplicationCookie(options =>
 {

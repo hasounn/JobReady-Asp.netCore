@@ -43,7 +43,6 @@ public enum EngagementType
     Like,
     Report,
     Share,
-    Test
 }
 
 public enum RecommendationStatus

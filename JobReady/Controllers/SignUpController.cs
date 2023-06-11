@@ -57,18 +57,40 @@ namespace JobReady.Controllers
                     CreatedOn = DateTime.Now,
                     ModifiedOn = DateTime.Now
                 };
-
-
+                
                 var result = await userManager.CreateAsync(newUser, details.Password);
-
+               
                 if (result.Succeeded)
                 {
-                    //context.UserAccount.Add(newUser);
-                    //await context.SaveChangesAsync();
-
                     // Optionally, you can sign in the user after registration
                     await signInManager.SignInAsync(newUser, isPersistent: false);
 
+                    if (details.ProfileImage.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await details.ProfileImage.CopyToAsync(memoryStream);
+                            if (memoryStream.Length < 2097152)
+                            {
+                                var newPhoto = new FileLink()
+                                {
+                                    ContentHash = memoryStream.ToArray(),
+                                    Name = details.ProfileImage.FileName,
+                                    ContentSize = details.ProfileImage.Length,
+                                    ObjectType = ObjectType.UserAccount,
+                                    CreatedById = newUser.Id,
+                                    CreatedOn = DateTime.Now,
+
+                                };
+                                context.FileLink.Add(newPhoto);
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Photo", "The Photo is too large");
+                            }
+                        }
+                    }
                     return RedirectToAction("Index", "Home"); // Replace with your desired action and controller
                 }
 
