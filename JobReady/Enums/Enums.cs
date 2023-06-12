@@ -88,6 +88,7 @@ public enum DegreeType
 public enum JobLevel
 {
     Internship,
+    [Display(Name ="Entry Level")]
     Entry_Level,
     Junior,
     Trainee,
