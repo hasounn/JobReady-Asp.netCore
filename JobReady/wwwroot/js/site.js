@@ -33,7 +33,8 @@ const removeAllActives = () => {
 navItems.forEach(item => {
     item.addEventListener("click", (e) => {
         const active = document.querySelector(".active");
-        if (active) {
+        const dropdown = item.querySelector(".dropdown");
+        if (active && !dropdown) {
             e.preventDefault(); // Prevent the default link behavior
             active.classList.add('fade-out'); // Add the fade-out class to initiate the animation
             const a = item.querySelector("a"); //select the <a> in the item

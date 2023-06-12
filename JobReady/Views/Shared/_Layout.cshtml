@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@*@model JobReady.UserAccount;*@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -52,18 +53,66 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item" id="post-nav">
-                        <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">
-                            <div class="d-flex flex-row gap-3">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <p>Post</p>
+                    @*@if(Model.AccountType == UserAccountType.Company)
+                    {
+                        
+                        <li class="nav-item" id="post-nav">
+                            <div class="dropdown w-100">
+                                <button class="btn d-flex flex-row align-items-center post-nav" data-bs-toggle="dropdown" aria-expanded="false" onclick="this.preventDefault();">
+                                    <div class="d-flex flex-row gap-3">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p>Announce</p>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li class="nav-item drop drop-post">
+                                        <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">
+                                            <div class="d-flex flex-row gap-3">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path class="path" d="M8 12H16" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path class="path" d="M12 16V8" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                                <p class="color-light-white">Post</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                <li class="nav-item drop">
+                                        <a class="nav-link" asp-area="" asp-controller="Post" asp-action="JobPost">
+                                            <div class="d-flex flex-row gap-3">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path class="path" d="M8 12H16" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path class="path" d="M12 16V8" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                                <p class="color-light-white">Job Post</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </a>
-                    </li>
+                        </li>
+                    }*@
+                    @*else
+                    {*@
+                        <li class="nav-item" id="post-nav">
+                            <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">
+                                <div class="d-flex flex-row gap-3">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p>Post</p>
+                                </div>
+                            </a>
+                        </li>
+                    @*}*@
+                    
                 </ul>
                 <ul class="navbar-nav d-flex flex-column gap-3 w-100">
                     <li class="nav-item" id="settings-nav">
@@ -97,15 +146,12 @@
                                     <path class="path" d="M9.76001 12.0601H19.93" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                     <path class="path" d="M11.76 20C7.34001 20 3.76001 17 3.76001 12C3.76001 7 7.34001 4 11.76 4" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-
-
                                 <p class="d-lg-none d-inline-block">Logout</p>
                             </div>
                         </a>
                     </li>
-            </div>
                 </ul>
-            </div>
+                </div>
         </nav>
     </header>
     
