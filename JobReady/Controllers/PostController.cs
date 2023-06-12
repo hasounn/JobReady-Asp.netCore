@@ -8,5 +8,10 @@ namespace JobReady.Controllers
         {
             return View();
         }
+
+        public IActionResult JobPost()
+        {
+            return View();
+        }
     }
 }

@@ -83,3 +83,14 @@ public enum DegreeType
     AssociateOfScience,
     Other
 }
+
+public enum JobLevel
+{
+    Internship,
+    [Display(Name ="Entry Level")]
+    Entry_Level,
+    Junior,
+    Trainee,
+    Apprentice,
+    Assistant
+}
