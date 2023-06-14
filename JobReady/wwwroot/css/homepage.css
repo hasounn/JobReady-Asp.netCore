@@ -78,7 +78,6 @@ imageJobOpp{
 }
 
 .jobApp:hover{
-    background:var(--gray-asset2);
     color:var(--gold);
 }
 
@@ -102,5 +101,10 @@ imageJobOpp{
 @media only screen and (max-width:1023.5px) {
     .jobs {
         top: 150px;
+    }
+    .jobOpp{
+        width:100%;
+        margin:0;
+        padding:30px;
     }
 }
