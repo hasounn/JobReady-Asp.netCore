@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using JobReady.Data.DTO;
+using System.ComponentModel;
 
 namespace JobReady;
 
@@ -37,6 +38,7 @@ public class UserAccountDetails
     public long PhoneNumber { get; set; }
 
     public long? IndustryId { get; set; }
+    public IndustryDetails Industry { get; set; }
 
     public string Headline { get; set; }
 
