@@ -3,7 +3,7 @@
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
-        maindiv.style.height = "fit-content";
+        maindiv.style.height = document.body.scrollHeight + "px";
     } else {
         maindiv.style.height = "100vh";
     }

@@ -14,6 +14,11 @@ namespace JobReady.Controllers
             return View();
         }
 
+        public IActionResult ProfileComp()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> GetProfilePicture(string userId)
         {
             var photoId = (from x in context.FileLink

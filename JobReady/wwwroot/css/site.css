@@ -139,6 +139,7 @@ a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:
 
 #post-nav {
     padding: 2px 20px 2px 8px;
+    margin-left:-5px;
 }
 
 .drop-post{
