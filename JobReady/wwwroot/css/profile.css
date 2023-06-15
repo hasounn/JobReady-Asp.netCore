@@ -201,7 +201,7 @@ body{
     font-size:14px;
 }
 
-.yourposts-title {
+.yourposts-title, .yourjobs-title {
     position: relative;
     display: inline-block;
     color: var(--lightwhite);
@@ -210,7 +210,7 @@ body{
     font-family:"League Gothic", sans-serif;
 }
 
-    .yourposts-title::after {
+    .yourposts-title::after, .yourjobs-title:after {
         content: "";
         position: absolute;
         bottom: -3px;
@@ -221,26 +221,54 @@ body{
         clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
     }
 
-@media (max-width:1168px){
-    .width-fix{
-        width:100%;
-    }
+.lower-fs-6{
+    font-size:13.5px;
 }
 
-@media (max-width:1021px){
-    .post{
-        width:100%;
+.job {
+    background: linear-gradient(90.7deg, var(--lightwhite) 0%, rgba(244, 250, 255, 0.4) 100%);
+    border-radius: 15px;
+    color: #000000;
+    cursor: pointer;
+    transition: all 2s ease-in-out;
+}
+    .job > div > p {
+        transition: all 0.25s ease-in-out;
     }
+.job:hover > div > p{
+    color: var(--gold);
+}
+.loc-remote {
+    font-size: 12px;
+}
+.loc-remote, .time-posted {
+    color:var(--gray-asset2);
 }
 
-@media screen and (min-width:576px){
-    .carousel-inner{
-        display:flex;
+.time-posted {
+    font-size: 11px;
+}
+
+    @media (max-width:1168px) {
+        .width-fix {
+            width: 100%;
+        }
     }
 
-    .carousel-item{
-        display:block;
-        margin-right:0;
-        flex:0 0 calc(100%/1.25);
+    @media (max-width:1021px) {
+        .post {
+            width: 100%;
+        }
     }
-}
+
+    @media screen and (min-width:576px) {
+        .carousel-inner {
+            display: flex;
+        }
+
+        .carousel-item {
+            display: block;
+            margin-right: 0;
+            flex: 0 0 calc(100%/1.25);
+        }
+    }
