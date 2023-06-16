@@ -5,11 +5,25 @@
 <link rel="stylesheet" href="~/css/jobApplication.css"/>
 
 <div class="d-flex flex-column gap-4 h-100 dark-main-bg px-5 py-4">
-    <div class="d-flex flex-row align-items-center gap-2">
-        <a role="button" href="javascript:window.location.href = document.referrer">
-            <img src="~/icons/arrow-circle-left.svg" class="back-arrow" />
-        </a>
-        <p class="color-light-blue fs-4 fw-bold">Internship React Engineer</p>
+    <div class="d-flex flex-row align-items-center justify-content-between gap-2">
+        <div class="d-flex flex-row align-items-center gap-2">  
+            <a role="button" href="javascript:window.location.href = document.referrer">
+                <img src="~/icons/arrow-circle-left.svg" class="back-arrow" />
+            </a>
+            <p class="color-light-blue fs-4 fw-bold">Internship React Engineer</p>
+        </div>
+        @{
+            //TODO: add specific condition
+        }
+        <div class="form-switch d-flex flex-row align-items-center gap-3">
+            <p class="color-light-white">Deactivate</p>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <p class="color-light-white">Activate</p>
+        </div>
+        
     </div>
     <div class="d-flex flex-column flex-lg-row align-items-center w-100 gap-3">
         <img src="~/favicon.svg" class="logo-resizing rounded-circle"/>
@@ -62,6 +76,11 @@
         <p class="color-light-white fs-4 fw-bold">Job Overview</p>
         <p class="fs-6 color-light-white fw-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac feugiat sed lectus vestibulum mattis ullamcorper velit. A diam maecenas sed enim ut sem. Eu volutpat odio facilisis mauris sit amet. Purus sit amet luctus venenatis lectus magna. Viverra suspendisse potenti nullam ac tortor. Sit amet facilisis magna etiam tempor orci eu lobortis elementum. Egestas fringilla phasellus faucibus scelerisque eleifend donec. Sapien pellentesque habitant morbi tristique senectus et. Adipiscing at in tellus integer feugiat scelerisque. Bibendum est ultricies integer quis auctor elit. Lacinia at quis risus sed vulputate. At erat pellentesque adipiscing commodo elit. In egestas erat imperdiet sed euismod nisi porta. Velit dignissim sodales ut eu sem integer vitae justo eget. Leo duis ut diam quam nulla porttitor. Ac feugiat sed lectus vestibulum. Rutrum quisque non tellus orci ac auctor augue mauris.</p>
     </div>
+    @{
+        //TODO : add condition to be the company that posted it
+    }
+    <a role="button" class="btn btn-danger rounded-pill w-100 color-light-white" asp-controller="JobApplication" asp-action="Delete">Delete</a>
+
 </div>
 
 <div class="modal fade" id="applyLetterModal" tabindex="-1" aria-labelledby="applyLetterModal" aria-hidden="true">
