@@ -1,0 +1,62 @@
+﻿@using JobReady.Controllers
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+<link rel="stylesheet" href="~/css/notification.css"/>
+
+<div class="d-flex flex-column form-side w-100 height-fix p-5">
+    <div class="d-flex flex-row w-100 justify-content-center align-items-center">
+        <div class="d-flex flex-column w-100 justify-content-center align-items-center">
+            <div class="d-flex flex-row notification-bar align-items-center">
+                <div class=" d-flex flex-row flex-wrap w-100 justify-content-around">
+                    <div class="d-flex top-bar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="icon-path" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#525657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="icon-path" d="M7.99998 3H8.99998C7.04998 8.84 7.04998 15.16 8.99998 21H7.99998" stroke="#525657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="icon-path" d="M15 3C16.95 8.84 16.95 15.16 15 21" stroke="#525657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16" stroke="#525657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001" stroke="#525657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <strong class="category" data-category="all">All</strong>
+                    </div>
+                    <div class="d-flex top-bar">
+                        <div class="d-flex top-bar">
+                            <img src="icons/profile-2user.svg" alt="2users" class="top-images">
+                            <strong class="category" data-category="follow-requests">Follow Requests</strong>
+                        </div>
+                    </div>
+                    <div class="d-flex top-bar">
+                        <div class="d-flex top-bar">
+                            <img src="icons/settings.svg" alt="settings" class="top-images">
+                            <strong class="category" data-category="recommendations">Recommendations</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+
+        <h2 class="text">Your Notifications</h2>
+        <div class="d-flex flex-column align-items-center justify-content-center" id="notification-list">
+            @for(var i =0 ; i<7; i++)
+            {
+                <div class="form-step d-flex flex-row justify-content-between align-items-center category-notification -notification">
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <img src="assets/images/image-placeholder.png" alt="User 1" class="user-image">
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <p class="usr-name" id="user-name">User 1</p>
+                        <p class="notification-content">Hello</p>
+                    </div>
+                            </div>
+                        <p class="p-2 notf-time">1 hour ago</p>
+                    </div>
+                   
+            }
+        </div>
+    </div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/notifications.js"></script>
