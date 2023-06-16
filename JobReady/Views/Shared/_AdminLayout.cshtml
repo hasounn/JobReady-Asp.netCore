@@ -1,0 +1,127 @@
+﻿@*@model JobReady.UserAccount;*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JobReady</title>
+    <link rel="icon" href="~/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="navBar-header">
+        <nav class="navbar navbar-expand-md navbar-light fixed-left nav-Color flex-column flex-column">
+            <div class="d-flex flex-row w-100 justify-content-between align-items-center">
+            <img src="~/assets/logo/blueLogo.svg" class="logo-resize"/>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse w-100 d-flex flex-column h-100 justify-content-lg-between gap-lg-0 gap-3" id="navbarNav">
+                <ul class="navbar-nav d-flex flex-column gap-3 w-100">
+                    <li class="nav-item" id="home-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M9.02 2.84004L3.63 7.04004C2.73 7.74004 2 9.23004 2 10.36V17.77C2 20.09 3.89 21.99 6.21 21.99H17.79C20.11 21.99 22 20.09 22 17.78V10.5C22 9.29004 21.19 7.74004 20.2 7.05004L14.02 2.72004C12.62 1.74004 10.37 1.79004 9.02 2.84004Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 17.99V14.99" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p>Dashboard</p>
+                            </div></a>
+                    </li>
+                    <li class="nav-item" id="users-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M9.16006 10.87C9.06006 10.86 8.94006 10.86 8.83006 10.87C6.45006 10.79 4.56006 8.84 4.56006 6.44C4.56006 3.99 6.54006 2 9.00006 2C11.4501 2 13.4401 3.99 13.4401 6.44C13.4301 8.84 11.5401 10.79 9.16006 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M16.41 4C18.35 4 19.91 5.57 19.91 7.5C19.91 9.39 18.41 10.93 16.54 11C16.46 10.99 16.37 10.99 16.28 11" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M4.15997 14.56C1.73997 16.18 1.73997 18.82 4.15997 20.43C6.90997 22.27 11.42 22.27 14.17 20.43C16.59 18.81 16.59 16.17 14.17 14.56C11.43 12.73 6.91997 12.73 4.15997 14.56Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M18.3401 20C19.0601 19.85 19.7401 19.56 20.3001 19.13C21.8601 17.96 21.8601 16.03 20.3001 14.86C19.7501 14.44 19.0801 14.16 18.3701 14" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <p>Manage Users</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="industry-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Industry" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M6.70001 18H4.15002C2.72002 18 2 17.28 2 15.85V4.15002C2 2.72002 2.72002 2 4.15002 2H8.45001C9.88001 2 10.6 2.72002 10.6 4.15002V6" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M17.3699 8.41998V19.58C17.3699 21.19 16.57 22 14.96 22H9.11993C7.50993 22 6.69995 21.19 6.69995 19.58V8.41998C6.69995 6.80998 7.50993 6 9.11993 6H14.96C16.57 6 17.3699 6.80998 17.3699 8.41998Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M13.3999 6V4.15002C13.3999 2.72002 14.1199 2 15.5499 2H19.8499C21.2799 2 21.9999 2.72002 21.9999 4.15002V15.85C21.9999 17.28 21.2799 18 19.8499 18H17.3699" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M10 11H14" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M10 14H14" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 22V19" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <p>Manage Industries</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="company-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p>Create Company</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-flex flex-column gap-3 w-100">
+                    <li class="nav-item" id="settings-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Admin">
+                            <div class="d-flex flex-row align-items-center gap-3">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="settings-path" d="M22.2477 14.8251C20.9432 12.5644 21.7269 9.66779 24 8.35087L21.5558 4.11713C20.8577 4.52604 20.0446 4.76082 19.1785 4.76082C16.5665 4.76082 14.4488 2.62918 14.4488 0H9.55895C9.56517 0.811609 9.36305 1.6341 8.9277 2.38663C7.62322 4.64732 4.72039 5.41539 2.44416 4.10625L0 8.33998C0.704328 8.73957 1.31381 9.32573 1.74605 10.0767C3.04898 12.3343 2.26846 15.2247 0.00466445 16.5447L2.44882 20.7784C3.14537 20.3726 3.95232 20.141 4.81524 20.141C7.41954 20.141 9.53097 22.2586 9.54496 24.8769H14.4348C14.4333 24.0731 14.6354 23.2599 15.0661 22.5152C16.369 20.2576 19.2641 19.488 21.5387 20.7893L23.9829 16.5556C23.2832 16.156 22.6784 15.5714 22.2477 14.8251ZM12.0016 17.476C9.22 17.476 6.96398 15.2216 6.96398 12.4385C6.96398 9.65535 9.21845 7.40088 12.0016 7.40088C14.7831 7.40088 17.0391 9.65535 17.0391 12.4385C17.0391 15.2216 14.7847 17.476 12.0016 17.476Z" fill="#535657" />
+                                </svg>
+                                <p>Settings</p>
+                            </div>
+                        </a>
+                    </li>
+                        <li>
+                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-between justify-content-start list-unstyled">
+                            <li class="nav-item" id="profile-nav">
+                                    <div class="d-flex flex-row gap-3">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path class="path" d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path class="path" d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p>Admin Name</p>
+                                    </div>
+                            </li>
+                            <li class="nav-item logout" id="logout-nav">
+                                <a class="nav-link" asp-area="" asp-controller="Logout" asp-action="Index">
+                                    <div class="d-flex flex-row gap-3">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path class="path" d="M17.4399 14.62L19.9999 12.06L17.4399 9.5" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path class="path" d="M9.76001 12.0601H19.93" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path class="path" d="M11.76 20C7.34001 20 3.76001 17 3.76001 12C3.76001 7 7.34001 4 11.76 4" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p class="d-lg-none d-inline-block">Logout</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+        </nav>
+    </header>
+    
+    <div class="w-100 vh-100 head-div">
+        @RenderBody()
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
