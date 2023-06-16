@@ -1,52 +1,59 @@
-﻿@model JobReady.Data.DTO.SignUpUserRegistry;
+﻿@using JobReady.Controllers
+
 @{
-    Layout = null;
-    ViewData["Title"] = "notification";
-
+    ViewData["Title"] = "Notification Example";
+    var notifications = ViewData["Notifications"] as List<Notification>;
 }
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - JobReady</title>
-    <link rel="icon" href="~/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
-</head>
+<link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
 
-<body>
-    <div class="d-flex flex-lg-row flex-column vw-100 vh-100">
-        <div class="d-flex flex-column vh-100 steps-container justify-content-between">
-            <div>
-                <img src="/assets/logo/blueLogo.svg" alt="JobReady Blue Logo" class="img-resize">
-            </div>
-        </div>
-        <div class="d-flex flex-column justify-content-center form-side">
-            <div class="align-items-center d-flex flex-column ">
-                <h1 class="notification-bar align-items-center ">
-                </h1>
-            </div>
-                <h2 class="text  ">Your Notifications </h2>
-            <div class="d-flex flex-column d-flex  flex-column align-items-center justify-content-center">
-                <div class="form-step  flex-md-row">
 
-                </div>
-                <div class="form-step flex-md-row">
 
+
+<div class="d-flex flex-lg-row flex-column height-fix">
+
+    <div class="d-flex flex-column justify-content-center form-side">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="notification-bar d-flex justify-content-around">
+                <div class="d-flex top-bar">
+                    <img src="icons/global.svg" alt="global" class="top-images">
+                    <strong class="category" data-category="all">All</strong>
                 </div>
-                <div class="form-step  flex-md-row ">
+                <div class="d-flex top-bar">
+                    <div class="d-flex top-bar">
+                        <img src="icons/profile-2user.svg" alt="2users" class="top-images">
+                        <strong class="category" data-category="follow-requests">Follow Requests</strong>
+                    </div>
                 </div>
-                <div class="form-step  flex-md-row">
+                <div class="d-flex top-bar">
+                    <div class="d-flex top-bar">
+                        <img src="icons/settings.svg" alt="settings" class="top-images">
+                        <strong class="category" data-category="recommendations">Recommendations</strong>
+                    </div>
                 </div>
             </div>
         </div>
 
-
-
-
-
+        <h2 class="text">Your Notifications</h2>
+        <div class="d-flex flex-column align-items-center justify-content-center" id="notification-list">
+            @foreach (var notification in notifications)
+            {
+                <div class="form-step d-flex flex-md-row justify-content-between category-notification @notification.Category-notification">
+                    <div class="d-flex p-2">
+                        <div>
+                            <img src="assets/images/image-placeholder.png" alt="User 1" class="user-image">
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="usr-name" id="user-name">User 1</div>
+                            <div class="notification-content">&nbsp;@notification.Message</div>
+                        </div>
+                    </div>
+                    <div class="d-flex p-2 align-items-center notf-time">@notification.Time</div>
+                </div>
+            }
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="notifications.js"></script>
