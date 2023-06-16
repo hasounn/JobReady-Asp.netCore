@@ -1,10 +1,16 @@
 ﻿
-const maindiv = document.querySelector(".height-fix");
+const maindiv = document.querySelector(".height-fix"),
+    notificationList = document.getElementById("notification-list");
 
 window.addEventListener("load", () => {
 
-    maindiv.style.height = document.body.scrollHeight + "px";
+    if (notificationList.children.length > 4) { 
+        maindiv.style.height = document.body.scrollHeight + "px";
+    } else{
+        maindiv.style.height = "100vh";
+    }
 })
+
 
 $(document).ready(function () {
 
