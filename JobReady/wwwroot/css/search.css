@@ -21,14 +21,14 @@
 
 .search-input::placeholder {
     color: #DBDBDB;
-    font-size: 25px;
-    font-family: "League Gothic",sans-serif;
+    font-size: 16px;
+    font-family: sans-serif;
 }
 
 .search-input {
     all: unset;
     background: rgba(52, 52, 52, 0.7);
-    padding: 15px 20px 12px 10px;
+    padding: 12px 20px 12px 10px;
     border-radius: 10px 0 0 10px;
     color:var(--lightwhite);
 
