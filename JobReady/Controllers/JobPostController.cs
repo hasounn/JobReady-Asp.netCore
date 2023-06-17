@@ -95,6 +95,15 @@ namespace JobReady.Controllers
             }
             TempData["Error"] = error;
             jobSkills.Clear();
+            details.CreatedBy =(from x in context.Users
+                                where x.UserName == this.User.Identity.Name
+                                select new UserAccountDetails()
+                                {
+                                    Id = x.Id,
+                                    Username = x.UserName,
+                                    Headline = x.Headline,
+                                }).FirstOrDefault();
+            details.Skills = GetSkills();
             return View(details);
         }
     }

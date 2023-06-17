@@ -4,13 +4,14 @@
 }
 
 <link rel="stylesheet" href="~/css/post.css"/>
+<partial name="_Alerts"  />
 
 <div class="d-flex flex-column p-4 height-fix dark-main-bg">
     <p class="create-new-job-post">Create New Job Post</p>
     <div class="d-flex flex-column align-items-center justify-content-center mt-3 w-100 h-100">
         <div class="create-post-div d-flex flex-column p-3 gap-3">
             <div class="d-flex flex-row gap-2">
-                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =Model.CreatedById})" class="rounded-circle img-resizing" />
+                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =@Model.CreatedById})" class="rounded-circle img-resizing"/>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">@Model.CreatedBy.Username</p>
                 </div>

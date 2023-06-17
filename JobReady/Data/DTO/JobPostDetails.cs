@@ -12,7 +12,6 @@
         public string CreatedById { get; set; }
         public UserAccountDetails CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-
         public string Validate()
         {
             if (string.IsNullOrEmpty(Title))
