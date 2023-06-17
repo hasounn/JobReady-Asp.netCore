@@ -68,11 +68,10 @@
             </div>
             <div class="modal-body p-3">
                 <select id="skillInput" class="addSkillText m-3">
-                    @*@foreach(SkillDetails skill in Model.Skills)
+                    @foreach(SkillDetails skill in Model.Skills)
                     {
                         <option value="@skill.Id">@skill.Name</option>
-                    }*@
-                    <option value="1" data-value-text="C#">C#</option>
+                    }
                 </select>
             </div>
             <div class="modal-footer">
