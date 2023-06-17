@@ -27,27 +27,28 @@ const addSkill = (e) => {
 
     $.ajax({
         type: "POST",
-        url: '/JobPost/AddSkill',
+        url: '/JobPost/FindSkill',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(skillId),
         dataType: "json",
         success: function (response) {
-            // Handle success
-            $.ajax({
-                type: "POST",
-                url: '/JobPost/FindSkill',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(skillId),
-                dataType: "json",
-                success: function (response) {
-                    // Handle success
-                    alert(response);
-                },
-                error: function (xhr, status, error) {
-                    // Handle error
-                    alert("An error occurred: " + error);
-                }
-            });
+            if (response == false) {
+                $.ajax({
+                    type: "POST",
+                    url: '/JobPost/AddSkill',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(skillId),
+                    dataType: "json",
+                    success: function (response) {
+                        skillSet.appendChild(p);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        alert("An error occurred: " + error);
+                    }
+                });
+            }
+           
         },
         error: function (xhr, status, error) {
             // Handle error
