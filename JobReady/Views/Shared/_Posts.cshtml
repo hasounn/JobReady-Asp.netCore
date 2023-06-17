@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<PostDetails>;
 
     @foreach(PostDetails post in Model){
- <div class="post d-flex flex-column">
+ <a class="post d-flex flex-column text-black text-decoration-none" asp-controller="Home" asp-action="Details">
         <div class="d-flex flex-row w-100 gap-3 align-items-start top-post">
         <img src="@Url.Action("GetProfilePicture","Profile", new {userId = post.CreatedById})" alt="Profile" class="rounded-circle img-post mt-2" />
             <div class="d-flex flex-column w-100 gap-1">
@@ -15,13 +15,7 @@
             </div>
         </div>
         <div class="d-flex flex-column w-100 mt-4 p-2 mb-5 gap-2 color-gray-asset1 middle-post">
-            <p>
-                Every single course that teaches Machine Learning starts with Linear Regression.<br />
-                <br />
-                I prefer to do it differently.<br />
-                <br />
-                If you are a software developer, start with Decision Trees and KNN.
-            </p>
+            <p>@post.Content</p>
             @if(post.ImageId != null)
             {
                 <img src="@Url.Action("GetPostPicture","Post", new {imageId = post.ImageId})" class="image-post-sizing"/>
@@ -60,7 +54,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </a>
     <partial name="_PostModal" />
     <partial name="_ReportModal" />
 }
