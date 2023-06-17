@@ -60,3 +60,13 @@ const addSkill = (e) => {
     const bootstrapModal = bootstrap.Modal.getInstance(modal);
     bootstrapModal.hide();
 };
+
+function handleCheckboxChange(arg) {
+    var isRemoteInput = document.getElementById('isRemote');
+
+    if (arg.checked) {
+        isRemoteInput.value = 'true';
+    } else {
+        isRemoteInput.value = 'false';
+    }
+}
