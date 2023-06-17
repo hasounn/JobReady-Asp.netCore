@@ -15,7 +15,7 @@ skillInput.addEventListener("keyup", (e) => {
 
 const addSkill = (e) => {
     e.preventDefault();
-    let skill = skillInput.options[selectElement.selectedIndex].textContent;
+    let skill = skillInput.options[skillInput.selectedIndex].textContent;
     let p = document.createElement("p");
     p.classList.add("skillset-item");
     p.textContent = skill;
@@ -25,7 +25,7 @@ const addSkill = (e) => {
             type: "POST",
             url: '@Url.Action("AddSkill", "JobPost")',
             contentType: "application/json; charset=utf-8",
-            data: { skillId: skillInput.options[selectElement.selectedIndex].value },
+            data: { skillId: skillInput.options[skillInput.selectedIndex].value },
             dataType: "json",
             success: function () { alert('Success'); },
             error: function () { alert('Error'); }
