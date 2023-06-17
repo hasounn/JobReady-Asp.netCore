@@ -1,4 +1,5 @@
 ﻿@if(TempData["Error"] != null){
+    <script src="~/lib/toastr/js/toastr.js"></script>
     <script type="text/javascript">
         toastr.error('@TempData["Error"]');
     </script>
