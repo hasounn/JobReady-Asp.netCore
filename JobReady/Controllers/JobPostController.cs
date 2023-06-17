@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobReady;
+using System.Transactions;
 
 namespace JobReady.Controllers
 {
@@ -25,21 +26,34 @@ namespace JobReady.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newJobPost = new JobPost
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    Description = details.Description,
-                    Title = details.Title,
-                    JobType = details.JobType,
-                    CreatedOn = details.CreatedOn,
-                    CreatedBy = details.CreatedBy,
-                };
+                    var newJobPost = new JobPost
+                    {
+                        Description = details.Description,
+                        Title = details.Title,
+                        JobType = details.JobType,
+                        IsActive = details.IsActive,
+                        CreatedById = this.User.Claims.First().Value,
+                        CreatedOn = DateTime.Now,
+                    };
 
-                context.JobPost.Add(newJobPost);
-                context.SaveChanges();
+                    context.JobPost.Add(newJobPost);
+                    context.SaveChanges();
 
+                    foreach(var skill in jobSkills)
+                    {
+                        var newSkill = new JobSkill()
+                        {
+                            JobPostId = newJobPost.Id,
+                            SkillId = skill.Id,
+                        };
+                        context.JobSkill.Add(newSkill);
+                        context.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index", "Home");
             }
-
             return View(details);
         }
     }
