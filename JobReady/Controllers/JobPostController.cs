@@ -17,7 +17,7 @@ namespace JobReady.Controllers
         {
             this.context = context;
         }
-        public IActionResult Index()
+        public IActionResult Create()
         {
             var user = (from x in context.Users
                         where x.UserName == this.User.Identity.Name
@@ -25,9 +25,9 @@ namespace JobReady.Controllers
                         {
                             Id = x.Id,
                             Username = x.UserName,
-                            AccountType = x.AccountType,
                             Headline = x.Headline,
                         }).FirstOrDefault();
+            jobSkills.Clear();
             return View(new JobPostDetails() { Skills = GetSkills(), CreatedBy = user});
         }
 
@@ -69,7 +69,7 @@ namespace JobReady.Controllers
                         Description = details.Description,
                         Title = details.Title,
                         JobType = details.JobType,
-                        IsActive = details.IsActive,
+                        IsActive = true,
                         IsRemote = details.IsRemote,
                         CreatedById = this.User.Claims.First().Value,
                         CreatedOn = DateTime.Now,
@@ -89,8 +89,10 @@ namespace JobReady.Controllers
                         context.SaveChanges();
                     }
                 }
+                jobSkills.Clear();
                 return RedirectToAction("Index", "Home");
             }
+            jobSkills.Clear();
             return View(details);
         }
     }

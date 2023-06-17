@@ -4,6 +4,7 @@ using JobReady;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobReady.Migrations
 {
     [DbContext(typeof(JobReadyContext))]
-    partial class JobReadyContextModelSnapshot : ModelSnapshot
+    [Migration("20230617191107_AddIsRemoteToJobPostTable")]
+    partial class AddIsRemoteToJobPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
