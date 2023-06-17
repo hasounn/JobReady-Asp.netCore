@@ -1,9 +1,9 @@
-﻿@{
+﻿@model IEnumerable<PostDetails>;
+@{
     ViewData["Title"] = "Home Page";
     //TODO: linking DTO and partial using ajax to manipulate data("filter-news-item")
         
 }
-@model JobReady.UserAccount
 
 <link rel="stylesheet" href="~/css/posts.css">
 <link rel="stylesheet" href="~/css/homepage.css">
@@ -37,7 +37,7 @@
     </div>
     <div class="d-flex flex-column w-100">
         <div class="w-100 d-flex flex-column w-100 align-items-center mt-5 gap-4 posts">
-            <partial name="_Posts" />
+            <partial name="_Posts" model="@Model" />
         </div>
     </div>
     <button class="jobs p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
