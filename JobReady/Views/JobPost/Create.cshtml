@@ -11,7 +11,7 @@
     <div class="d-flex flex-column align-items-center justify-content-center mt-3 w-100 h-100">
         <div class="create-post-div d-flex flex-column p-3 gap-3">
             <div class="d-flex flex-row gap-2">
-                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =@Model.CreatedById})" class="rounded-circle img-resizing"/>
+                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =@Model.CreatedBy.Id})" class="rounded-circle img-resizing"/>
                 <div class="d-flex flex-column">
                     <p class="fw-bold">@Model.CreatedBy.Username</p>
                 </div>
