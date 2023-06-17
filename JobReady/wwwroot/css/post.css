@@ -52,8 +52,8 @@
 .textarea-post{
     all:unset;
     height:30px;
-    max-height:80px;
-    overflow:visible;
+    max-height:100px;
+    overflow-y:scroll;
 }
 
 .photo-video-choose{
@@ -72,7 +72,7 @@
 
 .img-user{
     width:100%;
-    max-width:180px;
+    max-width:300px;
 }
 
 .post-btn {
