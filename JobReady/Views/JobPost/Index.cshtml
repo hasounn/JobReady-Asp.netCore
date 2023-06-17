@@ -70,7 +70,7 @@
                 <select id="skillInput" class="addSkillText m-3">
                     @foreach(SkillDetails skill in Model.Skills)
                     {
-                        <option value="@skill.Id">@skill.Name</option>
+                        <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
                     }
                 </select>
             </div>
