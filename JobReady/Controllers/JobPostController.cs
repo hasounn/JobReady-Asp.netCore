@@ -11,7 +11,7 @@ namespace JobReady.Controllers
     {
 
         private readonly JobReadyContext context;
-        private HashSet<long> jobSkills = new ();
+        private static HashSet<long> jobSkills = new ();
 
         public JobPostController(JobReadyContext context)
         {
@@ -37,14 +37,14 @@ namespace JobReady.Controllers
         [HttpPost]
         public IActionResult AddSkill([FromBody] long skillId)
         {
-                this.jobSkills.Add(skillId);
+                jobSkills.Add(skillId);
                 return Ok(true);
         }
 
         [HttpPost]
         public IActionResult FindSkill([FromBody] long skillId)
         {
-           bool found = this.jobSkills.Any(t => t == skillId);
+           bool found = jobSkills.Any(t => t == skillId);
             return Ok(found);
         }
 
