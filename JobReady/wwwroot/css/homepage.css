@@ -97,7 +97,7 @@ imageJobOpp {
 }
 
 .posts{
-    width:fit-content;
+    max-width:calc(100% - 150px);
 }
 
 @media only screen and (max-width:1023.5px) {

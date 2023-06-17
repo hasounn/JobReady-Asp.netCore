@@ -11,6 +11,9 @@
     width: 55px;
     height: 55px;
 }
+image-post-sizing{
+    width:fit-content;
+}
 
 .dot-post {
     font-size: 24px;
