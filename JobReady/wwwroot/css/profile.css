@@ -9,6 +9,7 @@ body{
 
 .img-sizing {
     width: 150px;
+    height: 150px;
     box-shadow: 0px 0px 200px 33px rgba(162, 213, 255, 0.7);
 }
 

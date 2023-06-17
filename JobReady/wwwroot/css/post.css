@@ -45,8 +45,9 @@
     background: var(--lightwhite);
 }
 
-.img-resizing{
-    width:60px;
+.img-resizing {
+    width: 60px;
+    height: 60px;
 }
 
 .textarea-post{
