@@ -1,6 +1,7 @@
 ﻿.post {
     background: var(--lightwhite);
-    width: 100%;
+    max-width: calc(100% - 150px);
+    width:100%;
     height: fit-content;
     padding: 1em;
     border-radius: 20px;
