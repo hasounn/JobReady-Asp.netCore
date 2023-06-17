@@ -18,7 +18,7 @@ namespace JobReady.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(new JobPostDetails() { Skills = GetSkills()});
         }
 
         [HttpGet]
