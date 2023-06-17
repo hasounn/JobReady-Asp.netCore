@@ -4,7 +4,7 @@ namespace JobReady;
 
 public class UserAccountDetails
 {
-    public long Id {get;set;}
+    public string Id {get;set;}
 
     [DisplayName("Full Name")]
     public string FullName { get; set; }

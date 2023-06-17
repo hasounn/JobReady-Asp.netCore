@@ -12,7 +12,16 @@ namespace JobReady.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var user = (from x in context.Users 
+                        where x.UserName == this.User.Identity.Name 
+                        select new UserAccountDetails()
+                        {
+                            Id = x.Id,
+                            Username = x.UserName,
+                            Headline = x.Headline,
+                        }).FirstOrDefault();
+
+            return View(new PostDetails() { CreatedBy = user});
         }
 
         [HttpPost]
