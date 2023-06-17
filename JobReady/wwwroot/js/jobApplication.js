@@ -7,7 +7,7 @@
 });
 
 $(".letter").each(function () {
-    this.setAttribute("style", "height: 40px;overflow-y:hidden;");
+    this.setAttribute("style", "height: 40px;overflow-y:scroll;");
 }).on("input", function () {
     this.style.height = 40 + "px";
     this.style.height = (this.scrollHeight) + "px";
