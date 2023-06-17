@@ -60,7 +60,8 @@ namespace JobReady.Controllers
         [HttpPost]
         public IActionResult Create(JobPostDetails details)
         {
-            if (ModelState.IsValid)
+            string error  = details.Validate();
+            if (ModelState.IsValid && error == null)
             {
                 using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
@@ -92,6 +93,7 @@ namespace JobReady.Controllers
                 jobSkills.Clear();
                 return RedirectToAction("Index", "Home");
             }
+            TempData["Error"] = error;
             jobSkills.Clear();
             return View(details);
         }
