@@ -10,7 +10,7 @@ namespace JobReady.Controllers
     {
 
         private readonly JobReadyContext context;
-        private HashSet<SkillDetails> jobSkills;
+        private HashSet<long> jobSkills = new ();
 
         public JobPostController(JobReadyContext context)
         {
@@ -19,6 +19,25 @@ namespace JobReady.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IEnumerable<SkillDetails> GetSkills()
+        {
+            var skills = (from x in context.Skill
+                          select new SkillDetails()
+                          {
+                              Id = x.Id,
+                              Name = x.Name,
+                          }).AsEnumerable();
+            return skills;
+        }
+
+        [HttpPost]
+        public IActionResult AddSkill(long skillId)
+        {
+            jobSkills.Add(skillId);
+            return Ok();
         }
 
         [HttpPost]
@@ -46,7 +65,7 @@ namespace JobReady.Controllers
                         var newSkill = new JobSkill()
                         {
                             JobPostId = newJobPost.Id,
-                            SkillId = skill.Id,
+                            SkillId = skill,
                         };
                         context.JobSkill.Add(newSkill);
                         context.SaveChanges();
