@@ -21,6 +21,15 @@ const addSkill = (e) => {
     p.textContent = skill;
     if (skill !== "") {
         skillSet.appendChild(p);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddSkill", "JobPost")',
+            contentType: "application/json; charset=utf-8",
+            data: { skillId: },
+            dataType: "json",
+            success: function () { alert('Success'); },
+            error: function () { alert('Error'); }
+        });
     }
     closeBtn.click();
     skillInput.value = "";
