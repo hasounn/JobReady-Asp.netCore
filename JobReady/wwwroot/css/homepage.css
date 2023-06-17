@@ -26,10 +26,6 @@
     .filter-news-item.active .homepage-path {
         stroke: var(--lightblue);
     }
-
-.post{
-    width:calc(100% - 100px)!important;
-}
 .jobs {
     all:unset;
     border:none;
@@ -98,6 +94,10 @@ imageJobOpp {
 }
 .timeOn {
     font-size: 12px;
+}
+
+.posts{
+    width:calc(100% - 200px);
 }
 
 @media only screen and (max-width:1023.5px) {
