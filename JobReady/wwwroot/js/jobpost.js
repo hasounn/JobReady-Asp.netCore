@@ -23,7 +23,7 @@ const addSkill = (e) => {
         type: "POST",
         url: '@Url.Action("AddSkill", "JobPost")',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ skillId: skillId }),
+        data: JSON.stringify({ skillId: skillInput.options[skillInput.selectedIndex].value }),
         dataType: "json",
         success: function () {
             skillSet.appendChild(p);
