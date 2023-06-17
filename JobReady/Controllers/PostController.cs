@@ -24,10 +24,6 @@ namespace JobReady.Controllers
             return View(new PostDetails() { CreatedBy = user});
         }
 
-
-
-       
-
         public async Task<IActionResult> GetPostPicture(long imageId)
         {
             var photo = await context.FileLink.FindAsync(imageId);
@@ -41,6 +37,32 @@ namespace JobReady.Controllers
                 return File("/assets/images/image-placeholder.png", "image/png");
             }
         }
+
+        [HttpGet]
+        public IEnumerable<PostDetails> GetPost(long postId)
+        {
+            var posts = (from x in context.Post
+                         join y in context.FileLink on x.Id equals y.ObjectId into images
+                         from i in images.DefaultIfEmpty()
+                         where x.Id == postId && (i == null || i.ObjectType == ObjectType.Post)
+                         orderby x.CreatedOn descending
+                         select new PostDetails()
+                         {
+                             Id = x.Id,
+                             CreatedBy = new UserAccountDetails()
+                             {
+                                 Id = x.CreatedById,
+                                 Headline = x.CreatedBy.Headline,
+                                 Username = x.CreatedBy.UserName,
+                             },
+                             Content = x.Content,
+                             ImageId = i.Id,
+                             CreatedById = x.CreatedById,
+                             CreatedOn = x.CreatedOn,
+                         }).AsEnumerable();
+            return posts;
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePost(PostDetails details)
         {
