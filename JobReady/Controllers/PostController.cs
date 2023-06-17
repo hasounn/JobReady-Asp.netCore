@@ -39,9 +39,9 @@ namespace JobReady.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PostDetails> GetPost(long postId)
+        public PostDetails GetPost(long postId)
         {
-            var posts = (from x in context.Post
+            var post = (from x in context.Post
                          join y in context.FileLink on x.Id equals y.ObjectId into images
                          from i in images.DefaultIfEmpty()
                          where x.Id == postId && (i == null || i.ObjectType == ObjectType.Post)
@@ -59,8 +59,8 @@ namespace JobReady.Controllers
                              ImageId = i.Id,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
-                         }).AsEnumerable();
-            return posts;
+                         }).FirstOrDefault();
+            return post;
         }
 
         [HttpPost]
