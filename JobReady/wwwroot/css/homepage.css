@@ -26,10 +26,6 @@
     .filter-news-item.active .homepage-path {
         stroke: var(--lightblue);
     }
-
-.post{
-    width:calc(100% - 100px)!important;
-}
 .jobs {
     all:unset;
     border:none;
