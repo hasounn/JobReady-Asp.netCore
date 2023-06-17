@@ -1,10 +1,9 @@
-﻿namespace JobReady.Data.DTO
+﻿namespace JobReady;
+
+public class UniversityDetails
 {
-    public class UniversityDetails
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string HeadQuarterLocation { get; set; }
-        public long BranchesCount { get; set; }
-    }
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public string HeadQuarterLocation { get; set; }
+    public long BranchesCount { get; set; }
 }
