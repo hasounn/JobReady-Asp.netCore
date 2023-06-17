@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JobReady.Data.DTO
+namespace JobReady;
 {
     public class ExperienceDetails
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobReady.Data.DTO
+namespace JobReady;
 {
     public class EducationDetails
     {
