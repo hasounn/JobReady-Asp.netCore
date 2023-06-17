@@ -29,7 +29,10 @@ namespace JobReady.Controllers
         [HttpGet]
         public IEnumerable<PostDetails> GetPosts()
         {
-            var posts = (from x in context.Post
+           var posts = (from x in context.Post
+                        join y in context.FileLink on x.Id equals y.ObjectId into images
+                        from i in images.DefaultIfEmpty()
+                        where i == null || i.ObjectType == ObjectType.Post
                         orderby x.CreatedOn descending
                         select new PostDetails()
                         {
@@ -41,20 +44,16 @@ namespace JobReady.Controllers
                                 Username = x.CreatedBy.UserName,
                             },
                             Content = x.Content,
+                            ImageId = i.Id,
                             CreatedById = x.CreatedById,
                             CreatedOn = x.CreatedOn,
                         }).AsEnumerable();
             return posts;
         }
 
-        public async Task<IActionResult> GetPostPicture(long postId)
+        public async Task<IActionResult> GetPostPicture(long imageId)
         {
-            var photoId = (from x in context.FileLink
-                           where x.ObjectType == ObjectType.Post
-                           && x.ObjectId == postId
-                           select x.Id).FirstOrDefault();
-
-            var photo = await context.FileLink.FindAsync(photoId);
+            var photo = await context.FileLink.FindAsync(imageId);
             if (photo != null)
             {
                 return File(photo.ContentHash, "image/*");
@@ -62,7 +61,7 @@ namespace JobReady.Controllers
             else
             {
                 //return default image
-                throw new Exception("Photo not found");
+                return File("/assets/images/image-placeholder.png", "image/png");
             }
         }
         [HttpPost]
