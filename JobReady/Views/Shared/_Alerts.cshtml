@@ -1,0 +1,5 @@
+﻿@if(TempData["Error"] != null){
+    <script type="text/javascript">
+        toastr.error('@TempData["Error"]');
+    </script>
+}
