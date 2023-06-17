@@ -22,7 +22,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(SignUpUserRegistry model)
+        public IActionResult Index(UserAccountDetails model)
         {
             if(ModelState.IsValid)
             {
