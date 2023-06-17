@@ -1,29 +1,32 @@
-﻿@{
+﻿@model JobReady.Data.DTO.JobPostDetails;
+@{
     ViewData["Title"] = "Job Post";
 }
 
 <link rel="stylesheet" href="~/css/post.css"/>
+<partial name="_Alerts"  />
 
 <div class="d-flex flex-column p-4 height-fix dark-main-bg">
     <p class="create-new-job-post">Create New Job Post</p>
     <div class="d-flex flex-column align-items-center justify-content-center mt-3 w-100 h-100">
         <div class="create-post-div d-flex flex-column p-3 gap-3">
             <div class="d-flex flex-row gap-2">
-                <img src="~/assets/images/image-placeholder.png" class="rounded-circle img-resizing" />
+                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =@Model.CreatedBy.Id})" class="rounded-circle img-resizing"/>
                 <div class="d-flex flex-column">
-                    <p class="fw-bold">Santiago Valdarrama</p>
-                    <p class="fw-light">I help companies build Machine Learning • Posts about what I learn along the way.</p>
+                    <p class="fw-bold">@Model.CreatedBy.Username</p>
                 </div>
             </div>
+            
+            <form asp-action="Create" asp-controller="JobPost" method="post" class="d-flex flex-column gap-3">
             <div class="d-flex flex-column flex-lg-row gap-2 align-items-lg-center">
                 <p class="fw-bold">Job Title:</p>
-                <input type="text" id="job-title" placeholder="... Developer"/>
+                <input type="text" asp-for="Title" id="job-title" placeholder=".Developer"/>
             </div>
-            <textarea class="textarea-post" placeholder="What's on your mind Santiago?"></textarea>
+            <textarea asp-for="Description" class="textarea-post" placeholder="Description"></textarea>
             <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
                 <p class="fw-bold">Level:</p>
                 <div class="job-level-select">
-                    <select asp-items="Html.GetEnumSelectList<JobLevel>()"></select>
+                    <select asp-items="Html.GetEnumSelectList<JobLevel>()" asp-for="JobType"></select>
                     <img src="~/icons/arrow-bottom.svg"/>
                 </div>
             </div>
@@ -36,17 +39,19 @@
             </div>
             <div class="d-flex flex-row align-items-center justify-content-between p-2">
                 <div class="remote d-flex flex-row align-items-center gap-1">
-                    <input type="checkbox" id="remote"/>
+                    <input type="checkbox" id="remote" onclick="handleCheckboxChange(this)"/>
+                    <input asp-for="IsRemote" type="hidden" id="isRemote" value="false" />
                     <label>Remote</label>
                 </div>
-                <a role="button" class="btn d-flex flex-row align-items-center gap-1 post-btn" asp-controller="Post" asp-action="Post">
+                <button type="submit" class="btn d-flex flex-row align-items-center gap-1 post-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <p class="color-light-white">Post</p>
-                </a>
+                </button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -66,7 +71,12 @@
                 <h4>Add a Skill</h4>
             </div>
             <div class="modal-body p-3">
-                <input type="text" id="skillInput" class="addSkillText m-3" placeholder="Skill..."/>
+                <select id="skillInput" class="addSkillText m-3">
+                    @foreach(SkillDetails skill in Model.Skills)
+                    {
+                        <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
+                    }
+                </select>
             </div>
             <div class="modal-footer">
                 <a role="button" class="btn btn-primary rounded-pill addSkillBtn">Add Skill</a>

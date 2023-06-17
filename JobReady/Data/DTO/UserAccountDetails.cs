@@ -29,6 +29,13 @@ public class UserAccountDetails
                 throw new Exception("InvalidType");
             }
         }
+        set
+        {
+            if(AccountType != value)
+            {
+                AccountType = value;
+            }
+        }
     }
 
     public Gender? Gender { get; set; }
