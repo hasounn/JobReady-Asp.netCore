@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\JobPost\JobPost.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Data\DTO\NewFile.txt" />
   </ItemGroup>
 
@@ -31,10 +35,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Jo\" />
   </ItemGroup>
 
 </Project>
