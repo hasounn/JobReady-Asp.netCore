@@ -2,20 +2,12 @@
 
 namespace JobReady;
 
-public class Post
+public class PostDetails
 {
-    [Key]
     public long Id { get; set; }
-
-    [Required]
-    [StringLength(2000)]
     public string Content { get; set; }
-
-    [Required]
+    public IFormFile Image { get; set; }
     public string CreatedById { get; set; }
-    public UserAccount CreatedBy { get; set; }
-
-    [Required]
+    public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
 }
-
