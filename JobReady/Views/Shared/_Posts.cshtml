@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<PostDetails>;
 
     @foreach(PostDetails post in Model){
- <a class="post d-flex flex-column text-black text-decoration-none" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
+    <a class="post d-flex flex-column text-black text-decoration-none" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
         <div class="d-flex flex-row w-100 gap-3 align-items-start top-post">
         <img src="@Url.Action("GetProfilePicture","Profile", new {userId = post.CreatedById})" alt="Profile" class="rounded-circle img-post mt-2" />
             <div class="d-flex flex-column w-100 gap-1">
