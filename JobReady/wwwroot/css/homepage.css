@@ -9,6 +9,7 @@
     font-family:'League Gothic', sans-serif;
     cursor:pointer;
     user-select:none;
+    width:380px;
 }
 
 .filter-news-item {
