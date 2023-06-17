@@ -7,10 +7,10 @@
         public JobType JobType { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
+        public bool IsRemote { get; set; }
         public IEnumerable<SkillDetails> Skills { get; set; }
         public string CreatedById { get; set; }
-        public UserAccount CreatedBy { get; set; }
+        public UserAccountDetails CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-
     }
 }

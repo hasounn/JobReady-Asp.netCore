@@ -10,17 +10,18 @@
     <div class="d-flex flex-column align-items-center justify-content-center mt-3 w-100 h-100">
         <div class="create-post-div d-flex flex-column p-3 gap-3">
             <div class="d-flex flex-row gap-2">
-                <img src="~/assets/images/image-placeholder.png" class="rounded-circle img-resizing" />
+                <img src="@Url.Action("GetProfilePicture", "Profile", new {userId =Model.CreatedById})" class="rounded-circle img-resizing" />
                 <div class="d-flex flex-column">
-                    <p class="fw-bold">Santiago Valdarrama</p>
-                    <p class="fw-light">I help companies build Machine Learning • Posts about what I learn along the way.</p>
+                    <p class="fw-bold">@Model.CreatedBy.Username</p>
                 </div>
             </div>
+            
+            <form asp-action="Create" asp-controller="JobPost" method="post" class="d-flex flex-column">
             <div class="d-flex flex-column flex-lg-row gap-2 align-items-lg-center">
                 <p class="fw-bold">Job Title:</p>
-                <input type="text" asp-for="Title" id="job-title" placeholder="... Developer"/>
+                <input type="text" asp-for="Title" id="job-title" placeholder=".Developer"/>
             </div>
-            <textarea asp-for="Description" class="textarea-post" placeholder="What's on your mind Santiago?"></textarea>
+            <textarea asp-for="Description" class="textarea-post" placeholder="Description"></textarea>
             <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
                 <p class="fw-bold">Level:</p>
                 <div class="job-level-select">
@@ -48,6 +49,7 @@
                     <p class="color-light-white">Post</p>
                 </a>
             </div>
+            </form>
         </div>
     </div>
 </div>

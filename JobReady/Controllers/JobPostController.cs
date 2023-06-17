@@ -19,7 +19,16 @@ namespace JobReady.Controllers
         }
         public IActionResult Index()
         {
-            return View(new JobPostDetails() { Skills = GetSkills()});
+            var user = (from x in context.Users
+                        where x.UserName == this.User.Identity.Name
+                        select new UserAccountDetails()
+                        {
+                            Id = x.Id,
+                            Username = x.UserName,
+                            AccountType = x.AccountType,
+                            Headline = x.Headline,
+                        }).FirstOrDefault();
+            return View(new JobPostDetails() { Skills = GetSkills(), CreatedBy = user});
         }
 
         [HttpGet]
@@ -61,6 +70,7 @@ namespace JobReady.Controllers
                         Title = details.Title,
                         JobType = details.JobType,
                         IsActive = details.IsActive,
+                        IsRemote = details.IsRemote,
                         CreatedById = this.User.Claims.First().Value,
                         CreatedOn = DateTime.Now,
                     };
