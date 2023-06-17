@@ -25,7 +25,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(PostDetails details)
+        public async Task<IActionResult> CreatePost(PostDetails details)
         {
             if (ModelState.IsValid)
             {
