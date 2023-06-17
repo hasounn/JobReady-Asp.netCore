@@ -1,26 +1,32 @@
 ﻿@model IEnumerable<PostDetails>;
 
     @foreach(PostDetails post in Model){
-    <a class="post d-flex flex-column text-black text-decoration-none" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
+    <div class="post d-flex flex-column">
         <div class="d-flex flex-row w-100 gap-3 align-items-start top-post">
         <img src="@Url.Action("GetProfilePicture","Profile", new {userId = post.CreatedById})" alt="Profile" class="rounded-circle img-post mt-2" />
-            <div class="d-flex flex-column w-100 gap-1">
+            <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-column w-100">
                 <div class="d-flex flex-row w-100 gap-2 align-items-center">
-                    <p class="name-post color-gray-asset1">@post.CreatedBy.Username</p>
-                    <p class="dot-post color-light-blue">&#8226;</p>
-                    <p class="follow-post color-light-blue text-capitalize fw-bold">follow</p>
+                    <a class="text-black text-decoration-none p-0 name-post color-gray-asset1" asp-controller="Profile" asp-action="Index" asp-route-id="@post.CreatedBy.Id">@post.CreatedBy.Username</a>
+                    <button class="btn ms-0 ps-0 d-flex flex-row gap-2 align-items-center">
+                        <p class="dot-post color-light-blue">&#8226;</p>
+                        <p class="follow-post color-light-blue text-capitalize fw-bold">follow</p>
+                    </button>
                 </div>
                 <p class="color-grayish-blue heading-post fw-lighter">@post.CreatedBy.Headline</p>
+                </div>
                 <p class="color-grayish-blue time-post">@post.CreatedOn</p>
             </div>
         </div>
+        <a class="d-flex flex-column text-black text-decoration-none gap-2" asp-controller="Home" asp-action="Details" asp-route-id="@post.Id">
         <div class="d-flex flex-column w-100 mt-4 p-2 mb-5 gap-2 color-gray-asset1 middle-post">
             <p>@post.Content</p>
             @if(post.ImageId != null)
             {
                 <img src="@Url.Action("GetPostPicture","Post", new {imageId = post.ImageId})" class="image-post-sizing"/>
             }
-        </div>
+            </div>
+        </a>
         <div class="d-flex flex-column w-100 gap-1 px-3 mb-1 footer-post">
             <hr class="fine-line-post color-gray-asset1" />
             <div class="d-flex flex-row w-100 justify-content-between">
@@ -54,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </a>
+    </div>
     <partial name="_PostModal" />
     <partial name="_ReportModal" />
 }

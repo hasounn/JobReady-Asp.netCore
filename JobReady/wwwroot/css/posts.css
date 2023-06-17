@@ -7,6 +7,10 @@
     border-radius: 20px;
 }
 
+.heading-post{
+    margin-top: -11px;
+}
+
 .img-post {
     width: 55px;
     height: 55px;
