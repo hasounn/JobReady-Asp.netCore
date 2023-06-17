@@ -1,7 +1,7 @@
 ﻿.post {
     background: var(--lightwhite);
     max-width: calc(100% - 150px);
-    width:100%;
+    width:1000px;
     height: fit-content;
     padding: 1em;
     border-radius: 20px;
@@ -12,7 +12,8 @@
     height: 55px;
 }
 image-post-sizing{
-    width:fit-content;
+    width:200px;
+    aspect-ratio:1/1;
 }
 
 .dot-post {
@@ -152,5 +153,8 @@ image-post-sizing{
             "username"
             "image"
             "engagement";
+    }
+    .post{
+        width:100%;
     }
 }
