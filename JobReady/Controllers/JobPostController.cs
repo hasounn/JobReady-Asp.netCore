@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobReady;
 using System.Transactions;
+using System;
 
 namespace JobReady.Controllers
 {
@@ -34,10 +35,17 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSkill(long skillId)
+        public IActionResult AddSkill([FromBody] long skillId)
         {
-            jobSkills.Add(skillId);
-            return Ok();
+                this.jobSkills.Add(skillId);
+                return Ok(true);
+        }
+
+        [HttpPost]
+        public IActionResult FindSkill([FromBody] long skillId)
+        {
+           bool found = this.jobSkills.Any(t => t == skillId);
+            return Ok(found);
         }
 
         [HttpPost]

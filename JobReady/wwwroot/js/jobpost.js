@@ -1,37 +1,61 @@
-﻿const skillSet = document.querySelector(".skillset"),
-    addSkillBtn = document.querySelector(".addSkillBtn"),
-    skillInput = document.getElementById("skillInput"),
-    closeBtn = document.querySelector(".close");
-
+﻿const skillSet = document.querySelector(".skillset");
+const addSkillBtn = document.querySelector(".addSkillBtn");
+const skillInput = document.getElementById("skillInput");
+const closeBtn = document.querySelector(".close");
 
 addSkillBtn.addEventListener("click", (e) => {
     addSkill(e);
 });
 
-skillInput.addEventListener("keyup", (e) => {
-    if (e.key == "Enter") { addSkill(e); }
-    
-});
-
 const addSkill = (e) => {
     e.preventDefault();
-    let skill = skillInput.options[skillInput.selectedIndex].textContent;
-    let p = document.createElement("p");
+
+    if (skillInput.value === "") {
+        // No skill selected, handle the error
+        alert("Please select a skill");
+        return;
+    }
+
+    const skillId = skillInput.options[skillInput.selectedIndex].value+"";
+    const skillText = skillInput.options[skillInput.selectedIndex].getAttribute(
+        "data-value-text"
+    );
+
+    const p = document.createElement("p");
     p.classList.add("skillset-item");
-    p.textContent = skill;
+    p.textContent = skillText;
+
     $.ajax({
         type: "POST",
-        url: '@Url.Action("AddSkill", "JobPost")',
+        url: '/JobPost/AddSkill',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ skillId: skillInput.options[skillInput.selectedIndex].value }),
+        data: JSON.stringify(skillId),
         dataType: "json",
-        success: function () {
-            skillSet.appendChild(p);
+        success: function (response) {
+            // Handle success
+            $.ajax({
+                type: "POST",
+                url: '/JobPost/FindSkill',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(skillId),
+                dataType: "json",
+                success: function (response) {
+                    // Handle success
+                    alert(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    alert("An error occurred: " + error);
+                }
+            });
         },
-        error: function (e) {
-            alert("An error occurred: " + e.responseText);
+        error: function (xhr, status, error) {
+            // Handle error
+            alert("An error occurred: " + error);
         }
     });
-    closeBtn.click();
-    skillInput.value = "";
-}
+
+    const modal = document.getElementById("addSkillModal");
+    const bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
+};
