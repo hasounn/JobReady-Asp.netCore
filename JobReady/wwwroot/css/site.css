@@ -19,6 +19,15 @@ body {
     height: 100%;
 }
 
+.nav-item {
+    padding: 2px 20px 2px 8px;
+    width:fit-content;
+}
+
+#post-nav{
+    padding:2px 5px 2px 11px;
+}
+
 .nav-item p {
     color:var(--grayish-blue);
     font-weight:400;
@@ -65,8 +74,6 @@ body {
 .nav-item.active {
     background: var(--lightblue);
     border-radius: 50px;
-    padding: 2px 20px 2px 8px;
-    margin-left:-8px;
     width:fit-content;
     animation:fade-in 0.25s ease-in;
 }
@@ -85,7 +92,6 @@ body {
     background: var(--dark-bg1);
     border-radius: 50px;
     padding: 2px 20px 2px 8px;
-    margin-left:-10px;
     width:fit-content;
     animation:fade-in 0.25s ease-in;
 }
@@ -113,10 +119,10 @@ body {
     width: 100%;
 }
 
-
-.logout:hover {
-    padding: 2px 8px 2px 8px;
+.logout {
+    padding: 2px 8px 2px 8px!important;
 }
+
 
 .navbar-toggler, .navbar-toggler:focus{
     all: unset;
@@ -137,10 +143,6 @@ a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:
     padding-left: 10px;
 }
 
-#post-nav {
-    padding: 2px 20px 2px 8px;
-    margin-left:-5px;
-}
 
 .drop-post{
     border-bottom:1px solid var(--gray-asset3);
@@ -151,7 +153,6 @@ a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:
     color: var(--lightwhite);
     border-radius: 15px;
     width: fit-content !important;
-    margin-left: -5px;
     overflow: clip;
 }
 
