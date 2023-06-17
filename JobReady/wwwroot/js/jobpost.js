@@ -28,7 +28,7 @@ const addSkill = (e) => {
             data: { skillId: skillInput.options[skillInput.selectedIndex].value },
             dataType: "json",
             success: function () { alert('Success'); },
-            error: function () { alert('Error'); }
+            error: function (e) { alert(e); }
         });
     }
     closeBtn.click();
