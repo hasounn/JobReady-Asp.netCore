@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
         post.classList.add("active");
     } else if (url.includes("settings")) {
         settings.classList.add("active");
-    } else if (url.includes("profile") && !url.includes("profile/id")) {
+    } else if ((url.includes("profile") || url.includes("profile/profilecomp")) && !(url.includes("profile?userid") || url.includes("profile/profilecomp?userid"))) {
         profile.classList.add("active");
     }
 })
