@@ -1,4 +1,6 @@
-﻿namespace JobReady;
+﻿using JobReady.Data.DTO;
+
+namespace JobReady;
 
 public class UniversityMajorDetails
 {

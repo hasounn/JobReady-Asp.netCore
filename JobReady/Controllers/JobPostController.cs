@@ -89,6 +89,7 @@ namespace JobReady.Controllers
                         context.JobSkill.Add(newSkill);
                         context.SaveChanges();
                     }
+                scope.Complete();
                 }
                 jobSkills.Clear();
                 return RedirectToAction("Index", "Home");
