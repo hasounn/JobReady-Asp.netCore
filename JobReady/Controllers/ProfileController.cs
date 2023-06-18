@@ -96,7 +96,7 @@ namespace JobReady.Controllers
             return posts;
         }
         [HttpGet]
-        public string[] GetUserSkills([FromBody]string userId)
+        public string[] GetUserSkills([FromBody] string userId)
         {
             var skills = (from x in context.UserSkill
                           join y in context.Skill on x.SkillId equals y.Id

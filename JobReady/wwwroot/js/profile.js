@@ -1,6 +1,5 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
-    divs = document.querySelector(".all-divs"),
-    userId = document.getElementById("userID").value;
+    divs = document.querySelector(".all-divs");
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -9,24 +8,8 @@ window.addEventListener("load", () => {
         maindiv.style.height = "100vh";
     }
 })
-const getSkills = () => {
-    $.ajax({
-        type: "GET",
-        url: '/Profile/GetUserSkills',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(userId),
-        dataType: "json",
-        success: function (response) {
-            return response;
-        },
-        error: function (xhr, status, error) {
-            // Handle error
-            alert("An error occurred: " + error);
-        }
-    });
-}
 
-var tagCloud = TagCloud('.skills', getSkills(), {
+var tagCloud = TagCloud('.skills', skills, {
 
     // Sphere radius in px
     radius: 150,
