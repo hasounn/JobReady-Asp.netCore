@@ -16,14 +16,13 @@ namespace JobReady.Controllers
 
         public IActionResult Index()
         {
-            PostsDetails model = new PostsDetails() {Posts=GetPosts(),JobPosts=GetJobPosts() };
+            var accountType = (from x in context.Users
+                               where x.UserName == this.User.Identity.Name
+                               select x.AccountType).FirstOrDefault();
+            PostsDetails model = new PostsDetails() {Posts=GetPosts(),JobPosts=GetJobPosts(), AccountType = accountType };
             return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -60,13 +59,13 @@ namespace JobReady.Controllers
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
             var Jobposts = (from x in context.JobPost
-                         
                          orderby x.CreatedOn descending
                          select new JobPostDetails()
                          {
                              Id = x.Id,
                              Title=x.Title,
                              JobType=x.JobType,
+                             IsRemote = x.IsRemote,
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
