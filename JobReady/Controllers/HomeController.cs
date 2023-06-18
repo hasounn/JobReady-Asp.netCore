@@ -1,4 +1,5 @@
-﻿using JobReady.Models;
+﻿using JobReady.Data.DTO;
+using JobReady.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,8 @@ namespace JobReady.Controllers
 
         public IActionResult Index()
         {
-            return View(GetPosts());
+            PostsDetails model = new PostsDetails() {Posts=GetPosts(),JobPosts=GetJobPosts() };
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -57,26 +59,24 @@ namespace JobReady.Controllers
         [HttpGet]
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
-            var posts = (from x in context.Post
-                         join y in context.FileLink on x.Id equals y.ObjectId into images
-                         from i in images.DefaultIfEmpty()
-                         where i == null || i.ObjectType == ObjectType.Post
+            var Jobposts = (from x in context.JobPost
+                         
                          orderby x.CreatedOn descending
-                         select new PostDetails()
+                         select new JobPostDetails()
                          {
                              Id = x.Id,
+                             Title=x.Title,
+                             JobType=x.JobType,
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
-                                 Headline = x.CreatedBy.Headline,
                                  Username = x.CreatedBy.UserName,
                              },
-                             Content = x.Content,
-                             ImageId = i.Id,
+                             Description = x.Description,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).AsEnumerable();
-            return posts;
+            return Jobposts;
         }
     }
 }
