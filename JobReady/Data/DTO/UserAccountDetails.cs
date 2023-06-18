@@ -56,6 +56,7 @@ public class UserAccountDetails
     public bool IsVerified { get; set; }
 
     public bool IsEmailVerified { get; set; }
+    public bool IsOwned { get; set; }
 
     [DisplayName("Date Of Birth")]
     public DateTime UserDate { get; set; }

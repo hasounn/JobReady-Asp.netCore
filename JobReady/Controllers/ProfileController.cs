@@ -14,8 +14,9 @@ namespace JobReady.Controllers
         [HttpGet]
         public IActionResult Index(string userId = null)
         {
+            userId ??= this.User.Claims.First().Value;
             var userDetails = (from x in context.UserAccount
-                               where (userId == null && x.UserName == this.User.Identity.Name) || x.Id == userId
+                               where x.Id == userId
                                select new UserAccountDetails()
                                {
                                    Id = x.Id,
@@ -31,6 +32,7 @@ namespace JobReady.Controllers
                                    Email = x.Email,
                                    Location = x.Location,
                                    IsVerified = x.IsVerified,
+                                   IsOwned = x.Id == this.User.Claims.First().Value,
                                }).FirstOrDefault();
 
             userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
@@ -65,11 +67,7 @@ namespace JobReady.Controllers
             {
                 return File(photo.ContentHash, "image/*");
             }
-            else
-            {
-                //return default image
-                throw new Exception("Photo not found");
-            }
+            return File("/assets/images/image-placeholder.png", "image/png");
         }
 
         public IEnumerable<PostDetails> GetUserPosts(string userId)
@@ -95,6 +93,7 @@ namespace JobReady.Controllers
                          }).AsEnumerable();
             return posts;
         }
+
         [HttpGet]
         public string[] GetUserSkills([FromBody] string userId)
         {
