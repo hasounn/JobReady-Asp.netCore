@@ -65,9 +65,10 @@
     font-family: 'League Gothic', sans-serif;
     font-size: 2.5em;
 }
-imageJobOpp {
+.imageJobOpp {
     width: 80px;
     height: 80px;
+    border-radius:20px;
 }
 
 .jobApp{
