@@ -1,16 +1,21 @@
-﻿<a role="button" class="jobApp" asp-controller="JobApplication" asp-action="Index">
+﻿@using JobReady.Data.DTO;
+@model IEnumerable<JobPostDetails> ;
+
+@foreach(JobPostDetails item in Model){
+<a role="button" class="jobApp" asp-controller="JobApplication" asp-action="Index">
     <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between jobOpp gap-3">
         <img src="~/favicon.svg" class="rounded-5 imageJobOpp"/>
         <div class="d-flex flex-column">
             <div>
-                <h5 class="color-light-blue h5">Senior React Engineer</h5>
-                <h6 class="fw-normal">Supportful</h6>
+                <h5 class="color-light-blue h5">@item.Title</h5>
+                <h6 class="fw-normal">@item.CreatedBy.Username</h6>
             </div>
             <div>
                 <p class="location">Lebanon (<span>Remote</span>)</p>
-                <p class="timeOn fw-bold">1 week ago</p>
+                <p class="timeOn fw-bold">@item.CreatedOn</p>
             </div>
         </div>
     </div>
 </a>
 <hr class="color-light-blue"/>
+}
