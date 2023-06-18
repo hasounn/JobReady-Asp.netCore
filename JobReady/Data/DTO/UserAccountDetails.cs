@@ -18,22 +18,23 @@ public class UserAccountDetails
 
     public string Type { get; set; }
 
+    private UserAccountType accountType;
+
     public UserAccountType AccountType
     {
         get
         {
-            if (Type == "student") {return UserAccountType.Student; }
-            if (Type == "instructor") {return UserAccountType.Instructor; }
-            else
-            {
-                throw new Exception("InvalidType");
-            }
+            if (Type == "student") { return UserAccountType.Student; }
+            if (Type == "instructor") { return UserAccountType.Instructor; }
+            if (Type == "company") { return UserAccountType.Company; }
+            if (Type == "admin") { return UserAccountType.Admin; }
+            return UserAccountType.Student;
         }
         set
         {
-            if(AccountType != value)
+            if (accountType != value)
             {
-                AccountType = value;
+                accountType = value;
             }
         }
     }
@@ -55,12 +56,16 @@ public class UserAccountDetails
     public bool IsVerified { get; set; }
 
     public bool IsEmailVerified { get; set; }
+    public bool IsOwned { get; set; }
 
     [DisplayName("Date Of Birth")]
     public DateTime UserDate { get; set; }
 
     public IFormFile ProfileImage {get;set;}
-
+    public IEnumerable<PostDetails> Posts { get; set; }
+    public string[] Skills { get; set; }
+    public IEnumerable<EducationDetails> Educations { get; set; }
+    public IEnumerable<ExperienceDetails> Experiences { get; set; }
     public void Validate()
     {
         if(AccountType == UserAccountType.Company && IndustryId == null)

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model JobReady.UserAccountDetails
+@{
     ViewData["Title"] = "Profile";
 }
 <link rel="stylesheet" href="~/css/posts.css">
@@ -7,14 +8,14 @@
 <div class="d-flex flex-column gap-5 w-100 height-fix dark-main-bg p-5">
     <div class="d-flex flex-column flex-lg-row w-100 h-auto justify-content-center gap-5">
         <div class="image-and-button d-flex flex-column h-100 justify-content-between align-items-center gap-4">
-            <img src="~/assets/images/image-placeholder.png" class="rounded-circle img-sizing" />
+            <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
             <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
         </div>
         <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
-            <p class="fullname-p">Santiago Valdarrama <span class="username-span">&#8226; @@Santiago</span></p>
+            <p class="fullname-p">@Model.FullName<span class="username-span">&#8226; @@@Model.Username</span></p>
             <div class="d-flex flex-row justify-content-lg-between justify-content-around width-fix">
                 <div class="d-flex flex-column align-items-center h-100 justify-content-between">
-                    <p class="nb-of-posts">196</p>
+                    <p class="nb-of-posts">@Model.Posts.Count()</p>
                     <p>Posts</p>
                 </div>
                 <div class="d-flex flex-column align-items-center h-100 justify-content-between">
@@ -36,8 +37,8 @@
                 </div>
             </div>
             <div class="d-flex flex-column w-100 headline">
-                <p class="fw-bold fs-6">Headline</p>
-                <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident rerum voluptatem debitis dignissimos. Explicabo consequuntur itaque officiis at facere adipisci, nobis accusantium iure natus facilis temporibus porro veritatis optio fugit, illo accusamus alias aliquid officia neque nemo. Animi, laboriosam culpa?</p>
+                <p class="fw-bold fs-6">@Model.Headline</p>
+                <p class="fw-light">@Model.About</p>
             </div>
         </div>
     </div>
@@ -46,28 +47,20 @@
         <partial name="_Education"/>
         <div class="d-flex flex-column flex-lg-row gap-3">
             <partial name="_Skills" />
-            <partial name="_Projects" />
+            @*<partial name="_Projects" />*@
         </div>
         <div class="d-flex flex-column gap-4">
             <p class="yourposts-title">Your Posts</p>
-            <div class="posts">
-                <partial name="_Posts" />
+            <div class="posts d-flex flex-column gap-3 align-items-center">
+                <partial name="_Posts" model="@Model.Posts"/>
             </div>
         </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    var skills = [
-        'HTML', 'CSS', 'JAVASCRIPT',
-        'SWIFT', 'MONGOOSE', 'REACT',
-        'PYTHON', 'SASS',
-        'DJANGO', 'NODEJS', 'MONGODB',
-        'EXPRESS', 'MYSQL', 'JQUERY', 'JAVA'
-    ];
-</script>
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/TagCloud/dist/TagCloud.js"></script>
 <script src="~/js/postEngagement.js"></script>
+<script>
+    var skills = @Html.Raw(Json.Serialize(Model.Skills));
+ </script>
 <script src="~/js/profile.js"></script>
