@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
         maindiv.style.height = "fit-content";
         maindiv.style.paddingBottom = "20px";
     } else {
-        maindiv.style.height = "100vh";
+        maindiv.style.height = maindiv.style.height = document.body.scrollHeight + "px";;
         maindiv.style.paddingBottom = "0px";
     }
 

@@ -1,14 +1,23 @@
 ﻿.post {
     background: var(--lightwhite);
-    width: 100%;
+    max-width: calc(100% - 150px);
+    width:1000px;
     height: fit-content;
     padding: 1em;
     border-radius: 20px;
 }
 
+.heading-post{
+    margin-top: -11px;
+}
+
 .img-post {
     width: 55px;
     height: 55px;
+}
+image-post-sizing{
+    width:200px;
+    aspect-ratio:1/1;
 }
 
 .dot-post {
@@ -148,5 +157,8 @@
             "username"
             "image"
             "engagement";
+    }
+    .post{
+        width:100%;
     }
 }

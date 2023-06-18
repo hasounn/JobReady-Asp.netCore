@@ -24,6 +24,45 @@ namespace JobReady.Controllers
             return View(new PostDetails() { CreatedBy = user});
         }
 
+        public async Task<IActionResult> GetPostPicture(long imageId)
+        {
+            var photo = await context.FileLink.FindAsync(imageId);
+            if (photo != null)
+            {
+                return File(photo.ContentHash, "image/*");
+            }
+            else
+            {
+                //return default image
+                return File("/assets/images/image-placeholder.png", "image/png");
+            }
+        }
+
+        [HttpGet]
+        public PostDetails GetPost(long postId)
+        {
+            var post = (from x in context.Post
+                         join y in context.FileLink on x.Id equals y.ObjectId into images
+                         from i in images.DefaultIfEmpty()
+                         where x.Id == postId && (i == null || i.ObjectType == ObjectType.Post)
+                         orderby x.CreatedOn descending
+                         select new PostDetails()
+                         {
+                             Id = x.Id,
+                             CreatedBy = new UserAccountDetails()
+                             {
+                                 Id = x.CreatedById,
+                                 Headline = x.CreatedBy.Headline,
+                                 Username = x.CreatedBy.UserName,
+                             },
+                             Content = x.Content,
+                             ImageId = i.Id,
+                             CreatedById = x.CreatedById,
+                             CreatedOn = x.CreatedOn,
+                         }).FirstOrDefault();
+            return post;
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePost(PostDetails details)
         {

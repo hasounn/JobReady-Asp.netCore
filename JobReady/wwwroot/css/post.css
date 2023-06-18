@@ -54,6 +54,7 @@
     all:unset;
     height:30px;
     max-height:100px;
+    overflow-x:hidden;
     overflow-y:scroll;
 }
 
