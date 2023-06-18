@@ -81,7 +81,7 @@ namespace JobReady.Controllers
                     context.Post.Add(newPost);
                     await context.SaveChangesAsync();
 
-                    if (details.Image.Length > 0)
+                    if (details.Image != null && details.Image.Length > 0)
                     {
                         using var memoryStream = new MemoryStream();
                         await details.Image.CopyToAsync(memoryStream);

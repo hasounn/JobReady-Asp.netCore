@@ -1,4 +1,5 @@
-﻿@{
+﻿@model JobReady.UserAccountDetails
+@{
     ViewData["Title"] = "Profile";
 }
 <link rel="stylesheet" href="~/css/posts.css">
@@ -50,21 +51,15 @@
         </div>
         <div class="d-flex flex-column gap-4">
             <p class="yourposts-title">Your Posts</p>
-            <div class="posts">
-                <partial name="_Posts" />
+            <div class="posts d-flex flex-column gap-3 align-items-center">
+                <partial name="_Posts" model="@Model.Posts"/>
             </div>
         </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-    var skills = [
-        'HTML', 'CSS', 'JAVASCRIPT',
-        'SWIFT', 'MONGOOSE', 'REACT',
-        'PYTHON', 'SASS',
-        'DJANGO', 'NODEJS', 'MONGODB',
-        'EXPRESS', 'MYSQL', 'JQUERY', 'JAVA'
-    ];
+    var skills = @Model.Skills
 </script>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
