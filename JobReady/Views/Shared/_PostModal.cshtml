@@ -33,6 +33,7 @@
                                     {
                                         <img src="~/icons/verify.svg" class="ms-1" />
                                     }*@
+                                    <p class="colorcolor-grayish-blue heading-post fw-lighter">@Model.CreatedBy.Headline</p>
                                 </div>
                         </div>
                         <p class="fs-6">@Model.Content</p>
@@ -87,9 +88,10 @@ else
                                         <p>@Model.CreatedBy.FullName</p>
                                         <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
                                         @* @if (Model.IsVerified == true)
-                                    {
-                                    <img src="~/icons/verify.svg" class="ms-1" />
-                                    }*@
+                                        {
+                                        <img src="~/icons/verify.svg" class="ms-1" />
+                                        }*@
+                                        <p class="colorcolor-grayish-blue heading-post fw-lighter">@Model.CreatedBy.Headline</p>
                                     </div>
                                 </div>
                             </div>
