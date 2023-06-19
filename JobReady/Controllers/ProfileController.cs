@@ -90,7 +90,13 @@ namespace JobReady.Controllers
                              ImageId = i.Id,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
-                         }).AsEnumerable();
+                         }).ToList();
+            foreach(var post in posts)
+            {
+                post.LikesCount = GetTotalLikesCount(post.Id);
+                post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+            }
+
             return posts;
         }
 
@@ -102,6 +108,19 @@ namespace JobReady.Controllers
                           where x.UserAccountId == userId
                           select y.Name).ToArray();
             return skills;
+        }
+        public long GetTotalLikesCount(long postId)
+        {
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return likesCount;
+        }
+        public bool HasLiked(long postId, string userId)
+        {
+            return (from x in context.PostEngagement
+                    where x.PostId == postId && x.CreatedById == userId
+                    select x).Any();
         }
     }
 }

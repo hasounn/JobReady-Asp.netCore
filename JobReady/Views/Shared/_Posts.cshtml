@@ -18,7 +18,7 @@
                 <p class="color-grayish-blue time-post">@post.CreatedOn</p>
             </div>
         </div>
-        <a class="d-flex flex-column text-black text-decoration-none gap-2" asp-controller="Home" asp-action="PostDetails" asp-route-id="@post.Id">
+        <div class="d-flex flex-column text-black text-decoration-none gap-2" data-bs-toggle="modal" data-bs-target="#postModal">
         <div class="d-flex flex-column w-100 mt-4 p-2 gap-2 color-gray-asset1 middle-post">
             <p class="content-post">@post.Content</p>
             @if(post.ImageId != null)
@@ -26,16 +26,30 @@
                 <img src="@Url.Action("GetPostPicture","Post", new {imageId = post.ImageId})" class="image-post-sizing"/>
             }
             </div>
-        </a>
+        </div>
         <div class="d-flex flex-column w-100 gap-1 px-3 mb-1 footer-post">
             <hr class="fine-line-post color-gray-asset1" />
             <div class="d-flex flex-row w-100 justify-content-between">
                 <div class="d-flex flex-row gap-4">
                     <div class="like d-flex flex-row gap-1 align-items-center">
+                        <input type="hidden" id="postId" value="@post.Id" />
                         <svg class="like-button" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="like-button-path" d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="like-button-path" d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z" fill="@if(post.HasLiked == true){
+                                var color="#FE1F1F";
+                                @color
+                            }else{var color="none";
+                             @color
+                            ;}" stroke="@if(post.HasLiked == true){var color="#FE1F1F";
+                                                    @color
+                            }else{var color="#535657";
+                                                    @color
+                            ;}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                    <p class="color-grayish-blue d-none d-md-inline">@EngagementType.Like.ToString()</p>
+                        <p class="color-grayish-blue" @if (post.HasLiked == true)
+                        {
+                            var color = "style=color:#FE1F1F!important;";
+                            @color
+                        }>@post.LikesCount</p>
                     </div>
                 <div class="comment d-flex flex-row gap-1 align-items-center" data-bs-toggle="modal" data-bs-target="#postModal">
                         <svg class="comment-button" width="24" height="21" viewBox="0 0 31 29" fill="none" xmlns="http://www.w3.org/2000/svg">
