@@ -1,18 +1,32 @@
 ﻿const like = document.querySelector(".like"),
     share = document.querySelector(".share"),
     report = document.querySelector(".report"),
-    postId = document.getElementById("postId").value,
-    countLikes = document.querySelector(".count-likes");
+    postId = document.getElementById("postId").value;
 
 
 like.addEventListener("click", () => {
     const path = like.querySelector(".like-button-path");
     const text = like.querySelector("p");
     if (path.getAttribute("fill") === "#FE1F1F") {
-        path.setAttribute("fill", "none");
-        path.setAttribute("stroke", "#525657");
-        text.textContent = "Like";
-        text.style.color = "#525657";
+        $.ajax({
+            type: "POST",
+            url: '/Post/UnlikePost',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(postId),
+            dataType: "json",
+            success: function (response) {
+                if (response != false) {
+                    path.setAttribute("fill", "none");
+                    path.setAttribute("stroke", "#525657");
+                    text.textContent = response;
+                    text.style.color = "#525657";
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                alert("An error occurred: " + error);
+            }
+        })
     } else {
         $.ajax({
             type: "POST",
@@ -24,9 +38,8 @@ like.addEventListener("click", () => {
                 if (response != false) { 
                 path.setAttribute("fill", "#FE1F1F");
                 path.setAttribute("stroke", "#FE1F1F");
-                text.textContent = "Liked";
+                    text.textContent = response;
                     text.style.color = "#FE1F1F";
-                    countLikes.textContent = response;
                 }
             },
             error: function (xhr, status, error) {
