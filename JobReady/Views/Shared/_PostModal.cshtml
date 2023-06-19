@@ -16,7 +16,7 @@
         </button>
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body color-black">
                 <div class="grid-container d-grid h-100">
                     <div class="image-wrapper h-100">
                             <div class="d-flex flex-column align-content-center justify-content-center h-100">
@@ -44,19 +44,21 @@
                         <div class="d-flex flex-column justify-content-between gap-2 h-100">
                             <div class="all-comments h-100 p-3">
                                 <div class="comments-wrapper d-flex flex-column gap-3">
-                                    <div class="user-comment d-flex flex-row align-items-center gap-2">
+                                    <div class="user-comment d-flex flex-row align-items-center justify-content-between gap-2">
+                                        <div class="d-flex flex-row align-items-center gap-2">
                                         <img src="~/assets/images/image-placeholder.png" class="user-comment-img" />
                                         <div class="d-flex flex-column">
                                             <p class="user-name">user1</p>
                                             <p class="the-comment">Exceptionall!!</p>
-                                        </div>
+                                                </div>
+                                            </div>
                                         </div>
                                 </div>
                             </div>
                             <div class="form-comment">
                                 <div class="d-flex flex-row py-3 px-1">
                                     <input type="text" id="comment" placeholder="Add a comment..." required/>
-                                    <button class="send-btn"><img src="~/icons/send-1.svg" width="25px" class="send-button" /></button>
+                                    <a role="button" href="#" class="btn send-btn"><img src="~/icons/send-1.svg" width="25px" class="send-button" /></a>
                                 </div>
                             </div>
                         </div>
@@ -116,10 +118,10 @@ else
                                 </div>
                             </div>
                             <div class="form-comment">
-                                <form asp-controller="Post" asp-action="Comment" method="post" class="d-flex flex-row py-3 px-1">
+                                <div class="d-flex flex-row py-3 px-1">
                                     <input type="text" id="comment" placeholder="Give your input Santiago..." required />
                                     <button class="send-btn"><img src="~/icons/send-1.svg" width="25px" class="send-button" /></button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

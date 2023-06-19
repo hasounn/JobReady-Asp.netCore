@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System.Transactions;
 
 namespace JobReady.Controllers
@@ -192,24 +193,26 @@ namespace JobReady.Controllers
             var likesCount = GetTotalEngagementCount(postId, EngagementType.Like);
 
             return Ok(likesCount);
-        }
+        }   
         #endregion
 
         #region Comment on Post
         [HttpPost]
-        public IActionResult Comment([FromBody] long postId, [FromBody] string content)
+        public IActionResult Comment([FromBody]PostDetails details)
         {
             var comment = new PostEngagement()
             {
-                PostId = postId,
-                Content = content,
+                PostId = details.Id,
+                Content = details.Content,
                 CreatedById = this.User.Claims.First().Value,
                 CreatedOn = DateTime.Now,
                 EngagementType = EngagementType.Comment,
             };
+
             context.PostEngagement.Add(comment);
             context.SaveChanges();
-            return Ok(new { this.User.Identity.Name, comment.CreatedOn });
+
+            return Ok(new { this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name });
         }
         #endregion
 
