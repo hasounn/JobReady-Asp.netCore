@@ -18,7 +18,7 @@
                 <p class="color-grayish-blue time-post">@post.CreatedOn</p>
             </div>
         </div>
-        <a class="d-flex flex-column text-black text-decoration-none gap-2" asp-controller="Home" asp-action="PostDetails" asp-route-id="@post.Id">
+        <a class="d-flex flex-column text-black text-decoration-none gap-2" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id">
         <div class="d-flex flex-column w-100 mt-4 p-2 gap-2 color-gray-asset1 middle-post">
             <p class="content-post">@post.Content</p>
             @if(post.ImageId != null)
