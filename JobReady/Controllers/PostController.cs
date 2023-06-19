@@ -68,7 +68,8 @@ namespace JobReady.Controllers
                              CreatedOn = x.CreatedOn,
                          }).FirstOrDefault();
             post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
-            post.LikesCount = GetTotalLikesCount(postId);
+            post.LikesCount = GetTotalEngagementCount(postId, EngagementType.Like);
+            post.Comments = GetPostComments(postId);
             return post;
         }
         #endregion
@@ -130,20 +131,24 @@ namespace JobReady.Controllers
         }
         #endregion
 
-
-        public long GetTotalLikesCount(long postId)
+        #region Total Engagement Count
+        public long GetTotalEngagementCount(long postId, EngagementType type )
         {
             var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              where x.PostId == postId && x.EngagementType == type
                               select x).Count();
             return likesCount;
         }
+        #endregion
+
+        #region Has Liked
         public bool HasLiked(long postId, string userId)
         {
             return (from x in context.PostEngagement
                     where x.PostId == postId && x.CreatedById == userId
                     select x).Any();
         }
+        #endregion
 
         #region Like/Unlike Post
         [HttpPost]
@@ -168,7 +173,7 @@ namespace JobReady.Controllers
                 context.SaveChanges();
             }
 
-            var likesCount = GetTotalLikesCount(postId);
+            var likesCount = GetTotalEngagementCount(postId, EngagementType.Like);
             return Ok(likesCount);
 
         }
@@ -184,9 +189,49 @@ namespace JobReady.Controllers
             if (like != null)
                 context.PostEngagement.Remove(like);
                 context.SaveChanges();
-            var likesCount = GetTotalLikesCount(postId);
+            var likesCount = GetTotalEngagementCount(postId, EngagementType.Like);
 
             return Ok(likesCount);
+        }
+        #endregion
+
+        #region Comment on Post
+        [HttpPost]
+        public IActionResult Comment([FromBody] long postId, [FromBody] string content)
+        {
+            var comment = new PostEngagement()
+            {
+                PostId = postId,
+                Content = content,
+                CreatedById = this.User.Claims.First().Value,
+                CreatedOn = DateTime.Now,
+                EngagementType = EngagementType.Comment,
+            };
+            context.PostEngagement.Add(comment);
+            context.SaveChanges();
+            return Ok(new { this.User.Identity.Name, comment.CreatedOn });
+        }
+        #endregion
+
+        #region Get Post Comments
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
+        {
+            var comments = (from x in context.PostEngagement
+                            where x.Id == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                CreatedOn = x.CreatedOn,
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
         #endregion
     }
