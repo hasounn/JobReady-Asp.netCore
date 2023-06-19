@@ -83,6 +83,7 @@ namespace JobReady.Controllers
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
+                                 FullName = x.CreatedBy.FullName,
                                  Headline = x.CreatedBy.Headline,
                                  Username = x.CreatedBy.UserName,
                              },
