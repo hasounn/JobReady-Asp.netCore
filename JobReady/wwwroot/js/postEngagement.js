@@ -1,7 +1,7 @@
 ﻿const like = document.querySelector(".like"),
     share = document.querySelector(".share"),
     report = document.querySelector(".report"),
-    postId = document.getElementById("postId"),
+    postId = document.getElementById("postId").value,
     countLikes = document.querySelector(".count-likes");
 
 
