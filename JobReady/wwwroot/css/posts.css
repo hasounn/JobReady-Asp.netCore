@@ -1,7 +1,6 @@
 ﻿.post {
     background: var(--lightwhite);
-    max-width: calc(100% - 150px);
-    width:1000px;
+    width: 100%;
     height: fit-content;
     padding: 1em;
     border-radius: 20px;
@@ -15,7 +14,7 @@
     width: 55px;
     height: 55px;
 }
-image-post-sizing{
+.image-post-sizing{
     width:200px;
     aspect-ratio:1/1;
 }
