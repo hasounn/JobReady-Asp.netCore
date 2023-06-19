@@ -27,7 +27,7 @@
 }
 
     .apply-btn:hover > div p {
-        color: var(--lightblue);
+        color: var(--lightblue)!important;
     }
     .apply-btn > div svg path{
         transition:0.25s ease-in;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
@@ -9,9 +10,36 @@ namespace JobReady.Controllers
         {
             this.context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(long jobId)
         {
-            return View();
+            var jobApp = (from x in context.JobPost
+                          join z in context.UserAccount on x.CreatedById equals z.Id
+                          join js in context.JobSkill on x.Id equals js.Id
+                          join s in context.Skill on js.SkillId equals s.Id
+                          where x.Id == jobId
+                          select new JobPostDetails()
+                          {
+                                  Id = x.Id,
+                                  CreatedById = x.CreatedById,
+                                  CreatedBy = new UserAccountDetails()
+                                  {
+                                      Username = z.UserName,
+                                      AccountType = z.AccountType,
+                                  },
+                                  Description = x.Description,
+                                  CreatedOn = x.CreatedOn,
+                                  Title = x.Title,
+                                  IsRemote = x.IsRemote,
+                                  Skills = new List<SkillDetails>()
+                                      {
+                                            new SkillDetails()
+                                            {
+                                                      Id = s.Id,
+                                                      Name = s.Name
+                                            }
+                                      }.AsEnumerable()
+                          }).FirstOrDefault();
+            return View(jobApp);
         }
         public IActionResult Apply(JobApplicationDetails details)
         {

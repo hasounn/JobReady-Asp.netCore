@@ -11,8 +11,15 @@
                 <h6 class="fw-normal">@item.CreatedBy.Username</h6>
             </div>
             <div>
-                <p class="location">Lebanon (<span>Remote</span>)</p>
-                <p class="timeOn fw-bold">@item.CreatedOn</p>
+                    <p class="location">
+                        Lebanon (<span>
+                            @{
+                                var type = item.IsRemote == true ? "Remote" : "On Site";
+                                @type
+                            }
+                        </span>)
+                    </p>
+                    <p class="timeOn fw-bold">@item.CreatedOn</p>
             </div>
         </div>
     </div>

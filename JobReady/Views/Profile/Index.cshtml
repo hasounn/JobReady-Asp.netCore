@@ -9,10 +9,25 @@
     <div class="d-flex flex-column flex-lg-row w-100 h-auto justify-content-center gap-5">
         <div class="image-and-button d-flex flex-column h-100 justify-content-between align-items-center gap-4">
             <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
-            <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
+            @if(Model.IsOwned == true)
+            {
+                <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
+            }else{
+                <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill">
+                    <img src="~/icons/profile-add.svg"/>
+                    <p>Follow</p>
+                </a>
+            }
+            
         </div>
         <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
-            <p class="fullname-p">@Model.FullName<span class="username-span">&#8226; @@@Model.Username</span></p>
+            <div class="fullname-p d-flex flex-row align-items-center gap-1">
+                <p>@Model.FullName</p>
+                <span class="username-span">&#8226; @@@Model.Username</span>
+                 @if (Model.IsVerified == true) {
+                        <img src="~/icons/verify.svg" class="ms-1"/>
+                 }
+            </div>
             <div class="d-flex flex-row justify-content-lg-between justify-content-around width-fix">
                 <div class="d-flex flex-column align-items-center h-100 justify-content-between">
                     <p class="nb-of-posts">@Model.Posts.Count()</p>
@@ -45,16 +60,24 @@
     <div class="all-divs d-flex flex-column gap-4">
         <partial name="_Experience"/>
         <partial name="_Education"/>
+        @if(Model.Skills.Count() != 0){
         <div class="d-flex flex-column flex-lg-row gap-3">
-            <partial name="_Skills" />
+                @if(Model.Skills.Count() != 0)
+                {
+                   <partial name="_Skills" /> 
+                }
+                
             @*<partial name="_Projects" />*@
-        </div>
+            </div>
+        }
+        @if(Model.Posts.Count() != 0){
         <div class="d-flex flex-column gap-4">
             <p class="yourposts-title">Your Posts</p>
             <div class="posts d-flex flex-column gap-3 align-items-center">
                 <partial name="_Posts" model="@Model.Posts"/>
-            </div>
+                </div>
         </div>
+        }
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>

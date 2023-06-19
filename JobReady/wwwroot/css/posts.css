@@ -28,6 +28,10 @@ image-post-sizing{
     font-size:11px;
 }
 
+.content-post {
+    white-space: pre-wrap;
+}
+
 .like,.comment,.share, .report{
     cursor:pointer;
 }
