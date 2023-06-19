@@ -156,6 +156,16 @@
     padding: 5px 10px 5px 10px;
     max-height: 150px;
 }
+.fullname-p-modal {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.username-span-modal {
+    font-weight: 200;
+    color: var(--gray-asset2);
+    font-size: 12px;
+}
 
 @media only screen and (max-width:1023.5px) {
     .grid-container{

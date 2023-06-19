@@ -26,13 +26,15 @@
                     <div class="username-wrapper d-flex flex-column p-3 gap-3">
                         <div class="d-flex flex-row align-items-center w-100 gap-2">
                                 <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize rounded-circle" />
-                                <div class="fullname-p d-flex flex-row align-items-center gap-1">
-                                    <p>@Model.CreatedBy.FullName</p>
-                                    <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
-                                   @* @if (Model.IsVerified == true)
-                                    {
-                                        <img src="~/icons/verify.svg" class="ms-1" />
-                                    }*@
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="fullname-p-modal d-flex flex-row align-items-center gap-1">
+                                        <p>@Model.CreatedBy.FullName</p>
+                                        <span class="username-span-modal">&#8226; @@@Model.CreatedBy.Username</span>
+                                       @* @if (Model.IsVerified == true)
+                                        {
+                                            <img src="~/icons/verify.svg" class="ms-1" />
+                                        }*@
+                                        </div>
                                     <p class="colorcolor-grayish-blue heading-post fw-lighter">@Model.CreatedBy.Headline</p>
                                 </div>
                         </div>
@@ -80,22 +82,24 @@ else
         <div class="modal-content">
             <div class="modal-body">
                 <div class="grid-container-text d-grid h-100">
-                    <div class="text-wrapper d-flex flex-column text-center align-content-center justify-content-center h-100 w-100">
-                            <div class="username-wrapper d-flex flex-column w-100 align-items-center justify-content-center p-3 gap-2">
-                                <div class="d-flex flex-row align-items-center justify-content-center  w-100 gap-2">
+                    <div class="text-wrapper d-flex flex-column p-3 h-100 w-100 gap-3">
+                            <div class="username-wrapper d-flex flex-column w-100 gap-2">
+                                <div class="d-flex flex-row align-items-center w-100 gap-2">
                                     <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize rounded-circle" />
-                                    <div class="fullname-p d-flex flex-row align-items-center gap-1">
+                                    <div class="d-flex flex-column gap-3">
+                                    <div class="fullname-p-modal d-flex flex-row align-items-center gap-1">
                                         <p>@Model.CreatedBy.FullName</p>
-                                        <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
+                                        <span class="username-span-modal">&#8226; @@@Model.CreatedBy.Username</span>
                                         @* @if (Model.IsVerified == true)
                                         {
                                         <img src="~/icons/verify.svg" class="ms-1" />
                                         }*@
+                                    </div>
                                         <p class="colorcolor-grayish-blue heading-post fw-lighter">@Model.CreatedBy.Headline</p>
                                     </div>
                                 </div>
                             </div>
-                            <p>@Model.Content</p>
+                            <p class="ps-3">@Model.Content</p>
                     </div>
                   
                     <div class="engagement-wrapper h-100 ps-3 py-3">
