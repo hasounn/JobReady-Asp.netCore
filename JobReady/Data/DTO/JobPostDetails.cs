@@ -24,5 +24,6 @@
             }
             return null;
         }
+        public string LetterOfMotivation { get; set; }
     }
 }

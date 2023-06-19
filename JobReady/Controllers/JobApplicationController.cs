@@ -41,7 +41,7 @@ namespace JobReady.Controllers
                           }).FirstOrDefault();
             return View(jobApp);
         }
-        public IActionResult Apply(JobApplicationDetails details)
+        public IActionResult Apply(JobPostDetails details)
         {
             if(ModelState.IsValid)
             {
@@ -49,8 +49,8 @@ namespace JobReady.Controllers
                 {
                     ApplicantId = this.User.Claims.First().Value,
                     AppliedOn = DateTime.Now,
-                    JobPostId = details.JobPostId,
-                    LetterOfMotivation = details.LetterOfMotivation
+                    JobPostId = details.Id,
+                    LetterOfMotivation = details.LetterOfMotivation,
                 };
                 context.JobApplication.Add(application);
                 context.SaveChanges();
