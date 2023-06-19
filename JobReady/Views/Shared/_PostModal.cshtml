@@ -19,13 +19,13 @@
             <div class="modal-body">
                 <div class="grid-container d-grid h-100">
                     <div class="image-wrapper h-100">
-                        <div class="d-flex align-content-center h-100">
+                            <div class="d-flex flex-column align-content-center justify-content-center h-100">
                                 <img src="@Url.Action("GetPostPicture", "Post", new {imageId = Model.ImageId})" class="image-post-modal" />
                         </div>
                     </div>
                     <div class="username-wrapper d-flex flex-column p-3 gap-3">
                         <div class="d-flex flex-row align-items-center w-100 gap-2">
-                            <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize" />
+                                <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize rounded-circle" />
                                 <div class="fullname-p d-flex flex-row align-items-center gap-1">
                                     <p>@Model.CreatedBy.FullName</p>
                                     <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
