@@ -16,15 +16,15 @@ like.addEventListener("click", () => {
     } else {
         $.ajax({
             type: "POST",
-            url: '/JobPost/LikePost',
+            url: '/Post/LikePost',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(postId),
             dataType: "json",
             success: function (response) {
-                if (response != false) {
-                    path.setAttribute("fill", "#FE1F1F");
-                    path.setAttribute("stroke", "#FE1F1F");
-                    text.textContent = "Liked";
+                if (response != false) { 
+                path.setAttribute("fill", "#FE1F1F");
+                path.setAttribute("stroke", "#FE1F1F");
+                text.textContent = "Liked";
                     text.style.color = "#FE1F1F";
                     countLikes.textContent = response;
                 }
