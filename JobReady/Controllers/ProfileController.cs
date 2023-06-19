@@ -103,5 +103,20 @@ namespace JobReady.Controllers
                           select y.Name).ToArray();
             return skills;
         }
+
+        [HttpGet]
+        public IActionResult Follow(string userId)
+        {
+            if(userId == null) return BadRequest();
+            var newFollower = new Follower()
+            {
+                UserAccountId = this.User.Claims.First().Value,
+                FollowingId = userId,
+                FollowedOn = DateTime.Now,
+            };
+            context.Follower.Add(newFollower);
+            context.SaveChanges();
+            return RedirectToAction("Profile", "Index", userId);
+        }
     }
 }

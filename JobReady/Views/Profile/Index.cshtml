@@ -13,7 +13,8 @@
             {
                 <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
             }else{
-                <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill">
+                <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"
+                    asp-controller="Profile" asp-action="Follow" asp-route-userId="@Model.Id">
                     <img src="~/icons/profile-add.svg"/>
                     <p>Follow</p>
                 </a>
