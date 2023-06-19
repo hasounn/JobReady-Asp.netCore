@@ -176,7 +176,7 @@ namespace JobReady.Controllers
         {
             var like = (from x in context.PostEngagement
                         where x.PostId == postId
-                        && x.EngagementType == EngagementType.Like
+                          && x.EngagementType == EngagementType.Like
                         && x.CreatedById == this.User.Claims.First().Value
                         select x).FirstOrDefault();
             if (like != null)
