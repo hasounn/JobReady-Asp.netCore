@@ -128,9 +128,21 @@ namespace JobReady.Controllers
 
         #region Like Post
         [HttpPost]
-        public IActionResult LikePost(PostDetails details)
+        public IActionResult LikePost([FromBody]long postId)
         {
-            return null;
+            var like = new PostEngagement()
+            {
+                PostId = postId,
+                EngagementType = EngagementType.Like,
+                CreatedById = this.User.Claims.First().Value
+            };
+            context.PostEngagement.Add(like);
+            context.SaveChanges();
+
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return Ok(likesCount);
 
         }
         #endregion
