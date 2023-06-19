@@ -11,4 +11,5 @@ public class JobApplicationDetails
     public JobPost JobPost { get; set; }
     public string LetterOfMotivation { get; set; }
     public DateTime AppliedOn { get; set; }
+    public IEnumerable<SkillDetails> Skills { get; set;}
 }

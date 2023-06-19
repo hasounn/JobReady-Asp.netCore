@@ -70,11 +70,15 @@
 .picture-wrapper{
     background-color:#c7c7c7;
     border-radius:25px;
+    width:100%;
+    max-height:280px;
 }
 
 .img-user{
-    width:100%;
-    max-width:300px;
+    
+    aspect-ratio:1/1;
+    height:100%;
+    width:auto;
 }
 
 .post-btn {
