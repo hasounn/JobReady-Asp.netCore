@@ -2,6 +2,7 @@
 
     @foreach(PostDetails post in Model){
     <div class="post d-flex flex-column">
+        <input type="hidden" id="postId" value="@post.Id"/>
         <div class="d-flex flex-row w-100 gap-3 align-items-start top-post">
         <img src="@Url.Action("GetProfilePicture","Profile", new {userId = post.CreatedById})" alt="Profile" class="rounded-circle img-post mt-2" />
             <div class="d-flex flex-column w-100">
@@ -27,6 +28,10 @@
             }
             </div>
         </a>
+        <div class="d-flex flex-column gap-1">
+            <div class="d-flex flex-row">
+                <p><span class="count-likes">@post.LikesCount</span> Likes</p>
+            </div>
         <div class="d-flex flex-column w-100 gap-1 px-3 mb-1 footer-post">
             <hr class="fine-line-post color-gray-asset1" />
             <div class="d-flex flex-row w-100 justify-content-between">
@@ -57,6 +62,7 @@
                     </svg>
 
                 <p class="color-grayish-blue d-none d-md-inline">@EngagementType.Report.ToString()</p>
+                </div>
                 </div>
             </div>
         </div>
