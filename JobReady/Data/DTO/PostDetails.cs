@@ -9,6 +9,7 @@ public class PostDetails
     public IFormFile Image { get; set; }
     public long? ImageId { get; set; }
     public string CreatedById { get; set; }
+    public long LikesCount { get; set; }
     public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
 }

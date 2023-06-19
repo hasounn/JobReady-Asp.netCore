@@ -10,6 +10,7 @@ namespace JobReady.Controllers
         {
             this.context = context;
         }
+        #region Index
         public IActionResult Index()
         {
             var user = (from x in context.Users 
@@ -23,7 +24,9 @@ namespace JobReady.Controllers
 
             return View(new PostDetails() { CreatedBy = user});
         }
+        #endregion
 
+        #region Get Post Picture
         public async Task<IActionResult> GetPostPicture(long imageId)
         {
             var photo = await context.FileLink.FindAsync(imageId);
@@ -37,7 +40,9 @@ namespace JobReady.Controllers
                 return File("/assets/images/image-placeholder.png", "image/png");
             }
         }
+        #endregion
 
+        #region Get Post
         [HttpGet]
         public PostDetails GetPost(long postId)
         {
@@ -62,7 +67,9 @@ namespace JobReady.Controllers
                          }).FirstOrDefault();
             return post;
         }
+        #endregion
 
+        #region Create Post
         [HttpPost]
         public async Task<IActionResult> CreatePost(PostDetails details)
         {
@@ -117,5 +124,15 @@ namespace JobReady.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
+
+        #region Like Post
+        [HttpPost]
+        public IActionResult LikePost(PostDetails details)
+        {
+            return null;
+
+        }
+        #endregion
     }
 }
