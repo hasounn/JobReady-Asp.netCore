@@ -44,6 +44,7 @@ namespace JobReady.Controllers
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
+                                 FullName = x.CreatedBy.FullName,
                                  Headline = x.CreatedBy.Headline,
                                  Username = x.CreatedBy.UserName,
                              },
@@ -63,7 +64,7 @@ namespace JobReady.Controllers
         [HttpGet]
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
-            var Jobposts = (from x in context.JobPost
+            var jobposts = (from x in context.JobPost
                          orderby x.CreatedOn descending
                          select new JobPostDetails()
                          {
@@ -80,7 +81,7 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).AsEnumerable();
-            return Jobposts;
+            return jobposts;
         }
 
         public long GetTotalLikesCount(long postId)

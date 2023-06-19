@@ -18,6 +18,7 @@ namespace JobReady.Controllers
                         select new UserAccountDetails()
                         {
                             Id = x.Id,
+                            FullName = x.CreatedBy.FullName,
                             Username = x.UserName,
                             Headline = x.Headline,
                         }).FirstOrDefault();
@@ -57,6 +58,7 @@ namespace JobReady.Controllers
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
+                                 FullName = x.CreatedBy.FullName,
                                  Headline = x.CreatedBy.Headline,
                                  Username = x.CreatedBy.UserName,
                              },
