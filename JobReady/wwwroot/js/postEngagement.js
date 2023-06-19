@@ -6,7 +6,7 @@
 likes.forEach(like => {like.addEventListener("click", () => {
         const path = like.querySelector(".like-button-path");
         const text = like.querySelector("p");
-    const postId = document.querySelector("#postId").value
+        const postId = like.querySelector("#postId").value
         if (path.getAttribute("fill") === "#FE1F1F") {
             $.ajax({
                 type: "POST",
