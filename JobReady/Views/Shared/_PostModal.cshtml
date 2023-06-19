@@ -20,7 +20,7 @@
                 <div class="grid-container d-grid h-100">
                     <div class="image-wrapper h-100">
                         <div class="d-flex align-content-center h-100">
-                            <img src="@Url.Action("GetPostPicture", "Post", new {imageId = Model.ImageId})" class="w-100 h-auto" />
+                                <img src="@Url.Action("GetPostPicture", "Post", new {imageId = Model.ImageId})" class="image-post-modal" />
                         </div>
                     </div>
                     <div class="username-wrapper d-flex flex-column p-3 gap-3">
@@ -80,21 +80,21 @@ else
             <div class="modal-body">
                 <div class="grid-container-text d-grid h-100">
                     <div class="text-wrapper d-flex flex-column text-center align-content-center justify-content-center h-100 w-100">
-                            <p>@Model.Content</p>
-                    </div>
-                        <div class="username-wrapper d-flex flex-column p-3 gap-2">
-                            <div class="d-flex flex-row align-items-center w-100 gap-2">
-                                <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize" />
-                                <div class="fullname-p d-flex flex-row align-items-center gap-1">
-                                    <p>@Model.CreatedBy.FullName</p>
-                                    <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
-                                    @* @if (Model.IsVerified == true)
-                                {
-                                <img src="~/icons/verify.svg" class="ms-1" />
-                                }*@
+                            <div class="username-wrapper d-flex flex-column p-3 gap-2">
+                                <div class="d-flex flex-row align-items-center w-100 gap-2">
+                                    <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize" />
+                                    <div class="fullname-p d-flex flex-row align-items-center gap-1">
+                                        <p>@Model.CreatedBy.FullName</p>
+                                        <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
+                                        @* @if (Model.IsVerified == true)
+                                    {
+                                    <img src="~/icons/verify.svg" class="ms-1" />
+                                    }*@
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <p>@Model.Content</p>
+                    </div>
                   
                     <div class="engagement-wrapper h-100 ps-3 py-3">
                         <div class="d-flex flex-column justify-content-between gap-2 h-100">
