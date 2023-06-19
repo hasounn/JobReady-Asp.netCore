@@ -65,6 +65,8 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).FirstOrDefault();
+            post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+            post.LikesCount = GetTotalLikesCount(postId);
             return post;
         }
         #endregion
@@ -126,22 +128,45 @@ namespace JobReady.Controllers
         }
         #endregion
 
+
+        public long GetTotalLikesCount(long postId)
+        {
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return likesCount;
+        }
+        public bool HasLiked(long postId, string userId)
+        {
+            return (from x in context.PostEngagement
+                    where x.PostId == postId && x.CreatedById == userId
+                    select x).Any();
+        }
+
         #region Like/Unlike Post
         [HttpPost]
         public IActionResult LikePost([FromBody]long postId)
         {
-            var like = new PostEngagement()
+            var like = (from x in context.PostEngagement
+                        where x.PostId == postId
+                        && x.EngagementType == EngagementType.Like
+                        && x.CreatedById == this.User.Claims.First().Value
+                        select x).FirstOrDefault();
+            if (like == null)
             {
-                PostId = postId,
-                EngagementType = EngagementType.Like,
-                CreatedById = this.User.Claims.First().Value
-            };
-            context.PostEngagement.Add(like);
-            context.SaveChanges();
 
-            var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
-                              select x).Count();
+                like = new PostEngagement()
+                {
+                    PostId = postId,
+                    EngagementType = EngagementType.Like,
+                    CreatedById = this.User.Claims.First().Value,
+                    CreatedOn = DateTime.Now,
+                };
+                context.PostEngagement.Add(like);
+                context.SaveChanges();
+            }
+
+            var likesCount = GetTotalLikesCount(postId);
             return Ok(likesCount);
 
         }
@@ -157,9 +182,8 @@ namespace JobReady.Controllers
             if (like != null)
                 context.PostEngagement.Remove(like);
                 context.SaveChanges();
-            var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
-                              select x).Count();
+            var likesCount = GetTotalLikesCount(postId);
+
             return Ok(likesCount);
         }
         #endregion
