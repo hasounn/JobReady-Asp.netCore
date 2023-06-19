@@ -126,7 +126,7 @@ namespace JobReady.Controllers
         }
         #endregion
 
-        #region Like Post
+        #region Like/Unlike Post
         [HttpPost]
         public IActionResult LikePost([FromBody]long postId)
         {
@@ -144,6 +144,23 @@ namespace JobReady.Controllers
                               select x).Count();
             return Ok(likesCount);
 
+        }
+
+        [HttpPost]
+        public IActionResult UnlikePost([FromBody]long postId)
+        {
+            var like = (from x in context.PostEngagement
+                        where x.PostId == postId
+                        && x.EngagementType == EngagementType.Like
+                        && x.CreatedById == this.User.Claims.First().Value
+                        select x).FirstOrDefault();
+            if (like != null)
+                context.PostEngagement.Remove(like);
+                context.SaveChanges();
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return Ok(likesCount);
         }
         #endregion
     }
