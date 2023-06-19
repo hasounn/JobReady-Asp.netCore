@@ -80,9 +80,9 @@ else
             <div class="modal-body">
                 <div class="grid-container-text d-grid h-100">
                     <div class="text-wrapper d-flex flex-column text-center align-content-center justify-content-center h-100 w-100">
-                            <div class="username-wrapper d-flex flex-column p-3 gap-2">
-                                <div class="d-flex flex-row align-items-center w-100 gap-2">
-                                    <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize" />
+                            <div class="username-wrapper d-flex flex-column w-100 align-items-center justify-content-center p-3 gap-2">
+                                <div class="d-flex flex-row align-items-center justify-content-center  w-100 gap-2">
+                                    <img src="@Url.Action("GetProfilePicture", "Profile",new {userId = Model.CreatedById})" class="image-modal-resize rounded-circle" />
                                     <div class="fullname-p d-flex flex-row align-items-center gap-1">
                                         <p>@Model.CreatedBy.FullName</p>
                                         <span class="username-span">&#8226; @@@Model.CreatedBy.Username</span>
