@@ -20,7 +20,7 @@
         </div>
         <a class="d-flex flex-column text-black text-decoration-none gap-2" asp-controller="Home" asp-action="PostDetails" asp-route-id="@post.Id">
         <div class="d-flex flex-column w-100 mt-4 p-2 gap-2 color-gray-asset1 middle-post">
-            <p>@post.Content</p>
+            <p class="content-post">@post.Content</p>
             @if(post.ImageId != null)
             {
                 <img src="@Url.Action("GetPostPicture","Post", new {imageId = post.ImageId})" class="image-post-sizing"/>
