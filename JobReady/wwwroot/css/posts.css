@@ -15,8 +15,7 @@
     height: 55px;
 }
 .image-post-sizing{
-    width:200px;
-    aspect-ratio:1/1;
+    width:inherit;
 }
 
 .dot-post {
