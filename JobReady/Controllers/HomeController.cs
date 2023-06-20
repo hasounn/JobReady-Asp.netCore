@@ -1,10 +1,12 @@
 ﻿using JobReady.Data.DTO;
 using JobReady.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly JobReadyContext context;
@@ -57,6 +59,7 @@ namespace JobReady.Controllers
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+                post.Comments = GetPostComments(post.Id);
             }
             return posts.AsEnumerable();
         }
@@ -94,8 +97,28 @@ namespace JobReady.Controllers
         public bool HasLiked(long postId, string userId)
         {
             return (from x in context.PostEngagement
-                    where x.PostId == postId && x.CreatedById == userId
+                    where x.PostId == postId && x.CreatedById == userId && x.EngagementType == EngagementType.Like
                     select x).Any();
+        }
+
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
+        {
+            var comments = (from x in context.PostEngagement
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                CreatedOn = x.CreatedOn,
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly JobReadyContext context;
@@ -121,6 +123,7 @@ namespace JobReady.Controllers
         {
             return (from x in context.PostEngagement
                     where x.PostId == postId && x.CreatedById == userId
+                    && x.EngagementType == EngagementType.Like
                     select x).Any();
         }
     }

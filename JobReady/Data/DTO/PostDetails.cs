@@ -11,6 +11,7 @@ public class PostDetails
     public string CreatedById { get; set; }
     public long LikesCount { get; set; }
     public bool HasLiked { get; set; }
+    public IEnumerable<PostEngagementDetails> Comments { get; set; }
     public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
 }
