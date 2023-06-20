@@ -5,57 +5,47 @@
 }
 <link rel="stylesheet" href="~/css/notification.css"/>
 
-<div class="d-flex flex-column form-side w-100 height-fix p-5">
+<div class="d-flex flex-column form-side w-100 height-fix p-5 gap-5">
     <div class="d-flex flex-row w-100 justify-content-center align-items-center">
-        <div class="d-flex flex-column w-100 justify-content-center align-items-center">
-            <div class="d-flex flex-row notification-bar align-items-center">
-                <div class=" d-flex flex-row flex-wrap w-100 justify-content-around">
-                    <div class="d-flex top-bar">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="icon-path" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path class="icon-path" d="M7.99998 3H8.99998C7.04998 8.84 7.04998 15.16 8.99998 21H7.99998" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path class="icon-path" d="M15 3C16.95 8.84 16.95 15.16 15 21" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                <div class="d-flex flex-row align-items-center justify-content-center text-center">
+                    <div class="d-flex flex-row justify-content-around align-items-center filter-news">
+                        <a class="btn d-flex flex-row filter-news-item align-items-center active" asp-controller="Notifications" asp-action="GetEngagements">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="homepage-path" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M7.99998 3H8.99998C7.04998 8.84 7.04998 15.16 8.99998 21H7.99998" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M15 3C16.95 8.84 16.95 15.16 15 21" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
 
-                        <strong class="category" data-category="all">All</strong>
-                    </div>
-                    <div class="d-flex top-bar">
-                        <div class="d-flex top-bar">
-                            <img src="icons/profile-2user.svg" alt="2users" class="top-images">
-                            <strong class="category" data-category="follow-requests">Follow Requests</strong>
-                        </div>
-                    </div>
-                    <div class="d-flex top-bar">
-                        <div class="d-flex top-bar">
-                            <img src="icons/settings.svg" alt="settings" class="top-images">
-                            <strong class="category" data-category="recommendations">Recommendations</strong>
-                        </div>
+                            <p>Engagements</p>
+                        </a>
+                        <a class="btn d-flex flex-row filter-news-item" asp-controller="Notifications" asp-action="GetRecommendation">
+                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="homepage-path" d="M10.75 2.44995C11.44 1.85995 12.57 1.85995 13.27 2.44995L14.85 3.81005C15.15 4.07005 15.71 4.28002 16.11 4.28002H17.81C18.87 4.28002 19.74 5.14996 19.74 6.20996V7.91003C19.74 8.30003 19.95 8.87004 20.21 9.17004L21.57 10.75C22.16 11.44 22.16 12.57 21.57 13.27L20.21 14.85C19.95 15.15 19.74 15.71 19.74 16.11V17.8101C19.74 18.8701 18.87 19.74 17.81 19.74H16.11C15.72 19.74 15.15 19.95 14.85 20.21L13.27 21.5699C12.58 22.1599 11.45 22.1599 10.75 21.5699L9.17002 20.21C8.87002 19.95 8.31001 19.74 7.91001 19.74H6.18C5.12 19.74 4.25 18.8701 4.25 17.8101V16.1C4.25 15.71 4.04001 15.15 3.79001 14.85L2.44 13.26C1.86 12.57 1.86 11.45 2.44 10.76L3.79001 9.17004C4.04001 8.87004 4.25 8.31004 4.25 7.92004V6.20996C4.25 5.14996 5.12 4.28002 6.18 4.28002H7.91001C8.30001 4.28002 8.87002 4.07005 9.17002 3.81005L10.75 2.44995Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M9.89001 14.82L11.34 15.94C11.53 16.13 11.95 16.22 12.23 16.22H14C14.56 16.22 15.17 15.8 15.31 15.24L16.43 11.82C16.66 11.17 16.24 10.6 15.54 10.6H13.67C13.39 10.6 13.16 10.3701 13.2 10.0401L13.43 8.54008C13.52 8.12008 13.24 7.65005 12.82 7.51005C12.45 7.37005 11.98 7.56 11.79 7.84L9.87 10.69" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" />
+                                <path class="homepage-path" d="M7.5 14.8199V10.24C7.5 9.57999 7.78 9.34998 8.44 9.34998H8.91C9.56 9.34998 9.85001 9.57999 9.85001 10.24V14.8199C9.85001 15.4699 9.57 15.71 8.91 15.71H8.44C7.78 15.71 7.5 15.4799 7.5 14.8199Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                             </svg>
+
+                             <p class="text-capitalize">my recommendations</p>
+                        </a>
+                        <a class="btn d-flex flex-row filter-news-item" asp-controller="Notifications" asp-action="GetRecommendation">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path class="homepage-path" d="M7.99995 22H15.9999C20.0199 22 20.7399 20.39 20.9499 18.43L21.6999 10.43C21.9699 7.99 21.2699 6 16.9999 6H6.99995C2.72995 6 2.02995 7.99 2.29995 10.43L3.04995 18.43C3.25995 20.39 3.97995 22 7.99995 22Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M8 6V5.2C8 3.43 8 2 11.2 2H12.8C16 2 16 3.43 16 5.2V6" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M14 13V14C14 14.01 14 14.01 14 14.02C14 15.11 13.99 16 12 16C10.02 16 10 15.12 10 14.03V13C10 12 10 12 11 12H13C14 12 14 12 14 13Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M21.65 11C19.34 12.68 16.7 13.68 14 14.02" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path class="homepage-path" d="M2.62 11.27C4.87 12.81 7.41 13.74 10 14.03" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                             <p class="text-capitalize">my applications</p>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-       </div>
-
-        <h2 class="text">Your Notifications</h2>
         <div class="d-flex flex-column align-items-center justify-content-center" id="notification-list">
-            @for(var i =0 ; i<7; i++)
-            {
-                <div class="form-step d-flex flex-row justify-content-between align-items-center category-notification -notification">
-                    <div class="d-flex flex-row align-items-center gap-2">
-                        <img src="assets/images/image-placeholder.png" alt="User 1" class="user-image">
-                    <div class="d-flex flex-row align-items-center gap-2">
-                        <p class="usr-name" id="user-name">User 1</p>
-                        <p class="notification-content">Hello</p>
-                    </div>
-                            </div>
-                        <p class="p-2 notf-time">1 hour ago</p>
-                    </div>
-                   
-            }
+           <partial name="_ApplicationView"/>
         </div>
-    </div>
+ </div>
 
 
 <script src="~/lib/jquery/dist/jquery.js"></script>

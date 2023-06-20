@@ -1,5 +1,33 @@
 ﻿@import url("root.css");
 
+.filter-news {
+    background: var(--lightwhite);
+    padding: 10px 20px;
+    gap: 4em;
+    border-radius: 55px;
+    color: var(--grayish-blue);
+    font-family: 'League Gothic', sans-serif;
+    cursor: pointer;
+    user-select: none;
+    width: 570px;
+}
+
+.filter-news-item {
+    gap: 0.24em;
+    padding: 10px 15px;
+    font-size:16px;
+}
+
+    .filter-news-item.active {
+        color: var(--lightblue);
+        background-color: var(--lightblue-faded);
+        border-radius: 55px;
+        font-size: 18px;
+    }
+
+        .filter-news-item.active .homepage-path {
+            stroke: var(--lightblue);
+        }
 
 .steps-container {
     width: 30.125rem;
@@ -62,22 +90,6 @@
     height: fit-content;
 }
 
-.text {
-    position: relative;
-    width:200px;
-}
-
-    .text::before {
-        content: "";
-        position: absolute;
-        bottom: -12px;
-        width: 200px;
-        height: 10px;
-        transform: skew(-37deg);
-        background-color: #139BE4;
-        
-    }
-
 .follow-btn {
     width: 120px;
     height: 45px;
@@ -125,3 +137,17 @@
     color: #FFFFFF;
 }
 
+.light-blue-thead{
+    background:var(--lightblue);
+    color:var(--snow-white);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--lightblue-faded);
+    color:var(--snow-white);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: var(--lightwhite-faded);
+    color: var(--lightblue);
+}
