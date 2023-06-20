@@ -1,7 +1,6 @@
 ﻿.post {
     background: var(--lightwhite);
-    max-width: calc(100% - 150px);
-    width:1000px;
+    width: 100%;
     height: fit-content;
     padding: 1em;
     border-radius: 20px;
@@ -15,9 +14,8 @@
     width: 55px;
     height: 55px;
 }
-image-post-sizing{
-    width:200px;
-    aspect-ratio:1/1;
+.image-post-sizing{
+    width:inherit;
 }
 
 .dot-post {
@@ -98,6 +96,12 @@ image-post-sizing{
 
 .image-modal-resize{
     width:2.6em;
+    height:2.6em;
+}
+
+.image-post-modal{
+    height:fit-content;
+    width:100%;
 }
 
 .username-wrapper{
@@ -151,6 +155,16 @@ image-post-sizing{
     width: calc(100% - 3em);
     padding: 5px 10px 5px 10px;
     max-height: 150px;
+}
+.fullname-p-modal {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.username-span-modal {
+    font-weight: 200;
+    color: var(--gray-asset2);
+    font-size: 12px;
 }
 
 @media only screen and (max-width:1023.5px) {
