@@ -24,9 +24,9 @@
             </div>
             <textarea asp-for="Description" class="textarea-post" placeholder="Description"></textarea>
             <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
-                <p class="fw-bold">Level:</p>
+                <p class="fw-bold">Type:</p>
                 <div class="job-level-select">
-                    <select asp-items="Html.GetEnumSelectList<JobLevel>()" asp-for="JobType"></select>
+                        <select asp-items="Html.GetEnumSelectList<JobType>()" asp-for="JobType"></select>
                     <img src="~/icons/arrow-bottom.svg"/>
                 </div>
             </div>
