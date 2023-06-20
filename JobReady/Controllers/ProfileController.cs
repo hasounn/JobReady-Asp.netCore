@@ -118,5 +118,13 @@ namespace JobReady.Controllers
             context.SaveChanges();
             return RedirectToAction("Profile", "Index", userId);
         }
+        
+        public bool HasFollowed(string userId)
+        {
+            var followerId = this.User.Claims.First().Value;
+            return (from x in context.Follower
+                    where x.UserAccountId == followerId && x.FollowingId == userId
+                    select x).Any();
+        }
     }
 }
