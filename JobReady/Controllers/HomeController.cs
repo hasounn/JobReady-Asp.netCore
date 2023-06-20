@@ -36,7 +36,7 @@ namespace JobReady.Controllers
             var posts = (from x in context.Post
                          join y in context.FileLink on x.Id equals y.ObjectId into images
                          from i in images.DefaultIfEmpty()
-                         where i == null || i.ObjectType == ObjectType.Post
+                         where (i == null || i.ObjectType == ObjectType.Post)
                          orderby x.CreatedOn descending
                          select new PostDetails()
                          {
@@ -44,6 +44,7 @@ namespace JobReady.Controllers
                              CreatedBy = new UserAccountDetails()
                              {
                                  Id = x.CreatedById,
+                                 FullName = x.CreatedBy.FullName,
                                  Headline = x.CreatedBy.Headline,
                                  Username = x.CreatedBy.UserName,
                              },
@@ -51,14 +52,19 @@ namespace JobReady.Controllers
                              ImageId = i.Id,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
-                         }).AsEnumerable();
-            return posts;
+                         }).ToList();
+            foreach(var post in posts)
+            {
+                post.LikesCount = GetTotalLikesCount(post.Id);
+                post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+            }
+            return posts.AsEnumerable();
         }
 
         [HttpGet]
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
-            var Jobposts = (from x in context.JobPost
+            var jobPosts = (from x in context.JobPost
                          orderby x.CreatedOn descending
                          select new JobPostDetails()
                          {
@@ -75,7 +81,21 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).AsEnumerable();
-            return Jobposts;
+            return jobPosts;
+        }
+
+        public long GetTotalLikesCount(long postId)
+        {
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return likesCount;
+        }
+        public bool HasLiked(long postId, string userId)
+        {
+            return (from x in context.PostEngagement
+                    where x.PostId == postId && x.CreatedById == userId
+                    select x).Any();
         }
     }
 }

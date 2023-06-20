@@ -4,6 +4,7 @@ using JobReady;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobReady.Migrations
 {
     [DbContext(typeof(JobReadyContext))]
-    partial class JobReadyContextModelSnapshot : ModelSnapshot
+    [Migration("20230619174110_EnableNullableContentInPostEngagementTable")]
+    partial class EnableNullableContentInPostEngagementTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -406,7 +409,7 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("CommentId")
+                    b.Property<long>("CommentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
@@ -968,7 +971,8 @@ namespace JobReady.Migrations
                     b.HasOne("JobReady.PostEngagement", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("JobReady.UserAccount", "CreatedBy")
                         .WithMany()
