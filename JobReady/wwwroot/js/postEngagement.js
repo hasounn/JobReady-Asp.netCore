@@ -55,6 +55,7 @@ comments.forEach(comment => {
         const modal = document.querySelector("#postModal-" + postIdComment);
         const submitBtn = modal.querySelector(".send-button");
         const allComments = modal.querySelector(".comments-wrapper");
+        const commentCount = comment.querySelector(".comment-count");
         let inputComment = modal.querySelector("#comment");
         $.ajax({
             type: "GET",
@@ -141,6 +142,8 @@ comments.forEach(comment => {
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
+                            inputComment.value = "";
+                            commentCount.textContent = response.total;
                     },
                     error: function (res) {
                         // Handle error
@@ -193,6 +196,7 @@ comments.forEach(comment => {
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
                             inputComment.value = "";
+                            commentCount.textContent = response.total;
                     },
                     error: function (res) {
                         // Handle error
