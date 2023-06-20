@@ -40,6 +40,12 @@ namespace JobReady.Controllers
                     }
                     else
                     {
+                        var role = (from x in context.Users where x.UserName == this.User.Identity.Name
+                                    select x.AccountType).FirstOrDefault();
+                        if(role == UserAccountType.Admin)
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
                         return RedirectToAction("Index", "Home"); // Replace with your desired action and controller
                     }
                 }
