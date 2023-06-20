@@ -140,7 +140,7 @@ const changeSelected = (arg) => {
     removeSelections();
     arg.children[0].classList.add("selected");
     document.querySelector("form").reset();
-    accountType.value = arg.children[1].textContent;
+    accountType.value = arg.children[1].textContent.toLowerCase();
 }
 const removeSelections = () => {
     const choices = document.querySelectorAll(".choice");

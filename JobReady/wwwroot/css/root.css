@@ -1,17 +1,24 @@
 ﻿:root {
     --lightwhite: #F4FAFF;
     --lightblue: #139BE4;
-    --lightblue-faded:#70BAE180;
+    --lightblue-faded: #70BAE180;
+    --lightgray: #ACACAC;
     --gold: #B87333;
     --gray-asset1: #4B4B4B;
     --gray-asset2: #818181;
+    --gray-asset3: #C2C2C2;
     --grayish-blue: #535657;
     --error: #722F37;
     --dark-bg1: #38434F;
+    --greenish-blue: #50646F;
+    --snow-white: #DEE7E7;
 }
 
 .color-light-blue{
     color:var(--lightblue);
+}
+.color-light-white{
+    color:var(--lightwhite)!important;
 }
 
 .color-gray-asset1 {
@@ -28,4 +35,8 @@
 
 .disable-select{
     user-select:none;
+}
+
+.modal{
+    overflow:hidden!important;
 }

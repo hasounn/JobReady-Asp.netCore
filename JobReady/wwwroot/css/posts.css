@@ -1,0 +1,182 @@
+﻿.post {
+    background: var(--lightwhite);
+    width: 100%;
+    height: fit-content;
+    padding: 1em;
+    border-radius: 20px;
+}
+
+.heading-post{
+    margin-top: -11px;
+}
+
+.img-post {
+    width: 55px;
+    height: 55px;
+}
+.image-post-sizing{
+    width:inherit;
+}
+
+.dot-post {
+    font-size: 24px;
+}
+
+.time-post{
+    font-size:11px;
+}
+
+.content-post {
+    white-space: pre-wrap;
+}
+
+.like,.comment,.share, .report{
+    cursor:pointer;
+}
+
+.close,.close:focus {
+    all: unset;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor:pointer;
+}
+
+.close:hover > svg > path{
+    stroke:var(--lightblue);
+}
+
+    .close > svg {
+        width: 35px;
+        height:35px;
+    }
+.modal-xl{
+    max-width:calc(100% - 150px)!important;
+    padding:0;
+}
+
+.modal-content{
+    border-radius:1.3em;
+    overflow:hidden;
+}
+.modal-dialog .modal-body {
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding:0!important;
+}
+
+.modal-dialog-report .modal-body {
+    height: fit-content;
+    max-height:calc(100vh - 100px);
+}
+
+.grid-container {
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: 0.05fr 1fr;
+    grid-template-areas:
+        "image username"
+        "image engagement"
+}
+
+.grid-container-text {
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: 0.05fr 1fr;
+    grid-template-areas:
+        "text username"
+        "text engagement"
+}
+
+.image-wrapper{
+    grid-area:image;
+}
+
+.text-wrapper {
+    grid-area: text;
+}
+
+.image-modal-resize{
+    width:2.6em;
+    height:2.6em;
+}
+
+.image-post-modal{
+    height:fit-content;
+    width:100%;
+}
+
+.username-wrapper{
+    grid-area:username;
+}
+
+.engagement-wrapper {
+    grid-area: engagement;
+}
+
+.all-comments {
+    background: var(--gray-asset3);
+    border-radius: 12px 0 0 12px;
+}
+
+#comment{
+    all:unset;
+    width:100%;
+    border-radius:150px;
+    border:1.5px solid var(--gray-asset1);
+    padding:5px 10px 5px 10px;
+}
+
+.user-comment-img{
+    width:50px;
+    height:50px;
+}
+.user-name{
+    font-size:14px;
+    font-weight:500;
+}
+.the-comment{
+    background:var(--gray-asset1);
+    color:var(--lightwhite);
+    padding:10px 10px;
+}
+.send-btn{
+    all:unset;
+}
+.send-button{
+    transition:0.25s ease-in-out;
+}
+.send-button:hover {
+    filter: saturate(57.5) hue-rotate(23deg);
+}
+
+.reportText {
+    all: unset;
+    height: 40px;
+    border: 1px solid var(--gray-asset1);
+    width: calc(100% - 3em);
+    padding: 5px 10px 5px 10px;
+    max-height: 150px;
+}
+.fullname-p-modal {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.username-span-modal {
+    font-weight: 200;
+    color: var(--gray-asset2);
+    font-size: 12px;
+}
+
+@media only screen and (max-width:1023.5px) {
+    .grid-container{
+        grid-template-columns:1fr;
+        grid-template-rows:0.05fr 0.5fr 0.45fr;
+        grid-template-areas:
+            "username"
+            "image"
+            "engagement";
+    }
+    .post{
+        width:100%;
+    }
+}

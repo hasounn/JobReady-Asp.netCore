@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "TagCloud@2.3.2",
+      "destination": "wwwroot/TagCloud/",
+      "files": [
+        "dist/TagCloud.js",
+        "dist/TagCloud.min.js"
+      ]
+    },
+    {
+      "library": "toastr@2.1.4",
+      "destination": "wwwroot/lib/toastr/",
+      "files": [
+        "toastr.js",
+        "toastr.min.js",
+        "build/toastr.css"
+      ]
+    }
+  ]
+}

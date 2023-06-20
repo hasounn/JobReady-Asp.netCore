@@ -8,7 +8,7 @@ public class JobApplication
     public long Id { get; set; }
 
     [Required]
-    public long ApplicantId { get; set; }
+    public string ApplicantId { get; set; }
     public UserAccount Applicant { get; set; }
 
     [Required]

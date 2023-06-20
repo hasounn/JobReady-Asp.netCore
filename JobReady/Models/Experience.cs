@@ -9,7 +9,7 @@ public class Experience
     public long Id { get; set; }
 
     [Required]
-    public long UserId { get; set; }
+    public string UserId { get; set; }
     public UserAccount User { get; set; }
 
     [Required]
@@ -18,7 +18,7 @@ public class Experience
     [DisplayName("Employment Type")]
     public JobType EmploymentType { get; set; }
 
-    public long? CompanyId { get; set; }
+    public string CompanyId { get; set; }
     public UserAccount Company { get; set; }
     public string CompanyName { get; set; }
 

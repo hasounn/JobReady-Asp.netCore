@@ -1,6 +1,10 @@
 using JobReady;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,31 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<JobReadyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Identity
+builder.Services.AddIdentity<UserAccount, IdentityRole>(options =>
+{
+    // Configure password requirements if needed
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+})
+    .AddEntityFrameworkStores<JobReadyContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
+// Configure authentication cookies
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Adjust the expiration time as needed
+    options.LoginPath = "/Login/Index"; // Customize the login page path
+    options.AccessDeniedPath = "/Login/Index"; // Customize the access denied page path
+});
 
 
 var app = builder.Build();
@@ -26,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(

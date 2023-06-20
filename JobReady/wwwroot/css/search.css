@@ -1,0 +1,151 @@
+﻿@import url("root.css");
+
+.search-title {
+    color: var(--lightwhite);
+    font-size: 2.5em;
+    font-family: "League Gothic",sans-serif;
+    width: 95px;
+    position: relative;
+}
+
+    .search-title::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
+
+.search-input::placeholder {
+    color: #DBDBDB;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.search-input {
+    all: unset;
+    background: rgba(52, 52, 52, 0.7);
+    padding: 12px 20px 12px 10px;
+    border-radius: 10px 0 0 10px;
+    color:var(--lightwhite);
+
+}
+
+.search-btn{
+    all:unset;
+    background:var(--lightblue);
+    color:var(--lightwhite);
+    padding:10px 20px 10px 15px;
+    border-radius:  0 10px 10px 0;
+}
+
+.top-users-title {
+    color: var(--lightwhite);
+    font-size: 2em;
+    font-family: "League Gothic",sans-serif;
+    width: 100px;
+    position: relative;
+}
+
+    .top-users-title::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
+
+.img-resize{
+    width:70px;
+    }
+
+.pill {
+    width: 320px;
+    height: 80px;
+}
+
+.first-pill-part {
+    background: var(--lightwhite);
+    border-radius: 50px 0 0 50px;
+    transition: 0.25s ease-in-out;
+}
+
+    .first-pill-part >p {
+        font-size: 15px;
+        word-break: break-word;
+        font-weight:500;
+        transition: 0.25s ease-in-out;
+    }
+
+.second-pill-part {
+    background: var(--accent-color);
+    color: var(--lightwhite);
+    border-radius: 0 50px 50px 0;
+    font-size:2em;
+    width:90px;
+}
+
+.pill:has(.one-side) .first-pill-part{
+    width:100%; 
+}
+
+.one-side{
+    border-radius:50px;
+}
+
+.svg-width{
+    width:51px;
+    height:51px;
+}
+
+    .svg-width path {
+        transition: 0.25s ease-in-out;
+    }
+
+.view-more-text {
+    font-family: "League Gothic", sans-serif;
+    color: var(--lightblue);
+    font-size: 2em !important;
+    transition: 0.25s ease-in-out;
+}
+
+.view-more-pill{
+    cursor:pointer;
+}
+
+.view-more-pill:hover .first-pill-part {
+    background: var(--lightblue);
+}
+
+    .view-more-pill:hover .first-pill-part > p {
+        color: var(--lightwhite);
+    }
+
+    .view-more-pill:hover .svg-width path {
+        stroke: var(--lightwhite);
+    }
+
+.recent-posts-title {
+    color: var(--lightwhite);
+    font-size: 2em;
+    font-family: "League Gothic",sans-serif;
+    width: 125px;
+    position: relative;
+}
+
+    .recent-posts-title::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }

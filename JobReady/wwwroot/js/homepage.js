@@ -4,11 +4,11 @@ const maindiv = document.querySelector(".height-fix"),
     filterNewsItem = document.querySelectorAll(".filter-news-item");
 
 window.addEventListener("load", () => {
-    if (posts.children.length > 1) {
+    if (posts.children.length > 3) {
         maindiv.style.height = "fit-content";
         maindiv.style.paddingBottom = "20px";
     } else {
-        maindiv.style.height = "100vh";
+        maindiv.style.height = maindiv.style.height = document.body.scrollHeight + "px";;
         maindiv.style.paddingBottom = "0px";
     }
 

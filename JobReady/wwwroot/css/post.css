@@ -1,0 +1,193 @@
+﻿@import url("root.css");
+
+
+.create-new-post{
+    color:var(--lightwhite);
+    font-size:2.5em;
+    font-family:"League Gothic",sans-serif;
+    width:180px;
+    position:relative;
+}
+
+    .create-new-post::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
+    .create-new-job-post{
+    color:var(--lightwhite);
+    font-size:2.5em;
+    font-family:"League Gothic",sans-serif;
+    width:220px;
+    position:relative;
+}
+
+    .create-new-job-post::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
+.create-post-div {
+    max-width: calc(100% - 100px);
+    width: 100%;
+    height: fit-content;
+    border-radius: 28px;
+    background: var(--lightwhite);
+}
+
+.img-resizing {
+    width: 60px;
+    height: 60px;
+}
+
+.textarea-post{
+    all:unset;
+    height:30px;
+    max-height:100px;
+    overflow-x:hidden;
+    overflow-y:scroll;
+}
+
+.photo-video-choose{
+    user-select:none;
+    cursor:pointer;
+}
+.photo-video {
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+}
+
+.picture-wrapper{
+    background-color:#c7c7c7;
+    border-radius:25px;
+    width:100%;
+    max-height:280px;
+}
+
+.img-user {
+    width: 100%;
+    max-width: 300px;
+}
+
+.post-btn {
+    background: rgba(19, 155, 228, 0.7);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 4px 6px 4px rgba(0, 49, 221, 0.33);
+    border-radius: 20.5px;
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+    color:var(--lightwhite);
+}
+
+#job-title{
+    all:unset;
+    background:var(--lightblue);
+    color:var(--lightwhite);
+    padding:5px 8px 5px 12px;
+    border-radius:50px;
+    width:320px;
+}
+
+    #job-title::placeholder,
+    #skillInput::placeholder {
+        color: #e3e3e3d9;
+    }
+
+.job-level-select {
+    position: relative;
+    display: inline-block;
+    width:fit-content;
+    
+}
+
+    .job-level-select select {
+        all: unset;
+        background: var(--lightblue);
+        color: var(--lightwhite);
+        padding: 3px 10px;
+        border-radius: 50px;
+        width: 150px;
+    }
+
+    .job-level-select img {
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        z-index:2;
+    }
+
+.skillset-item {
+    background: #DEE7E7;
+    color: var(--lightblue);
+    width: fit-content;
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+}
+
+.height-fix{
+    height:100%;
+}
+
+#addSkill{
+    cursor:pointer;
+}
+
+.modal {
+    overflow: hidden;
+}
+
+.modal-dialog-addSkill{
+    width:300px;
+    height:100vh;
+}
+
+.close, .close:focus {
+    all: unset;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+    .close:hover > svg > path {
+        stroke: var(--lightblue);
+    }
+
+    .close > svg {
+        width: 35px;
+        height: 35px;
+    }
+
+.modal-content {
+    border-radius: 1.3em;
+    overflow: hidden;
+}
+
+#skillInput {
+    all: unset;
+    background: var(--lightblue);
+    color: var(--lightwhite);
+    padding: 5px 8px 5px 12px;
+    border-radius: 50px;
+    width: calc(100% - 50px);
+}
+
+    @media (max-width:580px) {
+        .create-post-div {
+        max-width: 100%;
+    }
+}

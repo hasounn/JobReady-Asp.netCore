@@ -1,4 +1,5 @@
 ﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
@@ -6,9 +7,14 @@ namespace JobReady.Controllers
     public class SignUpController : Controller
     {
         private readonly JobReadyContext context;
-        public SignUpController(JobReadyContext context)
+        private readonly UserManager<UserAccount> userManager;
+        private readonly SignInManager<UserAccount> signInManager;
+
+        public SignUpController(JobReadyContext context, UserManager<UserAccount> userManager, SignInManager<UserAccount> signInManager)
         {
             this.context = context;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -16,7 +22,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(SignUpUserRegistry model)
+        public IActionResult Index(UserAccountDetails model)
         {
             if(ModelState.IsValid)
             {
@@ -28,43 +34,73 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserAccountDetails source)
+        public async Task<IActionResult> Create(UserAccountDetails details)
         {
-            source.Validate();
-            var existing = (from x in context.UserAccount
-                            where
-                            x.Email == source.Email
-                            && x.IsEmailVerified
-                            || x.Username == source.Username
-                            select x);
-            if(existing.Any())
+            if (ModelState.IsValid)
             {
-                throw new Exception("This user already exists");
-            }
-            var target = new UserAccount()
-            {
-                About = source.About,
-                AccountType = source.AccountType,
-                Email = source.Email,
-                UserDate = source.UserDate,
-                FullName = source.FullName,
-                Username = source.Username,
-                Password = source.Password,
-                PhoneNumber = source.PhoneNumber,
-                Headline = source.Headline,
-                Gender = source.Gender,
-                IsEmailVerified = source.IsEmailVerified,
-                IsVerified = source.IsVerified,
-                CreatedOn = DateTime.Now,
-                ModifiedOn = DateTime.Now,
-                Location = source.Location,
-                IndustryId = source.IndustryId
-            };
-            context.Add(target);
-            context.SaveChangesAsync();
-            return RedirectToAction("Index");
-            
-        }
+                details.Validate(); // Validate custom business rules
 
+                var newUser = new UserAccount
+                {
+                    UserName = details.Username,
+                    Email = details.Email,
+                    FullName = details.FullName,
+                    AccountType = details.AccountType,
+                    Gender = details.Gender,
+                    IndustryId = details.IndustryId,
+                    Headline = details.Headline,
+                    About = details.About,
+                    Location = details.Location,
+                    IsVerified = details.IsVerified,
+                    IsEmailVerified = details.IsEmailVerified,
+                    UserDate = details.UserDate,
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+                
+                var result = await userManager.CreateAsync(newUser, details.Password);
+               
+                if (result.Succeeded)
+                {
+                    // Optionally, you can sign in the user after registration
+                    await signInManager.SignInAsync(newUser, isPersistent: false);
+
+                    if (details.ProfileImage!=null && details.ProfileImage.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await details.ProfileImage.CopyToAsync(memoryStream);
+                            if (memoryStream.Length < 2097152)
+                            {
+                                var newPhoto = new FileLink()
+                                {
+                                    ContentHash = memoryStream.ToArray(),
+                                    Name = details.ProfileImage.FileName,
+                                    ContentSize = details.ProfileImage.Length,
+                                    ObjectType = ObjectType.UserAccount,
+                                    CreatedById = newUser.Id,
+                                    CreatedOn = DateTime.Now,
+
+                                };
+                                context.FileLink.Add(newPhoto);
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Photo", "The Photo is too large");
+                            }
+                        }
+                    }
+                    return RedirectToAction("Index", "Home"); // Replace with your desired action and controller
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(details);
+        }
     }
 }

@@ -1,3 +1,42 @@
-﻿@{
+﻿@model JobReady.PostDetails
+@{
     ViewData["Title"] = "Create New Post";
 }
+
+<link rel="stylesheet" href="~/css/post.css" />
+
+<div class="d-flex flex-column p-5 h-100 dark-main-bg">
+    <p class="create-new-post">Create New Post</p>
+    <div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
+        <div class="create-post-div d-flex flex-column p-3 gap-3">
+            <div class="d-flex flex-row gap-2">
+                <img src="@Url.Action("GetProfilePicture","Profile", new {userId = Model.CreatedBy.Id})" class="rounded-circle img-resizing" />
+                <div class="d-flex flex-column">
+                    <p class="fw-bold">@Model.CreatedBy.Username</p>
+                </div>
+            </div>
+           
+            <form asp-controller="Post" asp-action="CreatePost" method="post" class="d-flex flex-column gap-3" enctype="multipart/form-data">
+            <textarea asp-for="Content" class="textarea-post" placeholder="What's on your mind @Model.CreatedBy.Username"></textarea>
+            <div class="picture-wrapper d-flex w-100 align-items-center justify-content-center"></div>
+            <div class="d-flex flex-row align-items-center justify-content-between p-2">
+                <div class="d-flex flex-row gap-1 photo-video-choose">
+                    <input asp-for="Image" type="file" id="image" accept="image/*" class="hidden" onchange="previewImage()"/>
+                    <img src="~/icons/photoVideoIcon.svg" />
+                    <p class="color-light-blue photo-video">Photo/Video</p>
+                </div>
+                <button type="submit" class="btn d-flex flex-row align-items-center gap-1 post-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="color-light-white">Post</p>
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/post.js"></script>

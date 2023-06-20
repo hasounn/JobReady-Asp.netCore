@@ -43,7 +43,6 @@ public enum EngagementType
     Like,
     Report,
     Share,
-    Test
 }
 
 public enum RecommendationStatus
@@ -83,4 +82,15 @@ public enum DegreeType
     AssociateOfArts,
     AssociateOfScience,
     Other
+}
+
+public enum JobLevel
+{
+    Internship,
+    [Display(Name ="Entry Level")]
+    Entry_Level,
+    Junior,
+    Trainee,
+    Apprentice,
+    Assistant
 }
