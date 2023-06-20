@@ -13,11 +13,18 @@
             {
                 <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
             }else{
+                @if(!Model.HasFollowed){
                 <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"
                     asp-controller="Profile" asp-action="Follow" asp-route-userId="@Model.Id">
                     <img src="~/icons/profile-add.svg"/>
                     <p>Follow</p>
                 </a>
+            }else{
+            <a role="button" class="btn profile-btn unfollow d-flex flex-row gap-2 rounded-pill"
+               asp-controller="Profile" asp-action="Unfollow" asp-route-userId="@Model.Id">
+                <p>Followed</p>
+            </a>
+            }
             }
             
         </div>

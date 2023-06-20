@@ -137,7 +137,7 @@ namespace JobReady.Controllers
             };
             context.Follower.Add(newFollower);
             context.SaveChanges();
-            return RedirectToAction("Profile", "Index", userId);
+            return RedirectToAction("Index", "Profile", new { userId });
         }
         
         public bool HasFollowed(string userId)

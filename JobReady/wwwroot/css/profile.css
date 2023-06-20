@@ -250,6 +250,11 @@ body{
     font-size: 11px;
 }
 
+.unfollow{
+    background:var(--gray-asset2);
+    color:var(--snow-white);
+}
+
     @media (max-width:1168px) {
         .width-fix {
             width: 100%;
