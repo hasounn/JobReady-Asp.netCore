@@ -1,9 +1,11 @@
 ﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Transactions;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly JobReadyContext context;
@@ -217,8 +219,8 @@ namespace JobReady.Controllers
                              && x.PostId == details.Id
                              && x.CreatedById == this.User.Claims.First().Value
                              select x.Id).FirstOrDefault();
-
-            return Ok(new { commentId, this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name });
+            var total = GetPostComments(details.Id).Count();
+            return Ok(new { commentId, this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name, total });
         }
         #endregion
 

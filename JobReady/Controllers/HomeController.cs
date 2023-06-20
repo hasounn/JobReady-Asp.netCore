@@ -1,10 +1,12 @@
 ﻿using JobReady.Data.DTO;
 using JobReady.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly JobReadyContext context;
@@ -102,7 +104,7 @@ namespace JobReady.Controllers
         public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
         {
             var comments = (from x in context.PostEngagement
-                            where x.Id == postId && x.EngagementType == EngagementType.Comment
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
                             select new PostEngagementDetails()
                             {
                                 Id = x.Id,
