@@ -121,6 +121,7 @@ namespace JobReady.Controllers
         {
             return (from x in context.PostEngagement
                     where x.PostId == postId && x.CreatedById == userId
+                    && x.EngagementType == EngagementType.Like
                     select x).Any();
         }
     }

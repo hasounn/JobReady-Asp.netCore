@@ -212,15 +212,22 @@ namespace JobReady.Controllers
             context.PostEngagement.Add(comment);
             context.SaveChanges();
 
-            return Ok(new { this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name });
+            var commentId = (from x in context.PostEngagement
+                             where x.Content == comment.Content 
+                             && x.PostId == details.Id
+                             && x.CreatedById == this.User.Claims.First().Value
+                             select x.Id).FirstOrDefault();
+
+            return Ok(new { commentId, this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name });
         }
         #endregion
 
         #region Get Post Comments
+        [HttpGet]
         public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
         {
             var comments = (from x in context.PostEngagement
-                            where x.Id == postId && x.EngagementType == EngagementType.Comment
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
                             select new PostEngagementDetails()
                             {
                                 Id = x.Id,

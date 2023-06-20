@@ -53,6 +53,7 @@
 .modal-xl{
     max-width:calc(100% - 150px)!important;
     padding:0;
+    overflow:hidden;
 }
 
 .modal-content{
@@ -108,13 +109,21 @@
     grid-area:username;
 }
 
+.text-wrapper > p{
+    white-space:pre-wrap;
+}
+
 .engagement-wrapper {
     grid-area: engagement;
+    max-height: 45em;
 }
 
 .all-comments {
     background: var(--gray-asset3);
     border-radius: 12px 0 0 12px;
+    max-height:500px;
+    height: calc(100% - 5em);
+    overflow-y: scroll;
 }
 
 #comment{
@@ -178,5 +187,8 @@
     }
     .post{
         width:100%;
+    }
+    .modal-xl .modal-content {
+        overflow-y: scroll;
     }
 }
