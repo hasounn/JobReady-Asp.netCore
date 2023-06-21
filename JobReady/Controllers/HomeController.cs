@@ -18,10 +18,27 @@ namespace JobReady.Controllers
 
         public IActionResult Index()
         {
-            var accountType = (from x in context.Users
+            var user = (from x in context.Users
                                where x.UserName == this.User.Identity.Name
-                               select x.AccountType).FirstOrDefault();
-            PostsDetails model = new PostsDetails() {Posts=GetPosts(),JobPosts=GetJobPosts(), AccountType = accountType };
+                               select new UserAccountDetails()
+                               {
+                                   Id = x.Id,
+                                   Username = x.UserName,
+                                   FullName = x.FullName,
+                                   Type = x.AccountType == UserAccountType.Company ? "company" : 
+                                          x.AccountType == UserAccountType.Student ? "student" :
+                                          x.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          "admin",
+
+                               }).FirstOrDefault();
+
+            var model = new PostsDetails()
+            {
+                Posts = GetPosts(),
+                JobPosts = GetJobPosts(),
+                AccountType = user.AccountType,
+            };
+            ViewData["User"] = model.AccountType;
             return View(model);
         }
 
@@ -55,35 +72,62 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).ToList();
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
                 post.Comments = GetPostComments(post.Id);
+                post.CreatedBy = GetUserAccount(post.CreatedById);
             }
             return posts.AsEnumerable();
+        }
+
+        private UserAccountDetails GetUserAccount(string userId)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var userDetails = (from x in context.UserAccount
+                               where x.Id == userId
+                               select new UserAccountDetails()
+                               {
+                                   Id = x.Id,
+                                   Username = x.UserName,
+                                   Headline = x.Headline,
+                                   About = x.About,
+                                   Type = x.AccountType == UserAccountType.Student ? "student" :
+                                          x.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          x.AccountType == UserAccountType.Company ? "company" : "admin",
+                                   FullName = x.FullName,
+                                   UserDate = x.UserDate,
+                                   IndustryId = x.IndustryId,
+                                   Email = x.Email,
+                                   Location = x.Location,
+                                   IsVerified = x.IsVerified,
+                                   IsOwned = x.Id == this.User.Claims.First().Value,
+                               }).FirstOrDefault();
+
+            return userDetails;
         }
 
         [HttpGet]
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
             var jobPosts = (from x in context.JobPost
-                         orderby x.CreatedOn descending
-                         select new JobPostDetails()
-                         {
-                             Id = x.Id,
-                             Title=x.Title,
-                             JobType=x.JobType,
-                             IsRemote = x.IsRemote,
-                             CreatedBy = new UserAccountDetails()
-                             {
-                                 Id = x.CreatedById,
-                                 Username = x.CreatedBy.UserName,
-                             },
-                             Description = x.Description,
-                             CreatedById = x.CreatedById,
-                             CreatedOn = x.CreatedOn,
-                         }).AsEnumerable();
+                            orderby x.CreatedOn descending
+                            select new JobPostDetails()
+                            {
+                                Id = x.Id,
+                                Title = x.Title,
+                                JobType = x.JobType,
+                                IsRemote = x.IsRemote,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedById,
+                                    Username = x.CreatedBy.UserName,
+                                },
+                                Description = x.Description,
+                                CreatedById = x.CreatedById,
+                                CreatedOn = x.CreatedOn,
+                            }).AsEnumerable();
             return jobPosts;
         }
 
@@ -110,6 +154,7 @@ namespace JobReady.Controllers
                                 Id = x.Id,
                                 Content = x.Content,
                                 CreatedOn = x.CreatedOn,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                                 CreatedById = x.CreatedById,
                                 CreatedBy = new UserAccountDetails()
                                 {

@@ -60,7 +60,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(JobPostDetails details)
+        public IActionResult Post(JobPostDetails details)
         {
             string error  = details.Validate();
             if (ModelState.IsValid && error == null)

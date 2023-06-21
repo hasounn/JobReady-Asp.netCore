@@ -220,7 +220,8 @@ namespace JobReady.Controllers
                              && x.CreatedById == this.User.Claims.First().Value
                              select x.Id).FirstOrDefault();
             var total = GetPostComments(details.Id).Count();
-            return Ok(new { commentId, this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name, total });
+            var postedOn = $"{comment.CreatedOn.ToShortDateString()} - {comment.CreatedOn.ToShortTimeString()}";
+            return Ok(new { commentId, this.User.Claims.First().Value, postedOn , this.User.Identity.Name, total });
         }
         #endregion
 
@@ -234,6 +235,7 @@ namespace JobReady.Controllers
                             {
                                 Id = x.Id,
                                 Content = x.Content,
+                                PostedOn = $"{x.CreatedOn.ToShortDateString()} - {x.CreatedOn.ToShortTimeString()}",
                                 CreatedOn = x.CreatedOn,
                                 CreatedById = x.CreatedById,
                                 CreatedBy = new UserAccountDetails()

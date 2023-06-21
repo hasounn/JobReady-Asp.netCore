@@ -7,14 +7,40 @@ namespace JobReady.Controllers
     public class ProfileController : Controller
     {
         private readonly JobReadyContext context;
-        private UserAccountDetails userDetails;
         public ProfileController(JobReadyContext context)
         {
             this.context = context;
         }
 
-        [HttpGet]
         public IActionResult Index(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+
+            if (userDetails.AccountType == UserAccountType.Company)
+            {
+                return Company(userId);
+            }
+            else
+            {
+                return View(userDetails);
+            }
+        }
+
+        public IActionResult Company(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
+            if (userDetails.AccountType != UserAccountType.Company)
+            {
+                return Index(userId);
+            }
+            else
+            {
+                return View(userDetails);
+            }
+        }
+
+        private UserAccountDetails GetUserAccount(string userId)
         {
             userId ??= this.User.Claims.First().Value;
             var userDetails = (from x in context.UserAccount
@@ -37,27 +63,12 @@ namespace JobReady.Controllers
                                    IsOwned = x.Id == this.User.Claims.First().Value,
                                }).FirstOrDefault();
 
-            userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
-            userDetails.Skills = GetUserSkills(userId?? this.User.Claims.First().Value);
-            userDetails.HasFollowed = userId != null ?  HasFollowed(userId) : false;
+            userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
+            userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
             userDetails.Followers = GetFollowers(userId);
 
-            this.userDetails = userDetails;
-            if (userDetails.AccountType == UserAccountType.Company)
-            {
-                return ProfileComp();
-            }
-            return Index();
-        }
-
-        private IActionResult Index()
-        {
-            return View(userDetails);
-        }
-
-        private IActionResult ProfileComp()
-        {
-            return View(userDetails);
+            return userDetails;
         }
 
         public async Task<IActionResult> GetProfilePicture(string userId)
@@ -101,6 +112,7 @@ namespace JobReady.Controllers
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+                post.Comments = GetPostComments(post.Id);
             }
 
             return posts;
@@ -187,6 +199,27 @@ namespace JobReady.Controllers
                                  Username = x.UserAccount.UserName,
                              });
             return followers;
+        }
+
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
+        {
+            var comments = (from x in context.PostEngagement
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                CreatedOn = x.CreatedOn,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
     }
 }
