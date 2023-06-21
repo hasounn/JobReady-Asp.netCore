@@ -7,8 +7,15 @@
             <div class="d-flex flex-column w-100">
                 <div class="d-flex flex-column w-100">
                 <div class="d-flex flex-row w-100 gap-2 align-items-center">
-                    <a class="text-black text-decoration-none p-0 name-post color-gray-asset1" asp-controller="Profile" asp-action="Index" asp-route-userId="@post.CreatedBy.Id">@post.CreatedBy.Username</a>
-                    <button class="btn ms-0 ps-0 d-flex flex-row gap-2 align-items-center">
+                        @if (post.CreatedBy.AccountType == UserAccountType.Company)
+                        {
+                            <a class="text-black text-decoration-none p-0 name-post color-gray-asset1" asp-controller="Profile" asp-action="Company" asp-route-userId="@post.CreatedBy.Id">@post.CreatedBy.Username</a>
+                        }
+                        else
+                        {
+                            <a class="text-black text-decoration-none p-0 name-post color-gray-asset1" asp-controller="Profile" asp-action="Index" asp-route-userId="@post.CreatedBy.Id">@post.CreatedBy.Username</a>
+                        }
+                            <button class="btn ms-0 ps-0 d-flex flex-row gap-2 align-items-center">
                         <p class="dot-post color-light-blue">&#8226;</p>
                         <p class="follow-post color-light-blue text-capitalize fw-bold">follow</p>
                     </button>
