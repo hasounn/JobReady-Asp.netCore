@@ -7,14 +7,25 @@ namespace JobReady.Controllers
     public class ProfileController : Controller
     {
         private readonly JobReadyContext context;
-        private UserAccountDetails userDetails;
         public ProfileController(JobReadyContext context)
         {
             this.context = context;
         }
 
-        [HttpPost]
         public IActionResult Index(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            return View(userDetails);
+        }
+
+        public IActionResult Company(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
+            return View(userDetails);
+        }
+
+        private UserAccountDetails GetUserAccount(string userId)
         {
             userId ??= this.User.Claims.First().Value;
             var userDetails = (from x in context.UserAccount
@@ -37,30 +48,12 @@ namespace JobReady.Controllers
                                    IsOwned = x.Id == this.User.Claims.First().Value,
                                }).FirstOrDefault();
 
-            userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
-            userDetails.Skills = GetUserSkills(userId?? this.User.Claims.First().Value);
-            userDetails.HasFollowed = userId != null ?  HasFollowed(userId) : false;
+            userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
+            userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
             userDetails.Followers = GetFollowers(userId);
 
-            this.userDetails = userDetails;
-            if (userDetails.AccountType == UserAccountType.Company)
-            {
-                return ProfileComp();
-            }
-            else
-            {
-                return Index();
-            }
-        }
-
-        private IActionResult Index()
-        {
-            return View(userDetails);
-        }
-
-        private IActionResult ProfileComp()
-        {
-            return View(userDetails);
+            return userDetails;
         }
 
         public async Task<IActionResult> GetProfilePicture(string userId)

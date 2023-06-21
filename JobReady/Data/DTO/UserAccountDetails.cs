@@ -64,6 +64,7 @@ public class UserAccountDetails
 
     public IFormFile ProfileImage {get;set;}
     public IEnumerable<PostDetails> Posts { get; set; }
+    public IEnumerable<JobPostDetails> JobPosts { get; set; }
     public string[] Skills { get; set; }
     public IEnumerable<EducationDetails> Educations { get; set; }
     public IEnumerable<ExperienceDetails> Experiences { get; set; }

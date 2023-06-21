@@ -77,8 +77,35 @@ namespace JobReady.Controllers
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
                 post.Comments = GetPostComments(post.Id);
+                post.CreatedBy = GetUserAccount(post.CreatedById);
             }
             return posts.AsEnumerable();
+        }
+
+        private UserAccountDetails GetUserAccount(string userId)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var userDetails = (from x in context.UserAccount
+                               where x.Id == userId
+                               select new UserAccountDetails()
+                               {
+                                   Id = x.Id,
+                                   Username = x.UserName,
+                                   Headline = x.Headline,
+                                   About = x.About,
+                                   Type = x.AccountType == UserAccountType.Student ? "student" :
+                                          x.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          x.AccountType == UserAccountType.Company ? "company" : "admin",
+                                   FullName = x.FullName,
+                                   UserDate = x.UserDate,
+                                   IndustryId = x.IndustryId,
+                                   Email = x.Email,
+                                   Location = x.Location,
+                                   IsVerified = x.IsVerified,
+                                   IsOwned = x.Id == this.User.Claims.First().Value,
+                               }).FirstOrDefault();
+
+            return userDetails;
         }
 
         [HttpGet]
@@ -127,6 +154,7 @@ namespace JobReady.Controllers
                                 Id = x.Id,
                                 Content = x.Content,
                                 CreatedOn = x.CreatedOn,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                                 CreatedById = x.CreatedById,
                                 CreatedBy = new UserAccountDetails()
                                 {

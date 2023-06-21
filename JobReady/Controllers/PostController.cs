@@ -234,6 +234,7 @@ namespace JobReady.Controllers
                             {
                                 Id = x.Id,
                                 Content = x.Content,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                                 CreatedOn = x.CreatedOn,
                                 CreatedById = x.CreatedById,
                                 CreatedBy = new UserAccountDetails()
