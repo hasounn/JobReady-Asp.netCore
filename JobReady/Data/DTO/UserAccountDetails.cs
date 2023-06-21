@@ -57,12 +57,14 @@ public class UserAccountDetails
 
     public bool IsEmailVerified { get; set; }
     public bool IsOwned { get; set; }
-
+    public bool HasFollowed { get; set; }
+    public IEnumerable<UserAccountDetails> Followers { get; set; }
     [DisplayName("Date Of Birth")]
     public DateTime UserDate { get; set; }
 
     public IFormFile ProfileImage {get;set;}
     public IEnumerable<PostDetails> Posts { get; set; }
+    public IEnumerable<JobPostDetails> JobPosts { get; set; }
     public string[] Skills { get; set; }
     public IEnumerable<EducationDetails> Educations { get; set; }
     public IEnumerable<ExperienceDetails> Experiences { get; set; }

@@ -27,7 +27,11 @@ public enum JobType
     PartTime,
     Freelance,
     [Display(Name = "Research Assistant")]
-    ResearchAssistant
+    ResearchAssistant,
+    Junior,
+    Trainee,
+    Apprentice,
+    Assistant
 }
 
 public enum LocationType
@@ -82,15 +86,4 @@ public enum DegreeType
     AssociateOfArts,
     AssociateOfScience,
     Other
-}
-
-public enum JobLevel
-{
-    Internship,
-    [Display(Name ="Entry Level")]
-    Entry_Level,
-    Junior,
-    Trainee,
-    Apprentice,
-    Assistant
 }

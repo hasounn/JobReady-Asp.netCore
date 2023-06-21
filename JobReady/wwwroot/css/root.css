@@ -1,4 +1,4 @@
-﻿:root {
+﻿    :root {
     --lightwhite: #F4FAFF;
     --lightwhite-faded: #f4faff80;
     --lightblue: #139BE4;
@@ -13,6 +13,7 @@
     --dark-bg1: #38434F;
     --greenish-blue: #50646F;
     --snow-white: #DEE7E7;
+    --black:#000000;
 }
 
 .color-light-blue{
@@ -28,6 +29,9 @@
 
 .color-grayish-blue {
     color: var(--grayish-blue);
+}
+.color-black{
+    color:var(--black);
 }
 
 .hidden {
