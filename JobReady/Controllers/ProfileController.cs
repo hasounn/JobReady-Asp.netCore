@@ -23,7 +23,7 @@ namespace JobReady.Controllers
                                    Username = x.UserName,
                                    Headline = x.Headline,
                                    About = x.About,
-                                   Type = x.AccountType == UserAccountType.Student ? "student" : 
+                                   Type = x.AccountType == UserAccountType.Student ? "student" :
                                           x.AccountType == UserAccountType.Instructor ? "instructor" :
                                           x.AccountType == UserAccountType.Company ? "company" : "admin",
                                    FullName = x.FullName,
@@ -64,7 +64,7 @@ namespace JobReady.Controllers
                            select x.Id).FirstOrDefault();
 
             var photo = await context.FileLink.FindAsync(photoId);
-            if(photo != null)
+            if (photo != null)
             {
                 return File(photo.ContentHash, "image/*");
             }
@@ -93,7 +93,7 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).ToList();
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
@@ -128,7 +128,7 @@ namespace JobReady.Controllers
         [HttpGet]
         public IActionResult Follow(string userId)
         {
-            if(userId == null) return BadRequest();
+            if (userId == null) return BadRequest();
             var newFollower = new Follower()
             {
                 UserAccountId = this.User.Claims.First().Value,
@@ -139,13 +139,34 @@ namespace JobReady.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", "Profile", new { userId });
         }
-        
+
         public bool HasFollowed(string userId)
         {
             var followerId = this.User.Claims.First().Value;
             return (from x in context.Follower
                     where x.UserAccountId == followerId && x.FollowingId == userId
                     select x).Any();
+        }
+
+
+        [HttpGet]
+        public IActionResult Unfollow(string userId)
+        {
+            if (userId == null)
+                return BadRequest();
+
+            var loggedInUserId = this.User.Claims.First().Value;
+            var existingFollower = (from x in context.Follower
+                                    where x.FollowingId == userId
+                                    select x).Any();
+
+            if (existingFollower != null)
+            {
+                context.Follower.Remove(existingFollower);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Index");
         }
     }
 }
