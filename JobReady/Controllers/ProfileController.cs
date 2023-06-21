@@ -38,7 +38,7 @@ namespace JobReady.Controllers
             userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId?? this.User.Claims.First().Value);
             userDetails.HasFollowed = userId != null ?  HasFollowed(userId) : false;
-            userDetails.Followers = GetFollowers(this.User.Claims.First().Value);
+            userDetails.Followers = GetFollowers(userId);
 
             this.userDetails = userDetails;
             if (userDetails.AccountType == UserAccountType.Company)
