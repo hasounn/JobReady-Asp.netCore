@@ -14,9 +14,9 @@ body{
 }
 
 .profile-btn {
-    color: var(--lightwhite);
+    color: var(--lightblue);
     padding: 8px 20px;
-    background: var(--lightblue);
+    background: var(--snow-white);
     filter: drop-shadow(0px 4px 9px #232C31);
 }
 
@@ -248,6 +248,11 @@ body{
 
 .time-posted {
     font-size: 11px;
+}
+
+.unfollow{
+    background:var(--lightblue);
+    color:var(--snow-white);
 }
 
     @media (max-width:1168px) {
