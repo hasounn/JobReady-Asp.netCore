@@ -58,7 +58,7 @@ public class UserAccountDetails
     public bool IsEmailVerified { get; set; }
     public bool IsOwned { get; set; }
     public bool HasFollowed { get; set; }
-
+    public IEnumerable<UserAccountDetails> Followers { get; set; }
     [DisplayName("Date Of Birth")]
     public DateTime UserDate { get; set; }
 

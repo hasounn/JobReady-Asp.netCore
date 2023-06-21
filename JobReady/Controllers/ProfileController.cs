@@ -38,6 +38,8 @@ namespace JobReady.Controllers
             userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId?? this.User.Claims.First().Value);
             userDetails.HasFollowed = userId != null ?  HasFollowed(userId) : false;
+            userDetails.Followers = GetFollowers(this.User.Claims.First().Value);
+
             this.userDetails = userDetails;
             if (userDetails.AccountType == UserAccountType.Company)
             {
@@ -129,14 +131,17 @@ namespace JobReady.Controllers
         public IActionResult Follow(string userId)
         {
             if (userId == null) return BadRequest();
-            var newFollower = new Follower()
+            if (!HasFollowed(userId))
             {
-                UserAccountId = this.User.Claims.First().Value,
-                FollowingId = userId,
-                FollowedOn = DateTime.Now,
-            };
-            context.Follower.Add(newFollower);
-            context.SaveChanges();
+                var newFollower = new Follower()
+                {
+                    UserAccountId = this.User.Claims.First().Value,
+                    FollowingId = userId,
+                    FollowedOn = DateTime.Now,
+                };
+                context.Follower.Add(newFollower);
+                context.SaveChanges();
+            }
             return RedirectToAction("Index", "Profile", new { userId });
         }
 
@@ -152,8 +157,7 @@ namespace JobReady.Controllers
         [HttpGet]
         public IActionResult Unfollow(string userId)
         {
-            if (userId == null)
-                return BadRequest();
+            if (userId == null) return BadRequest();
 
             var loggedInUserId = this.User.Claims.First().Value;
             var existingFollower = (from x in context.Follower
@@ -166,7 +170,20 @@ namespace JobReady.Controllers
                 context.SaveChanges();
             }
 
-            return RedirectToAction("Profile", "Index", userId);
+            return RedirectToAction("Index", "Profile", userId);
+        }
+
+        [HttpGet]
+        public IQueryable<UserAccountDetails> GetFollowers(string userId)
+        {
+            var followers = (from x in context.Follower
+                             where x.FollowingId == userId
+                             select new UserAccountDetails()
+                             {
+                                 Id = x.UserAccountId,
+                                 Username = x.UserAccount.UserName,
+                             });
+            return followers;
         }
     }
 }
