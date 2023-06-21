@@ -1,5 +1,6 @@
 ﻿    :root {
     --lightwhite: #F4FAFF;
+    --lightwhite-faded: #f4faff80;
     --lightblue: #139BE4;
     --lightblue-faded: #70BAE180;
     --lightgray: #ACACAC;
@@ -43,4 +44,12 @@
 
 .modal{
     overflow:hidden!important;
+}
+
+.btn-outline-danger{
+    border: 1px solid var(--error)!important;
+}
+
+.btn-outline-success {
+    border: 1px solid #198754!important;
 }

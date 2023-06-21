@@ -1,0 +1,153 @@
+﻿@import url("root.css");
+
+.filter-news {
+    background: var(--lightwhite);
+    padding: 10px 20px;
+    gap: 4em;
+    border-radius: 55px;
+    color: var(--grayish-blue);
+    font-family: 'League Gothic', sans-serif;
+    cursor: pointer;
+    user-select: none;
+    width: 570px;
+}
+
+.filter-news-item {
+    gap: 0.24em;
+    padding: 10px 15px;
+    font-size:16px;
+}
+
+    .filter-news-item.active {
+        color: var(--lightblue);
+        background-color: var(--lightblue-faded);
+        border-radius: 55px;
+        font-size: 18px;
+    }
+
+        .filter-news-item.active .homepage-path {
+            stroke: var(--lightblue);
+        }
+
+.steps-container {
+    width: 30.125rem;
+    background-color: var(--lightwhite);
+    padding: 30px 20px 10px 37px;
+    height: 100vh;
+}
+
+.form-side {
+    
+    width: 100%;
+    background: #ACACAC;
+    backdrop-filter: blur(2px);
+}
+
+.form-step {
+    background-color: var(--lightwhite);
+    width: 90%;
+    height: 85px;
+    margin-bottom:25px;
+    border-radius: 20px;
+}
+.notification-bar {
+    background-color: var(--lightwhite);
+    width: 50%;
+    height: 50px;
+    
+  
+    margin-bottom: 100px;
+    border-radius: 40px;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    margin-left:10px;
+}
+
+.usr-name {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.notf-time {
+    font-family: 'League Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 48px;
+    color: #9EA9AC;
+    margin-right: 12px;
+}
+
+.img-resize {
+    width: 70%;
+    height: fit-content;
+}
+
+.follow-btn {
+    width: 120px;
+    height: 45px;
+    
+    background: #0A7CB9;
+    border-radius: 40px;
+}
+
+.text {
+    font-family: 'League Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    bottom:30px;
+    left:60px;
+
+
+    color: #FFFFFF;
+}
+
+.top_bar {
+    font-family: 'League Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    position:relative;
+   
+    
+}
+
+.top-images {
+    width: 50%;
+    height: 50%;
+    padding-right:2px;
+}
+
+.follow-back {
+    font-family: 'League Gothic';
+    font-style: normal;
+    font-size: 24px;
+    padding-left:5px;
+    
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
+
+.light-blue-thead{
+    background:var(--lightblue);
+    color:var(--snow-white);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--lightblue-faded);
+    color:var(--snow-white);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: var(--lightwhite-faded);
+    color: var(--lightblue);
+}

@@ -18,7 +18,7 @@ namespace JobReady.Controllers
 
             if (userDetails.AccountType == UserAccountType.Company)
             {
-                return Company(userId);
+                return RedirectToAction("Company", "Profile", new {userId});
             }
             else
             {
@@ -32,7 +32,7 @@ namespace JobReady.Controllers
             userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
             if (userDetails.AccountType != UserAccountType.Company)
             {
-                return Index(userId);
+                return RedirectToAction("Index","Company", new { userId});
             }
             else
             {
@@ -86,6 +86,93 @@ namespace JobReady.Controllers
             return File("/assets/images/image-placeholder.png", "image/png");
         }
 
+      
+        #region Get User Skills / Likes
+        [HttpGet]
+        public string[] GetUserSkills([FromBody] string userId)
+        {
+            var skills = (from x in context.UserSkill
+                          join y in context.Skill on x.SkillId equals y.Id
+                          where x.UserAccountId == userId
+                          select y.Name).ToArray();
+            return skills;
+        }
+        public long GetTotalLikesCount(long postId)
+        {
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return likesCount;
+        }
+        public bool HasLiked(long postId, string userId)
+        {
+            return (from x in context.PostEngagement
+                    where x.PostId == postId && x.CreatedById == userId
+                    && x.EngagementType == EngagementType.Like
+                    select x).Any();
+        }
+        #endregion
+
+        #region Follow/Unfollow
+        [HttpGet]
+        public IActionResult Follow(string userId)
+        {
+            if (userId == null) return BadRequest();
+            if (!HasFollowed(userId))
+            {
+                var newFollower = new Follower()
+                {
+                    UserAccountId = this.User.Claims.First().Value,
+                    FollowingId = userId,
+                    FollowedOn = DateTime.Now,
+                };
+                context.Follower.Add(newFollower);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Profile", new { userId });
+        }
+        [HttpGet]
+        public IActionResult Unfollow(string userId)
+        {
+            if (userId == null) return BadRequest();
+
+            var loggedInUserId = this.User.Claims.First().Value;
+            var existingFollower = (from x in context.Follower
+                                    where x.FollowingId == userId && x.UserAccountId== loggedInUserId
+                                    select x).FirstOrDefault();
+
+            if (existingFollower != null)
+            {
+                context.Follower.Remove(existingFollower);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Profile", new { userId });
+        }
+
+        public bool HasFollowed(string userId)
+        {
+            var followerId = this.User.Claims.First().Value;
+            return (from x in context.Follower
+                    where x.UserAccountId == followerId && x.FollowingId == userId
+                    select x).Any();
+        }
+
+        [HttpGet]
+        public IQueryable<UserAccountDetails> GetFollowers(string userId)
+        {
+            var followers = (from x in context.Follower
+                             where x.FollowingId == userId
+                             select new UserAccountDetails()
+                             {
+                                 Id = x.UserAccountId,
+                                 Username = x.UserAccount.UserName,
+                             });
+            return followers;
+        }
+        #endregion
+
+        #region Get Post / Comments
         public IEnumerable<PostDetails> GetUserPosts(string userId)
         {
             var posts = (from x in context.Post
@@ -118,89 +205,6 @@ namespace JobReady.Controllers
             return posts;
         }
 
-        [HttpGet]
-        public string[] GetUserSkills([FromBody] string userId)
-        {
-            var skills = (from x in context.UserSkill
-                          join y in context.Skill on x.SkillId equals y.Id
-                          where x.UserAccountId == userId
-                          select y.Name).ToArray();
-            return skills;
-        }
-        public long GetTotalLikesCount(long postId)
-        {
-            var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
-                              select x).Count();
-            return likesCount;
-        }
-        public bool HasLiked(long postId, string userId)
-        {
-            return (from x in context.PostEngagement
-                    where x.PostId == postId && x.CreatedById == userId
-                    && x.EngagementType == EngagementType.Like
-                    select x).Any();
-        }
-
-        [HttpGet]
-        public IActionResult Follow(string userId)
-        {
-            if (userId == null) return BadRequest();
-            if (!HasFollowed(userId))
-            {
-                var newFollower = new Follower()
-                {
-                    UserAccountId = this.User.Claims.First().Value,
-                    FollowingId = userId,
-                    FollowedOn = DateTime.Now,
-                };
-                context.Follower.Add(newFollower);
-                context.SaveChanges();
-            }
-            return RedirectToAction("Index", "Profile", new { userId });
-        }
-
-        public bool HasFollowed(string userId)
-        {
-            var followerId = this.User.Claims.First().Value;
-            return (from x in context.Follower
-                    where x.UserAccountId == followerId && x.FollowingId == userId
-                    select x).Any();
-        }
-
-
-        [HttpGet]
-        public IActionResult Unfollow(string userId)
-        {
-            if (userId == null) return BadRequest();
-
-            var loggedInUserId = this.User.Claims.First().Value;
-            var existingFollower = (from x in context.Follower
-                                    where x.FollowingId == userId && x.UserAccountId== loggedInUserId
-                                    select x).FirstOrDefault();
-
-            if (existingFollower != null)
-            {
-                context.Follower.Remove(existingFollower);
-                context.SaveChanges();
-            }
-
-            return RedirectToAction("Index", "Profile", new { userId });
-        }
-
-        [HttpGet]
-        public IQueryable<UserAccountDetails> GetFollowers(string userId)
-        {
-            var followers = (from x in context.Follower
-                             where x.FollowingId == userId
-                             select new UserAccountDetails()
-                             {
-                                 Id = x.UserAccountId,
-                                 Username = x.UserAccount.UserName,
-                             });
-            return followers;
-        }
-
         public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
         {
             var comments = (from x in context.PostEngagement
@@ -221,5 +225,6 @@ namespace JobReady.Controllers
                             }).AsEnumerable();
             return comments;
         }
+    #endregion
     }
 }

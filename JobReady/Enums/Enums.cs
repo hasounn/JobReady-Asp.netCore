@@ -47,6 +47,7 @@ public enum EngagementType
     Like,
     Report,
     Share,
+    Follow,
 }
 
 public enum RecommendationStatus
