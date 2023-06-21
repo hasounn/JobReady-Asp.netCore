@@ -41,3 +41,11 @@
 .modal{
     overflow:hidden!important;
 }
+
+.btn-outline-danger{
+    border: 1px solid var(--error)!important;
+}
+
+.btn-outline-success {
+    border: 1px solid #198754!important;
+}
