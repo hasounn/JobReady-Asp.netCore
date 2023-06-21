@@ -89,7 +89,7 @@ comments.forEach(comment => {
                             innerDiv.appendChild(div);
                             const ptime = document.createElement("p");
                             ptime.classList.add("time-comment");
-                            ptime.textContent = c.createdOn;
+                            ptime.textContent = c.postedOn;
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
@@ -138,7 +138,7 @@ comments.forEach(comment => {
                             innerDiv.appendChild(div);
                             const ptime = document.createElement("p");
                             ptime.classList.add("time-comment");
-                            ptime.textContent = response.createdOn;
+                            ptime.textContent = response.postedOn;
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
@@ -191,7 +191,7 @@ comments.forEach(comment => {
                             innerDiv.appendChild(div);
                             const ptime = document.createElement("p");
                             ptime.classList.add("time-comment");
-                            ptime.textContent = response.createdOn;
+                            ptime.textContent = response.postedOn;
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
@@ -249,7 +249,7 @@ items.forEach(post => {
                             innerDiv.appendChild(div);
                             const ptime = document.createElement("p");
                             ptime.classList.add("time-comment");
-                            ptime.textContent = c.createdOn;
+                            ptime.textContent = c.postedOn;
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
@@ -298,7 +298,7 @@ items.forEach(post => {
                         innerDiv.appendChild(div);
                         const ptime = document.createElement("p");
                         ptime.classList.add("time-comment");
-                        ptime.textContent = response.createdOn;
+                        ptime.textContent = response.postedOn;
                         usercDiv.appendChild(innerDiv);
                         usercDiv.appendChild(ptime);
                         allComments.appendChild(usercDiv);
@@ -349,7 +349,7 @@ items.forEach(post => {
                             innerDiv.appendChild(div);
                             const ptime = document.createElement("p");
                             ptime.classList.add("time-comment");
-                            ptime.textContent = response.createdOn;
+                            ptime.textContent = response.postedOn;
                             usercDiv.appendChild(innerDiv);
                             usercDiv.appendChild(ptime);
                             allComments.appendChild(usercDiv);
