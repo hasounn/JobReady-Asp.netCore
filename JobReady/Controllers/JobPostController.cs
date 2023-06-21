@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using JobReady;
 using System.Transactions;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class JobPostController : Controller
     {
 

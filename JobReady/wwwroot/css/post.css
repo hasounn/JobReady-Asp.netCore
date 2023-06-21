@@ -74,11 +74,9 @@
     max-height:280px;
 }
 
-.img-user{
-    
-    aspect-ratio:1/1;
-    height:100%;
-    width:auto;
+.img-user {
+    width: 100%;
+    max-width: 300px;
 }
 
 .post-btn {

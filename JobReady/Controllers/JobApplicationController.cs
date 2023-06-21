@@ -1,8 +1,10 @@
 ﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class JobApplicationController : Controller
     {
         private readonly JobReadyContext context;
