@@ -157,8 +157,8 @@ namespace JobReady.Controllers
 
             var loggedInUserId = this.User.Claims.First().Value;
             var existingFollower = (from x in context.Follower
-                                    where x.FollowingId == userId
-                                    select x).Any();
+                                    where x.FollowingId == userId && x.UserAccountId== loggedInUserId
+                                    select x).FirstOrDefault();
 
             if (existingFollower != null)
             {
@@ -166,7 +166,7 @@ namespace JobReady.Controllers
                 context.SaveChanges();
             }
 
-            return RedirectToAction("Profile", "Index");
+            return RedirectToAction("Profile", "Index", userId);
         }
     }
 }
