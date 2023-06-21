@@ -220,7 +220,8 @@ namespace JobReady.Controllers
                              && x.CreatedById == this.User.Claims.First().Value
                              select x.Id).FirstOrDefault();
             var total = GetPostComments(details.Id).Count();
-            return Ok(new { commentId, this.User.Claims.First().Value, comment.CreatedOn, this.User.Identity.Name, total });
+            var postedOn = $"{comment.CreatedOn.Date} - {comment.CreatedOn.ToShortTimeString()}";
+            return Ok(new { commentId, this.User.Claims.First().Value, postedOn , this.User.Identity.Name, total });
         }
         #endregion
 
