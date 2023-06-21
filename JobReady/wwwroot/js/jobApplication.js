@@ -13,7 +13,7 @@ $(".letter").each(function () {
 }).on("keydown", function (e) {
     if (e.keyCode === 8 || e.keyCode === 46) { // Check if backspace or delete key is pressed
         setTimeout(() => {
-            this.style.height = "40px";
+            this.style.height = "auto";
             this.style.height = (this.scrollHeight) + "px";
         }, 0);
     }
