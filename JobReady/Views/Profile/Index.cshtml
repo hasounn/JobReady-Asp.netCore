@@ -72,11 +72,16 @@
             </div>
             <div class="d-flex flex-column w-100 headline">
                 <p class="fw-bold fs-6">@Model.Headline</p>
-                <p class="fw-light">@Model.About</p>
             </div>
         </div>
     </div>
     <div class="all-divs d-flex flex-column gap-4">
+        @if(Model.About != null){
+            <div class="d-flex flex-column gap-4">
+                <p class="about-title">About</p>
+                <p class="fw-light fs-4">@Model.About</p>
+            </div>
+        }
         <partial name="_Experience"/>
         <partial name="_Education"/>
         @if(Model.Skills.Count() != 0){
@@ -111,13 +116,13 @@
     </button>
     <div class="modal-dialog about-dialog color-black">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex flex-column">
                 <h4 class="h4">Edit About</h4>
                 <p>You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</p>
             </div>
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="UpdateAbout" method="post" class="d-flex flex-column p-5 h-100 align-items-center gap-5">
-                        <textarea rows="15" class="about-textarea">@Model.About</textarea>
+                        <textarea rows="15" asp-for="About" class="about-textarea w-100">@Model.About</textarea>
                     <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                 </form>
             </div>
