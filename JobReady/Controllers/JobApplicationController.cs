@@ -8,9 +8,9 @@ namespace JobReady.Controllers
     public class JobApplicationController : Controller
     {
         private readonly JobReadyContext context;
-        public JobApplicationController(JobReadyContext content)
+        public JobApplicationController(JobReadyContext context)
         {
-            this.context = content;
+            this.context = context;
         }
         public IActionResult Index(long jobId)
         {
@@ -43,6 +43,21 @@ namespace JobReady.Controllers
                           }).FirstOrDefault();
             return View(jobApp);
         }
-
+        public IActionResult Apply(JobPostDetails details)
+        {
+            if(ModelState.IsValid)
+            {
+                var application = new JobApplication()
+                {
+                    ApplicantId = this.User.Claims.First().Value,
+                    AppliedOn = DateTime.Now,
+                    JobPostId = details.Id,
+                    LetterOfMotivation = details.LetterOfMotivation,
+                };
+                context.JobApplication.Add(application);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
