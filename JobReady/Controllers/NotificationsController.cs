@@ -27,8 +27,9 @@ namespace JobReady.Controllers
 
         private IEnumerable<NotificationEngagementDetails> GetAllEngagements()
         {
+            var currentUser = this.User.Claims.First().Value;
             var engagements = (from x in context.PostEngagement
-                               where x.Post.CreatedById == this.User.Claims.First().Value
+                               where x.Post.CreatedById == currentUser && x.CreatedById != currentUser
                                orderby x.Id descending
                                select new NotificationEngagementDetails()
                                {
@@ -61,7 +62,7 @@ namespace JobReady.Controllers
                                      PostedOn = $"{x.FollowedOn.ToShortDateString()} - {x.FollowedOn.ToShortTimeString()}",
                                  });
 
-            return engagements.OrderByDescending(x => x.CreatedOn).AsEnumerable();
+            return engagements.OrderByDescending(x => x.CreatedOn).AsEnumerable().Take(20);
         }
     }
 
