@@ -13,7 +13,7 @@ namespace JobReady.Controllers
             this.context = context;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Index(string userId = null)
         {
             userId ??= this.User.Claims.First().Value;
@@ -47,7 +47,10 @@ namespace JobReady.Controllers
             {
                 return ProfileComp();
             }
-            return Index();
+            else
+            {
+                return Index();
+            }
         }
 
         private IActionResult Index()
