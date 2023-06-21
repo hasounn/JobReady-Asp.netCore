@@ -170,7 +170,7 @@ namespace JobReady.Controllers
                 context.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Profile", userId);
+            return RedirectToAction("Index", "Profile", new { userId });
         }
 
         [HttpGet]
