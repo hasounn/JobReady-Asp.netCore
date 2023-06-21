@@ -11,7 +11,7 @@
             <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
             @if(Model.IsOwned == true)
             {
-                <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="EditProfile">Edit Profile</a>
+                <a role="button" class="btn profile-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#aboutModal">Edit Profile</a>
             }else{
                 @if(!Model.HasFollowed){
                 <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"
@@ -97,6 +97,31 @@
                 </div>
         </div>
         }
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal w-100 fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog about-dialog color-black">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="h4">Edit About</h4>
+                <p>You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</p>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Profile" asp-action="UpdateAbout" method="post" class="d-flex flex-column p-5 h-100 align-items-center gap-5">
+                        <textarea rows="15" class="about-textarea">@Model.About</textarea>
+                    <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
