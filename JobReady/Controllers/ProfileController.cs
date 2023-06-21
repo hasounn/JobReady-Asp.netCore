@@ -40,6 +40,7 @@ namespace JobReady.Controllers
             }
         }
 
+        #region Get User Account
         private UserAccountDetails GetUserAccount(string userId)
         {
             userId ??= this.User.Claims.First().Value;
@@ -85,8 +86,19 @@ namespace JobReady.Controllers
             }
             return File("/assets/images/image-placeholder.png", "image/png");
         }
+        #endregion
 
-      
+        #region Update About
+        public IActionResult UpdateAbout(UserAccountDetails source)
+        {
+            var target = (from x in context.UserAccount
+                        where x.Id == this.User.Claims.First().Value
+                        select x).FirstOrDefault();
+            target.About = source.About;
+            context.SaveChanges();
+            return RedirectToAction("Index", "Profile", new { userId = target.Id });
+        }
+        #endregion
         #region Get User Skills / Likes
         [HttpGet]
         public string[] GetUserSkills([FromBody] string userId)

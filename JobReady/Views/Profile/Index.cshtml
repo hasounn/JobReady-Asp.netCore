@@ -117,7 +117,7 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="UpdateAbout" method="post" class="d-flex flex-column p-5 h-100 align-items-center gap-5">
-                        <textarea rows="15" class="about-textarea">@Model.About</textarea>
+                        <textarea asp-for="About" rows="15" class="about-textarea">@Model.About</textarea>
                     <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                 </form>
             </div>
