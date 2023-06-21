@@ -255,8 +255,22 @@ body{
     color:var(--snow-white);
 }
 
-    @media (max-width:1168px) {
-        .width-fix {
+.about-dialog {
+    max-width: calc(65% - 150px) !important;
+}
+
+.about-dialog .modal-body {
+    height: calc(100% - 200px) !important;
+}
+
+.about-textarea{
+    all:unset;
+    border-radius:15px;
+    border:1px solid var(--black);
+}
+
+@media (max-width:1168px) {
+    .width-fix {
             width: 100%;
         }
     }
