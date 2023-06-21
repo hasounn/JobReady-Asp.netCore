@@ -15,14 +15,29 @@ namespace JobReady.Controllers
         public IActionResult Index(string userId = null)
         {
             var userDetails = GetUserAccount(userId);
-            return View(userDetails);
+
+            if (userDetails.AccountType == UserAccountType.Company)
+            {
+                return Company(userId);
+            }
+            else
+            {
+                return View(userDetails);
+            }
         }
 
         public IActionResult Company(string userId = null)
         {
             var userDetails = GetUserAccount(userId);
             userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
-            return View(userDetails);
+            if (userDetails.AccountType != UserAccountType.Company)
+            {
+                return Index(userId);
+            }
+            else
+            {
+                return View(userDetails);
+            }
         }
 
         private UserAccountDetails GetUserAccount(string userId)
@@ -97,6 +112,7 @@ namespace JobReady.Controllers
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+                post.Comments = GetPostComments(post.Id);
             }
 
             return posts;
@@ -183,6 +199,27 @@ namespace JobReady.Controllers
                                  Username = x.UserAccount.UserName,
                              });
             return followers;
+        }
+
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
+        {
+            var comments = (from x in context.PostEngagement
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                CreatedOn = x.CreatedOn,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
     }
 }
