@@ -53,7 +53,7 @@
                             </div>
                         </a>
                     </li>
-                    @if(Model.AccountType == UserAccountType.Company)
+                    @if((@ViewData["User"] as UserAccountDetails)?.AccountType == UserAccountType.Company)
                     {
                         
                         <li class="nav-item" id="post-nav">
@@ -155,7 +155,7 @@
                         </ul>
                     </li>
                 </ul>
-                </div>
+            </div>
         </nav>
     </header>
     
