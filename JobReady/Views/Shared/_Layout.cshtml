@@ -53,9 +53,8 @@
                             </div>
                         </a>
                     </li>
-                    @if((@ViewData["User"] as UserAccountDetails)?.AccountType == UserAccountType.Company)
+                    @if((ViewData["User"] as UserAccountType?)  == UserAccountType.Company)
                     {
-                        
                         <li class="nav-item" id="post-nav">
                             <div class="dropdown w-100">
                                 <button class="btn d-flex flex-row align-items-center post-nav" data-bs-toggle="dropdown" aria-expanded="false" onclick="this.preventDefault();">

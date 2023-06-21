@@ -25,7 +25,10 @@ namespace JobReady.Controllers
                                    Id = x.Id,
                                    Username = x.UserName,
                                    FullName = x.FullName,
-                                   AccountType = x.AccountType,
+                                   Type = x.AccountType == UserAccountType.Company ? "company" : 
+                                          x.AccountType == UserAccountType.Student ? "student" :
+                                          x.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          "admin",
 
                                }).FirstOrDefault();
 
@@ -35,7 +38,7 @@ namespace JobReady.Controllers
                 JobPosts = GetJobPosts(),
                 AccountType = user.AccountType,
             };
-            ViewData["User"] = user;
+            ViewData["User"] = model.AccountType;
             return View(model);
         }
 
