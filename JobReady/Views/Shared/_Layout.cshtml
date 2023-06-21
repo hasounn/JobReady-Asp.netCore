@@ -53,7 +53,7 @@
                             </div>
                         </a>
                     </li>
-                    @*@if(Model.AccountType == UserAccountType.Company)
+                    @if(Model.AccountType == UserAccountType.Company)
                     {
                         
                         <li class="nav-item" id="post-nav">
@@ -96,9 +96,9 @@
                                 </ul>
                             </div>
                         </li>
-                    }*@
-                    @*else
-                    {*@
+                    }
+                    else
+                    {
                         <li class="nav-item" id="post-nav">
                             <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">
                                 <div class="d-flex flex-row gap-3">
@@ -111,8 +111,7 @@
                                 </div>
                             </a>
                         </li>
-                    @*}*@
-                    
+                    }
                 </ul>
                 <ul class="navbar-nav d-flex flex-column gap-3 ps-1 w-100">
                     <li class="nav-item" id="settings-nav">
@@ -128,7 +127,8 @@
                         <li>
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-between justify-content-start list-unstyled">
                             <li class="nav-item" id="profile-nav">
-                                <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index">
+                                <form asp-controller="Profile" asp-action="Profile">
+                                <button type="submit" class="nav-link">
                                     <div class="d-flex flex-row gap-3">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path class="path" d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -137,7 +137,8 @@
 
                                         <p>Profile</p>
                                     </div>
-                                </a>
+                                    </button>
+                                </form>
                             </li>
                             <li class="nav-item logout" id="logout-nav">
                                 <a class="nav-link" asp-area="" asp-controller="Logout" asp-action="Logout">
