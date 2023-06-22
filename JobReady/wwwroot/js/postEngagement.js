@@ -103,7 +103,7 @@ comments.forEach(comment => {
             }
         });
         submitBtn.addEventListener("click", () => {
-            if (inputComment.value.trim() != " ") {
+            if (inputComment.value.trim() != "") {
                 var details = {
                     Id: postIdComment,
                     Content: inputComment.value
@@ -156,7 +156,7 @@ comments.forEach(comment => {
             e.preventDefault();
             if (e.key == "Enter") {
 
-            if (inputComment.value.trim() != " ") {
+            if (inputComment.value.trim() != "") {
                 var details = {
                     Id: postIdComment,
                     Content: inputComment.value
@@ -263,7 +263,7 @@ items.forEach(post => {
             }
         });
         submitBtn.addEventListener("click", () => {
-            if (inputComment.value.trim() != " ") {
+            if (inputComment.value.trim() != "") {
                 var details = {
                     Id: postIdComment,
                     Content: inputComment.value
@@ -313,8 +313,9 @@ items.forEach(post => {
         inputComment.addEventListener("keyup", (e) => {
             e.preventDefault();
             if (e.key == "Enter") {
+                console.log(inputComment.value.trim() != "");
 
-                if (inputComment.value.trim() != " ") {
+                if (inputComment.value.trim() != "") {
                     var details = {
                         Id: postIdComment,
                         Content: inputComment.value
