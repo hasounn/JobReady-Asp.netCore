@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobReady;
 
@@ -87,4 +88,12 @@ public enum DegreeType
     AssociateOfArts,
     AssociateOfScience,
     Other
+}
+
+public enum SearchType
+{
+    Users,
+    Posts,
+    [Display(Name="Job Opportunities")]
+    Jobs
 }

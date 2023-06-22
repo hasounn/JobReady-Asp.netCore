@@ -57,3 +57,12 @@
 .btn-outline-success {
     border: 1px solid #198754!important;
 }
+
+.btn-outline-primary{
+    border: 1px solid var(--lightblue) !important;
+    color:var(--snow-white)
+}
+
+.btn-outline-primary:hover{
+    background:var(--lightblue);
+}

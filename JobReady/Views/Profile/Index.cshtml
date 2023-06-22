@@ -19,14 +19,13 @@
                     <img src="~/icons/profile-add.svg"/>
                     <p>Follow</p>
                 </a>
-            }else{
-            <a role="button" class="btn profile-btn unfollow d-flex flex-row gap-2 rounded-pill"
-               asp-controller="Profile" asp-action="Unfollow" asp-route-userId="@Model.Id">
-                <p>Followed</p>
-            </a>
+                }else{
+                <a role="button" class="btn profile-btn unfollow d-flex flex-row gap-2 rounded-pill"
+                   asp-controller="Profile" asp-action="Unfollow" asp-route-userId="@Model.Id">
+                    <p>Followed</p>
+                </a>
+                }
             }
-            }
-            
         </div>
         <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
             <div class="fullname-p d-flex flex-row align-items-center gap-1">
