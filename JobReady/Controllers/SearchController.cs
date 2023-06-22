@@ -39,7 +39,7 @@ namespace JobReady.Controllers
                            where y.Content.Contains(searchText)
                            select y.Id);
 
-            var posts = postController.GetPosts(postIds);
+            var posts = postController.GetPosts(postIds, this.User.Claims.First().Value);
 
             var skills = (from s in context.Skill
                           where s.Name == searchText

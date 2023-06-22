@@ -47,19 +47,20 @@ namespace JobReady.Controllers
         #endregion
 
 
-        public IEnumerable<PostDetails> GetPosts(IEnumerable<long> postIds)
+        public IEnumerable<PostDetails> GetPosts(IEnumerable<long> postIds,string userId = null)
         {
             var posts = new List<PostDetails>();    
             foreach (var postId in postIds)
             {
-                posts.Add(GetPost(postId));
+                posts.Add(GetPost(postId, userId));
             }
             return posts.AsEnumerable();
         }
         #region Get Post
         [HttpGet]
-        public PostDetails GetPost(long postId)
+        public PostDetails GetPost(long postId,string userId = null)
         {
+            userId ??= this.User.Claims.First().Value;
             var post = (from x in context.Post
                          join y in context.FileLink on x.Id equals y.ObjectId into images
                          from i in images.DefaultIfEmpty()
@@ -81,7 +82,7 @@ namespace JobReady.Controllers
                              CreatedOn = x.CreatedOn,
                              PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                          }).FirstOrDefault();
-            post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+            post.HasLiked = HasLiked(post.Id,userId);
             post.LikesCount = GetTotalEngagementCount(postId, EngagementType.Like);
             post.Comments = GetPostComments(postId);
             return post;
