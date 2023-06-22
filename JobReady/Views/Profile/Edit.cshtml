@@ -97,16 +97,54 @@
                 </li>
             </ul>
         </div>
-        <partial name="_Education" />
+        <div class="glass-box d-flex flex-column p-4 gap-2">
+            <div class="d-flex flex-row justify-content-between w-100">
+                <p class="fw-bold section-title">Education</p>
+                <svg class="pointer" data-bs-toggle="modal" data-bs-target="#addEducationModal" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12H18" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 18V6" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <ul class="joined-custom-list">
+                <li>
+                    <div class="bullet">
+                        <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                            <circle stroke="none" cx="16" cy="16" r="10"></circle>
+
+                        </svg>
+                    </div>
+                    <section class="d-flex flex-row gap-3 w-100">
+                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column">
+                            <h6 class="fw-bold"><span class="uni-name">School or Uni</span> | <span class="uni-location">Location</span></h6>
+                            <p class="uni-time fw-bold">
+                                <span class="uni-start">November 2020</span> - <span class="uni-end">October 2023</span> &#8226;
+                                <span class="fw-light"><span class="calculated-time">#</span> mos.</span>
+                            </p>
+                        </div>
+                        
+                        <p class="fw-light ps-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere reprehenderit iste libero velit rerum voluptatum dicta blanditiis dolore placeat enim? Est hic, officiis nulla, cum accusantium animi fugit tempore commodi nihil ex ullam consequatur repellat a iusto ut excepturi nemo rem doloremque molestias error, eveniet ipsam accusamus repellendus aliquam! Saepe!</p>
+                        <ul class="custom-list">
+                            <li>
+                                Bachelor &#8226; <span class="position-time">4</span> mos.
+                            </li>
+                            <li>
+                                Masters &#8226; <span class="position-time">#</span> mos.
+                            </li>
+                            <li>
+                                PhD &#8226; <span class="position-time">#</span> mos.
+                            </li>
+                        </ul>
+                        </div>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal"><img src="~/icons/edit-2.svg" /></button>
+                    </section>
+                </li>
+             </ul>
+        </div>
         @if (Model.Skills.Count() != 0)
         {
             <div class="d-flex flex-column flex-lg-row gap-3">
-                @if (Model.Skills.Count() != 0)
-                {
                     <partial name="_Skills" />
-                }
-
-                @*<partial name="_Projects" />*@
             </div>
         }
     </div>
@@ -137,6 +175,40 @@
     </div>
 </div>
 
+<!-- Modal Add Education -->
+<div class="modal w-100 fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal" onclick="window.location.reload()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog about-dialog color-black">
+        <div class="modal-content">
+            <div class="modal-header p-4">
+                <h4 class="h4">Add New Education</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Add Company <span class="text-danger">*</span></p>
+                        <select></select>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Start Date <span class="text-danger">*</span></p>
+                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>End Date (Or Expected)</p>
+                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-pill align-self-end">Add Education</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal Add Experience -->
 <div class="modal w-100 fade" id="addExperienceModal" tabindex="-1" aria-labelledby="addExperienceLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <button type="button" class="btn close" data-bs-dismiss="modal" onclick="window.location.reload()">
@@ -154,7 +226,7 @@
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <p>Add Company <span class="text-danger">*</span></p>
+                        <p>Add University <span class="text-danger">*</span></p>
                         <select></select>
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
