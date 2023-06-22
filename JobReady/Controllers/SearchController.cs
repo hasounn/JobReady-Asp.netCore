@@ -54,6 +54,7 @@ namespace JobReady.Controllers
                                 Id = j.Id,
                                 Title = j.Title,
                                 CreatedById = j.CreatedById,
+                                IsRemote = j.IsRemote,
                                 CreatedBy = new UserAccountDetails()
                                 {
                                     Username = j.CreatedBy.UserName,
