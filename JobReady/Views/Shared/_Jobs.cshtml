@@ -2,7 +2,7 @@
 
 @foreach(var job in Model){
 <a class="job d-flex flex-row p-3 w-100 gap-3 text-decoration-none text-black" asp-controller="JobApplication" asp-action="Index" asp-route-jobId="@job.Id">
-    <img src="@Url.Action("GetProfilePicture","Profile", new {userId=job.CreatedById})" class="img-job-resize rounded-circle"/>
+    <img src="@Url.Action("GetProfilePicture","Profile", new {userId=job.CreatedById})" class="img-job-resize"/>
     <div class="d-flex flex-column h-auto justify-content-center gap-2 w-100">
         <p class="color-light-blue fs-5 fw-bold">@job.Title</p>
             <p class="loc-remote">Lebanon (@{
