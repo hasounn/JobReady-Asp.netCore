@@ -14,4 +14,6 @@ public class PostDetails
     public IEnumerable<PostEngagementDetails> Comments { get; set; }
     public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
+    public string PostedOn { get; set; }
+
 }

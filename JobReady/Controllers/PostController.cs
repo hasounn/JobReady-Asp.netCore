@@ -46,6 +46,16 @@ namespace JobReady.Controllers
         }
         #endregion
 
+
+        public IEnumerable<PostDetails> GetPosts(IEnumerable<long> postIds)
+        {
+            var posts = new List<PostDetails>();    
+            foreach (var postId in postIds)
+            {
+                posts.Add(GetPost(postId));
+            }
+            return posts.AsEnumerable();
+        }
         #region Get Post
         [HttpGet]
         public PostDetails GetPost(long postId)
@@ -69,6 +79,7 @@ namespace JobReady.Controllers
                              ImageId = i.Id,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
+                             PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                          }).FirstOrDefault();
             post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
             post.LikesCount = GetTotalEngagementCount(postId, EngagementType.Like);
