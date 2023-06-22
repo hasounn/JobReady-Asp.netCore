@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<NotificationEngagementDetails>
 
+   <div class="d-flex flex-column gap-3 w-100">
 @foreach (var engagement in Model)
 {
-    <div class="form-step d-flex flex-row justify-content-between align-items-center">
+    <div class="form-step d-flex flex-row justify-content-between align-items-center gap-3 w-100">
         <div class="d-flex flex-row align-items-center gap-2">
             <img src="@Url.Action("GetProfilePicture","Profile",new {userId = engagement.CreatedBy.Id})" class="user-image rounded-circle">
                 <p class="notification-content">@engagement.Content</p>
@@ -10,4 +11,5 @@
         <p class="p-2 notf-time">@engagement.PostedOn</p>
     </div>
 
-}
+    }
+</div>

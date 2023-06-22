@@ -245,30 +245,6 @@ body{
     font-size:13.5px;
 }
 
-.job {
-    background: linear-gradient(90.7deg, var(--lightwhite) 0%, rgba(244, 250, 255, 0.4) 100%);
-    border-radius: 15px;
-    color: #000000;
-    cursor: pointer;
-    transition: all 2s ease-in-out;
-}
-    .job > div > p {
-        transition: all 0.25s ease-in-out;
-    }
-.job:hover > div > p{
-    color: var(--gold);
-}
-.loc-remote {
-    font-size: 12px;
-}
-.loc-remote, .time-posted {
-    color:var(--gray-asset2);
-}
-
-.time-posted {
-    font-size: 11px;
-}
-
 .unfollow{
     background:var(--lightblue);
     color:var(--snow-white);
