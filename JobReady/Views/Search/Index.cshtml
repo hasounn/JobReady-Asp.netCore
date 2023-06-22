@@ -22,7 +22,9 @@
         </button>
     </form>
    <div class="d-flex flex-column gap-3">
-       <partial name="_Search" model="Model"/>
+       @if(Model.User != null){
+            <partial name="_Search" model="Model" />
+        }
    </div>
 </div>
 
