@@ -11,7 +11,7 @@
             <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
             @if(Model.IsOwned == true)
             {
-                <a role="button" class="btn profile-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#aboutModal">Edit Profile</a>
+                <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
             }else{
                 @if(!Model.HasFollowed){
                 <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"

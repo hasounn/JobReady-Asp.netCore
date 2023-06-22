@@ -288,6 +288,11 @@ body{
     border:1px solid var(--black);
 }
 
+.fixed-width{
+    width:200px;
+    padding-left:20px;
+}
+
 @media (max-width:1168px) {
     .width-fix {
             width: 100%;

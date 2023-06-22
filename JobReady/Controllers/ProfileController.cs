@@ -40,6 +40,13 @@ namespace JobReady.Controllers
             }
         }
 
+
+        public IActionResult Edit(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            return View(userDetails);
+        }
+
         #region Get User Account
         private UserAccountDetails GetUserAccount(string userId)
         {
