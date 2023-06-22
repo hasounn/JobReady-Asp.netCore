@@ -95,5 +95,5 @@ public enum SearchType
     Users,
     Posts,
     [Display(Name="Job Opportunities")]
-    JobOpps
+    Jobs
 }
