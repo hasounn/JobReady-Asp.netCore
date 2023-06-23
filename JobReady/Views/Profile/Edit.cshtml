@@ -198,7 +198,7 @@
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <p>Tile  <span class="text-danger">*</span></p>
+                        <p>Title  <span class="text-danger">*</span></p>
                         <input asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
@@ -256,7 +256,7 @@
                 <form asp-controller="Profile" asp-action="EditExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
                     <input type="hidden" asp-for="Id" value="@experience.Id"/>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <p>Tile  <span class="text-danger">*</span></p>
+                        <p>Title  <span class="text-danger">*</span></p>
                         <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
