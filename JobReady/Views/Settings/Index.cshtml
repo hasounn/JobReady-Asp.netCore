@@ -1,12 +1,10 @@
-﻿  
-<link rel="stylesheet" href="~/css/Settings.css" />
-
+﻿<link rel="stylesheet" href="~/css/Settings.css" />
 
 <div class="d-flex flex-column form-side w-100 p-5 gap-5">
     <div class="d-flex flex-row w-100 align-items-center setting-item">
         <a>Edit Profile</a>
     </div>
-    <div class="d-flex flex-row w-100 align-items-center setting-item">
+    <div class="d-flex flex-row w-100 align-items-center setting-item" onclick="toggleWindow()">
         <a>Change password</a>
     </div>
     <div class="d-flex flex-row w-100 align-items-center setting-item">
@@ -18,5 +16,27 @@
     <div class="d-flex flex-row w-100 align-items-center setting-item">
         <a>Generate CV</a>
     </div>
- </div>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <div id="window" class="window ">
+        <div class="window-titlebar">
+            <span class="window-title text" >Change Password</span>
+            <button class="window-close close-btn" onclick="toggleWindow()">X</button>
+        </div>
+        <div class="window-content d-flex justify-content-center">
+            <form>
+                <div class="form-group">
+                    <label for="new-password" class="text">New Password:</label>
+                    <input type="password" class="password" id="new-password" name="new-password" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password" class="text">Confirm Password:</label>
+                    <input type="password" class="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password">
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script src="js/Settings.js"></script>

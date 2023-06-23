@@ -21,3 +21,42 @@
     background-color: #F4FAFF;
     border-radius:20px;
 }
+.password {
+    width: 90%;
+    height: 20px;
+    background-color: #F4FAFF;
+    border-radius: 20px;
+    
+    
+}
+
+.window {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
+    background-color: #38434F;
+    display: none; /* Hide the window by default */
+    opacity: 0.92;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    justify-content:center;
+    align-items:center;
+}
+.text {
+    color: #F4FAFF;
+    margin-bottom:2px;
+    margin-top:2px;
+}
+.submit-btn {
+    margin-top: 2px;
+    right: 12px;
+    border-radius:15px;
+    width:120px;
+
+
+}
+.close-btn{
+    right:10px;
+}
