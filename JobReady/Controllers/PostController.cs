@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobReady.Data.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Transactions;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly JobReadyContext context;
@@ -43,10 +46,21 @@ namespace JobReady.Controllers
         }
         #endregion
 
+
+        public IEnumerable<PostDetails> GetPosts(IEnumerable<long> postIds,string userId = null)
+        {
+            var posts = new List<PostDetails>();    
+            foreach (var postId in postIds)
+            {
+                posts.Add(GetPost(postId, userId));
+            }
+            return posts.AsEnumerable();
+        }
         #region Get Post
         [HttpGet]
-        public PostDetails GetPost(long postId)
+        public PostDetails GetPost(long postId,string userId = null)
         {
+            userId ??= this.User.Claims.First().Value;
             var post = (from x in context.Post
                          join y in context.FileLink on x.Id equals y.ObjectId into images
                          from i in images.DefaultIfEmpty()
@@ -66,9 +80,11 @@ namespace JobReady.Controllers
                              ImageId = i.Id,
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
+                             PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
                          }).FirstOrDefault();
-            post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
-            post.LikesCount = GetTotalLikesCount(postId);
+            post.HasLiked = HasLiked(post.Id,userId);
+            post.LikesCount = GetTotalEngagementCount(postId, EngagementType.Like);
+            post.Comments = GetPostComments(postId);
             return post;
         }
         #endregion
@@ -130,20 +146,24 @@ namespace JobReady.Controllers
         }
         #endregion
 
-
-        public long GetTotalLikesCount(long postId)
+        #region Total Engagement Count
+        public long GetTotalEngagementCount(long postId, EngagementType type )
         {
             var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              where x.PostId == postId && x.EngagementType == type
                               select x).Count();
             return likesCount;
         }
+        #endregion
+
+        #region Has Liked
         public bool HasLiked(long postId, string userId)
         {
             return (from x in context.PostEngagement
-                    where x.PostId == postId && x.CreatedById == userId
+                    where x.PostId == postId && x.CreatedById == userId && x.EngagementType == EngagementType.Like
                     select x).Any();
         }
+        #endregion
 
         #region Like/Unlike Post
         [HttpPost]
@@ -168,7 +188,7 @@ namespace JobReady.Controllers
                 context.SaveChanges();
             }
 
-            var likesCount = GetTotalLikesCount(postId);
+            var likesCount = GetTotalEngagementCount(postId, EngagementType.Like);
             return Ok(likesCount);
 
         }
@@ -184,9 +204,60 @@ namespace JobReady.Controllers
             if (like != null)
                 context.PostEngagement.Remove(like);
                 context.SaveChanges();
-            var likesCount = GetTotalLikesCount(postId);
+            var likesCount = GetTotalEngagementCount(postId, EngagementType.Like);
 
             return Ok(likesCount);
+        }   
+        #endregion
+
+        #region Comment on Post
+        [HttpPost]
+        public IActionResult Comment([FromBody]PostDetails details)
+        {
+            var comment = new PostEngagement()
+            {
+                PostId = details.Id,
+                Content = details.Content,
+                CreatedById = this.User.Claims.First().Value,
+                CreatedOn = DateTime.Now,
+                EngagementType = EngagementType.Comment,
+            };
+
+            context.PostEngagement.Add(comment);
+            context.SaveChanges();
+
+            var commentId = (from x in context.PostEngagement
+                             where x.Content == comment.Content 
+                             && x.PostId == details.Id
+                             && x.CreatedById == this.User.Claims.First().Value
+                             select x.Id).FirstOrDefault();
+            var total = GetPostComments(details.Id).Count();
+            var postedOn = $"{comment.CreatedOn.ToShortDateString()} - {comment.CreatedOn.ToShortTimeString()}";
+            return Ok(new { commentId, this.User.Claims.First().Value, postedOn , this.User.Identity.Name, total });
+        }
+        #endregion
+
+        #region Get Post Comments
+        [HttpGet]
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
+        {
+            var comments = (from x in context.PostEngagement
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                PostedOn = $"{x.CreatedOn.ToShortDateString()} - {x.CreatedOn.ToShortTimeString()}",
+                                CreatedOn = x.CreatedOn,
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
         #endregion
     }

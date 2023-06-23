@@ -1,10 +1,11 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 
 namespace JobReady;
 
 public class UserAccountDetails
 {
-    public string Id {get;set;}
+    public string Id { get; set; }
 
     [DisplayName("Full Name")]
     public string FullName { get; set; }
@@ -51,21 +52,26 @@ public class UserAccountDetails
 
     public string About { get; set; }
 
-    public string Location { get; set; }    
+    public string Location { get; set; }
 
     public bool IsVerified { get; set; }
 
     public bool IsEmailVerified { get; set; }
     public bool IsOwned { get; set; }
-
+    public bool HasFollowed { get; set; }
+    public IEnumerable<UserAccountDetails> Followers { get; set; }
     [DisplayName("Date Of Birth")]
     public DateTime UserDate { get; set; }
 
-    public IFormFile ProfileImage {get;set;}
+    public IFormFile ProfileImage { get; set; }
     public IEnumerable<PostDetails> Posts { get; set; }
+    public IEnumerable<JobPostDetails> JobPosts { get; set; }
     public string[] Skills { get; set; }
+    public IEnumerable<SelectListItem> Industries {get;set;}
     public IEnumerable<EducationDetails> Educations { get; set; }
+    public EducationDetails Education { get; set; }
     public IEnumerable<ExperienceDetails> Experiences { get; set; }
+    public ExperienceDetails Experience { get; set; }
     public void Validate()
     {
         if(AccountType == UserAccountType.Company && IndustryId == null)

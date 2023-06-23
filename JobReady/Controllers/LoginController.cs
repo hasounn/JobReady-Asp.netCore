@@ -50,7 +50,7 @@ namespace JobReady.Controllers
                     }
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             }
 
             return View(details);

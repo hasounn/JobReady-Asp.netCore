@@ -1,0 +1,45 @@
+﻿@model SearchDetails
+<div class="d-flex flex-row gap-3">
+    @foreach(SearchType s in Enum.GetValues(typeof(SearchType))){
+    <a role="button" class="btn btn-outline-primary rounded-pill" asp-controller="Search" asp-action="@{var url= $"Search{s.ToString()}"; @url}">@s.ToString()</a>
+    }
+</div>
+@if (Model?.Users.Count() > 0)
+{
+<div class="d-flex flex-column gap-3 w-100">
+    <p class="users-title">Users</p>
+    <div class="d-flex flex-column gap-3 w-100">
+    @foreach(var user in Model.Users){
+    <a class="white-bg d-flex flex-row justify-content-between align-items-center w-100 btn color-black text-decoration-none" 
+        role="button" asp-controller="Profile" asp-action="Index" asp-route-userId="@user.Id" >
+        <div class="d-flex flex-row align-items-center gap-2 p-3 w-100">
+            <img src="@Url.Action("GetProfilePicture","Profile",new {userId = user.Id})" class="user-image rounded-circle">
+            <p class="username color-black">@user.Username</p>
+        </div>
+    </a>
+    }
+    </div>
+</div>
+}
+@if (Model?.Posts.Count() > 0)
+{
+    <div class="d-flex flex-column gap-3 w-100">
+        <p class="posts-title">Posts</p>
+        <div class="d-flex flex-column align-items-center w-100">
+            <div class="d-flex flex-column w-100 align-items-center gap-4 posts pb-4">
+                <partial name="_Posts" model="@Model.Posts"/>
+            </div>
+        </div>
+    </div>
+}
+@if (Model?.JobPosts.Count() > 0)
+{
+<div class="d-flex flex-column gap-3 w-100">
+    <p class="jobOpps-title">Job Opportunities</p>
+    <div class="d-flex flex-column align-items-center w-100">
+        <div class="d-flex flex-column w-100 align-items-center gap-4 jobOpps pb-4">
+            <partial name="_Jobs" model="@Model.JobPosts"/>
+        </div>
+    </div>
+</div>
+}

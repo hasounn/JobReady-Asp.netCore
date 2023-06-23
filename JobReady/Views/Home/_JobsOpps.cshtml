@@ -19,7 +19,11 @@
                             }
                         </span>)
                     </p>
-                    <p class="timeOn fw-bold">@item.CreatedOn</p>
+                    <p class="timeOn fw-bold">
+                        @{
+                            var postedOn = $"{item.CreatedOn.ToShortDateString()} - {item.CreatedOn.ToShortTimeString()}"; @postedOn
+                        }
+                    </p>
             </div>
         </div>
     </div>

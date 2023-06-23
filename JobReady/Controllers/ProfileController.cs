@@ -17,7 +17,7 @@ namespace JobReady.Controllers
         {
             if (IsCompany(userId))
             {
-                return RedirectToAction("Company", "Profile", new { userId });
+                return RedirectToAction("Company", "Profile", new {userId});
             }
             else
             {
@@ -32,7 +32,7 @@ namespace JobReady.Controllers
             userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
             if (!IsCompany(userId))
             {
-                return RedirectToAction("Index", "Company", new { userId });
+                return RedirectToAction("Index","Company", new { userId});
             }
             else
             {
@@ -84,12 +84,11 @@ namespace JobReady.Controllers
 
             userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
-            userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).AsQueryable();
+            userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
             userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
             userDetails.Followers = GetFollowers(userId);
             userDetails.Experiences = GetExperiences(userId);
             userDetails.Experience = new ExperienceDetails();
-            userDetails.Educations = Enumerable.Empty<EducationDetails>();
             return userDetails;
         }
 
@@ -113,8 +112,8 @@ namespace JobReady.Controllers
         public IActionResult UpdateAbout(UserAccountDetails source)
         {
             var target = (from x in context.UserAccount
-                          where x.Id == this.User.Claims.First().Value
-                          select x).FirstOrDefault();
+                        where x.Id == this.User.Claims.First().Value
+                        select x).FirstOrDefault();
             target.About = source.About;
             context.SaveChanges();
             return RedirectToAction("Index", "Profile", new { userId = target.Id });
@@ -172,7 +171,7 @@ namespace JobReady.Controllers
 
             var loggedInUserId = this.User.Claims.First().Value;
             var existingFollower = (from x in context.Follower
-                                    where x.FollowingId == userId && x.UserAccountId == loggedInUserId
+                                    where x.FollowingId == userId && x.UserAccountId== loggedInUserId
                                     select x).FirstOrDefault();
 
             if (existingFollower != null)

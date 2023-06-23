@@ -14,9 +14,9 @@ body{
 }
 
 .profile-btn {
-    color: var(--lightwhite);
+    color: var(--lightblue);
     padding: 8px 20px;
-    background: var(--lightblue);
+    background: var(--snow-white);
     filter: drop-shadow(0px 4px 9px #232C31);
 }
 
@@ -221,37 +221,67 @@ body{
         background: var(--lightblue);
         clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
     }
+.about-title {
+    position: relative;
+    display: inline-block;
+    color: var(--lightwhite);
+    width: 90px;
+    font-size: 42px;
+    font-family:"League Gothic", sans-serif;
+}
+
+    .about-title:after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--lightblue);
+        clip-path: polygon(0 0, 100% 0, 96.5% 100%, 0% 100%);
+    }
 
 .lower-fs-6{
     font-size:13.5px;
 }
 
-.job {
-    background: linear-gradient(90.7deg, var(--lightwhite) 0%, rgba(244, 250, 255, 0.4) 100%);
-    border-radius: 15px;
-    color: #000000;
-    cursor: pointer;
-    transition: all 2s ease-in-out;
-}
-    .job > div > p {
-        transition: all 0.25s ease-in-out;
-    }
-.job:hover > div > p{
-    color: var(--gold);
-}
-.loc-remote {
-    font-size: 12px;
-}
-.loc-remote, .time-posted {
-    color:var(--gray-asset2);
+.unfollow{
+    background:var(--lightblue);
+    color:var(--snow-white);
 }
 
-.time-posted {
-    font-size: 11px;
+.about-dialog {
+    max-width: calc(65% - 150px) !important;
 }
 
-    @media (max-width:1168px) {
-        .width-fix {
+.about-dialog .modal-body {
+    height: calc(100% - 200px) !important;
+}
+
+.about-textarea{
+    all:unset;
+    border-radius:15px;
+    border:1px solid var(--black);
+}
+
+.fixed-width{
+    width:200px;
+    padding-left:20px;
+}
+
+.textarea-description{
+    all:unset;
+    height:40px;
+    max-height:140px;
+    overflow-y:scroll;
+    border:1px solid var(--black);
+    border-radius:15px;
+    padding:1em;
+    padding-right:20px;
+}
+
+@media (max-width:1168px) {
+    .width-fix {
             width: 100%;
         }
     }
