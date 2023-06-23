@@ -4,7 +4,8 @@
     <a role="button" class="btn btn-outline-primary rounded-pill" asp-controller="Search" asp-action="@{var url= $"Search{s.ToString()}"; @url}">@s.ToString()</a>
     }
 </div>
-@if(Model?.Users !=null){
+@if (Model?.Users.Count() > 0)
+{
 <div class="d-flex flex-column gap-3 w-100">
     <p class="users-title">Users</p>
     <div class="d-flex flex-column gap-3 w-100">
@@ -20,7 +21,7 @@
     </div>
 </div>
 }
-@if (Model?.Posts != null)
+@if (Model?.Posts.Count() > 0)
 {
     <div class="d-flex flex-column gap-3 w-100">
         <p class="posts-title">Posts</p>
@@ -31,7 +32,8 @@
         </div>
     </div>
 }
-@if(Model?.JobPosts !=null){
+@if (Model?.JobPosts.Count() > 0)
+{
 <div class="d-flex flex-column gap-3 w-100">
     <p class="jobOpps-title">Job Opportunities</p>
     <div class="d-flex flex-column align-items-center w-100">
