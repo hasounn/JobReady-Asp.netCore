@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
 
     instructors.forEach(instructor => {
         const sendRequest = instructor.querySelector("#sendRequest");
-        const instructorId = 12;
+        const instructorId = instructor.querySelector("#instructorId").value;
         console.log("clickedd");
         sendRequest.addEventListener("click", () => {
             $.ajax({
