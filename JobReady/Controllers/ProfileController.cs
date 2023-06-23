@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JobReady.Controllers
 {
@@ -14,14 +15,13 @@ namespace JobReady.Controllers
 
         public IActionResult Index(string userId = null)
         {
-            var userDetails = GetUserAccount(userId);
-
-            if (userDetails.AccountType == UserAccountType.Company)
+            if (IsCompany(userId))
             {
                 return RedirectToAction("Company", "Profile", new {userId});
             }
             else
             {
+                var userDetails = GetUserAccount(userId);
                 return View(userDetails);
             }
         }
@@ -30,7 +30,7 @@ namespace JobReady.Controllers
         {
             var userDetails = GetUserAccount(userId);
             userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
-            if (userDetails.AccountType != UserAccountType.Company)
+            if (!IsCompany(userId))
             {
                 return RedirectToAction("Index","Company", new { userId});
             }
@@ -39,6 +39,24 @@ namespace JobReady.Controllers
                 return View(userDetails);
             }
         }
+
+
+        public IActionResult Edit(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            return View(userDetails);
+        }
+
+        #region Check Account Type
+        private bool IsCompany(string userId)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var type = (from x in context.UserAccount
+                        where x.Id == userId
+                        select x.AccountType).FirstOrDefault();
+            return type == UserAccountType.Company;
+        }
+        #endregion
 
         #region Get User Account
         private UserAccountDetails GetUserAccount(string userId)
@@ -66,9 +84,11 @@ namespace JobReady.Controllers
 
             userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
             userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
             userDetails.Followers = GetFollowers(userId);
-
+            userDetails.Experiences = GetExperiences(userId);
+            userDetails.Experience = new ExperienceDetails();
             return userDetails;
         }
 
@@ -99,6 +119,7 @@ namespace JobReady.Controllers
             return RedirectToAction("Index", "Profile", new { userId = target.Id });
         }
         #endregion
+
         #region Get User Skills / Likes
         [HttpGet]
         public string[] GetUserSkills([FromBody] string userId)
@@ -237,6 +258,81 @@ namespace JobReady.Controllers
                             }).AsEnumerable();
             return comments;
         }
-    #endregion
+        #endregion
+
+        #region Add Experience
+        [HttpPost]
+        public IActionResult AddExperience(UserAccountDetails details)
+        {
+            if (ModelState.IsValid)
+            {
+                var experience = new Experience()
+                {
+                    Title = details.Experience.Title,
+                    CompanyName = details.Experience.CompanyName,
+                    EmploymentType = details.Experience.EmploymentType,
+                    IsCurrentlyWorking = details.Experience.IsCurrentlyWorking,
+                    UserId = this.User.Claims.First().Value,
+                    IndustryId = details.Experience.IndustryId,
+                    Description = details.Experience.Description,
+                    EndDate = details.Experience.EndDate,
+                    StartDate = details.Experience.StartDate,
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now,
+                };
+                context.Experience.Add(experience);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
+        #region Update Experience
+        [HttpPost]
+        public IActionResult UpdateExperience(UserAccountDetails details)
+        {
+            if (ModelState.IsValid)
+            {
+                var target = (from x in context.Experience
+                              where x.Id == details.Experience.Id
+                              select x).FirstOrDefault();
+
+                target.Title = details.Experience.Title;
+                target.CompanyName = details.Experience.CompanyName;
+                target.EmploymentType = details.Experience.EmploymentType;
+                target.IsCurrentlyWorking = details.Experience.IsCurrentlyWorking;
+                target.Description = details.Experience.Description;
+                target.EndDate = details.Experience.EndDate;
+                target.StartDate = details.Experience.StartDate;
+                target.ModifiedOn = DateTime.Now;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
+        #region Get Experiences
+        public IEnumerable<ExperienceDetails> GetExperiences(string userId = null)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var experiences = (from x in context.Experience
+                               where x.UserId == userId
+                               orderby x.StartDate descending
+                               select new ExperienceDetails()
+                               {
+                                   Id = x.Id,
+                                   Title = x.Title,
+                                   Description = x.Description,
+                                   EmploymentType = x.EmploymentType,
+                                   IndustryId = x.IndustryId,
+                                   StartDate = x.StartDate,
+                                   EndDate = x.EndDate,
+                                   CompanyName = x.CompanyName,
+                                   IsCurrentlyWorking = x.IsCurrentlyWorking,
+                               }
+                               ).ToArray();
+            return experiences;
+        }
+        #endregion
     }
 }

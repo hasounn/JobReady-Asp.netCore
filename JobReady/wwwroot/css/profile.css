@@ -264,6 +264,22 @@ body{
     border:1px solid var(--black);
 }
 
+.fixed-width{
+    width:200px;
+    padding-left:20px;
+}
+
+.textarea-description{
+    all:unset;
+    height:40px;
+    max-height:140px;
+    overflow-y:scroll;
+    border:1px solid var(--black);
+    border-radius:15px;
+    padding:1em;
+    padding-right:20px;
+}
+
 @media (max-width:1168px) {
     .width-fix {
             width: 100%;

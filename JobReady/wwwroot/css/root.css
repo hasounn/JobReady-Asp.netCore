@@ -42,6 +42,10 @@
     user-select:none;
 }
 
+.pointer{
+    cursor:pointer;
+}
+
 .modal{
     overflow:hidden!important;
 }
