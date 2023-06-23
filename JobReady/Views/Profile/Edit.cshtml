@@ -78,6 +78,8 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
+                @foreach(var experience in Model.Experiences)
+                {
                 <li class="w-100">
                     <div class="bullet">
                         <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
@@ -85,16 +87,20 @@
                         </svg>
                     </div>
                     <section class="d-flex flex-row justify-content-between gap-3 w-100">
-                        <div class="d-flex flex-column">
-                            <h6 class="fw-bold"><span class="company-name">Company</span> | <span class="company-location">Location</span></h6>
+                        <div class="d-flex flex-column gap-1">
+                            <h6 class="fw-bold"><span class="company-name">@experience.CompanyName</span> | <span class="company-location">@experience.Title</span></h6>
                             <p class="company-time fw-bold">
-                                <span class="company-start">July 2022</span> - <span class="company-end">October 2022</span> &#8226;
-                                <span class="fw-light"><span class="calculated-time">4</span> mos.</span>
+                                <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">@{var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM YYYY"); @endDate}</span> 
+                                @*<span class="fw-light"><span class="calculated-time">4</span> mos.</span>*@
                             </p>
+                           @* <p>
+                                @experience.Title
+                            </p>*@
                         </div>
-                     <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal"><img src="~/icons/edit-2.svg" /></button>
+                     <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal-@experience.Id"><img src="~/icons/edit-2.svg" /></button>
                      </section>
                 </li>
+                }
             </ul>
         </div>
         <div class="glass-box d-flex flex-column p-4 gap-2">
@@ -192,21 +198,39 @@
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <p>Add University <span class="text-danger">*</span></p>
-                        <select></select>
+                        <p>Tile  <span class="text-danger">*</span></p>
+                        <input asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Company  <span class="text-danger">*</span></p>
+                        <input asp-for="Experience.CompanyName" type="text" class="p-1 rounded-pill fixed-width" required />
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Industry <span class="text-danger">*</span></p>
+                        <select asp-for="Experience.IndustryId" asp-items="@Model.Industries"></select>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Employment Type  <span class="text-danger">*</span></p>
+                        <select asp-for="Experience.EmploymentType" asp-items="Html.GetEnumSelectList<JobType>()"></select>
+                    </div>
+                    <div class="remote d-flex flex-row align-items-center gap-1">
+                        <input type="checkbox" id="remote" onclick="handleCheckboxChange(this)" />
+                        <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="false" />
+                        <label>Currently Working</label>
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Start Date <span class="text-danger">*</span></p>
-                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                        <input asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <p>End Date</p>
-                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
+                        <p>End Date </p>
+                        <input asp-for="Experience.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
                     </div>
                     <div class="d-flex flex-column align-items-start gap-2 w-100">
-                        <p>Describe Your Experience At This Company</p>
-                        <textarea type="text" class="p-1 textarea-description w-100"></textarea>
+                        <p>Describe Your Experience...</p>
+                        <textarea asp-for="Experience.Description" type="text" class="p-1 textarea-description w-100"></textarea>
                     </div>
+
                     <button type="submit" class="btn btn-primary rounded-pill align-self-end">Add Experience</button>
                 </form>
             </div>
@@ -214,7 +238,8 @@
     </div>
 </div>
 <!-- Modal Edit Experience -->
-<div class="modal w-100 fade" id="editExperienceModal" tabindex="-1" aria-labelledby="editExperienceLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+@foreach(var experience in Model.Experiences){
+<div class="modal w-100 fade" id="editExperienceModal-@experience.Id" tabindex="-1" aria-labelledby="editExperienceLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <button type="button" class="btn close" data-bs-dismiss="modal" onclick="window.location.reload()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -228,30 +253,48 @@
                 <h4 class="h4">Edit  Experience</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Profile" asp-action="UpdatExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
-                    <div class="d-flex flex-column flex-md-row align-items-center gap-2">
-                        <p>Edit Company <span class="text-danger">*</span></p>
-                        <select></select>
+                <form asp-controller="Profile" asp-action="EditExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Tile  <span class="text-danger">*</span></p>
+                        <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
                     </div>
-                    <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Company  <span class="text-danger">*</span></p>
+                        <input value="@experience.CompanyName" asp-for="Experience.CompanyName" type="text" class="p-1 rounded-pill fixed-width" required />
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Industry <span class="text-danger">*</span></p>
+                        <select asp-for="Experience.IndustryId" asp-items="@Model.Industries"></select>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>Employment Type  <span class="text-danger">*</span></p>
+                        <select asp-for="Experience.EmploymentType" asp-items="Html.GetEnumSelectList<JobType>()"></select>
+                    </div>
+                    <div class="remote d-flex flex-row align-items-center gap-1">
+                        <input type="checkbox" id="remote" onclick="handleCheckboxChange(this)" />
+                        <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="false" />
+                        <label>Currently Working</label>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Start Date <span class="text-danger">*</span></p>
-                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                        <input value="@experience.StartDate" asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
                     </div>
-                    <div class="d-flex flex-column flex-md-row align-items-center gap-2">
-                        <p>End Date</p>
-                        <input type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width"/>
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <p>End Date </p>
+                        <input value="@experience.EndDate" asp-for="Experience.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
                     </div>
                     <div class="d-flex flex-column align-items-start gap-2 w-100">
-                        <p>Describe Your Experience At This Company</p>
-                        <textarea type="text" class="p-1 textarea-description w-100"></textarea>
+                        <p>Describe Your Experience...</p>
+                        <textarea asp-for="Experience.Description" type="text" class="p-1 textarea-description w-100">@experience.Description</textarea>
                     </div>
+
                     <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+}
 <!-- Modal Add Education -->
 <div class="modal w-100 fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <button type="button" class="btn close" data-bs-dismiss="modal" onclick="window.location.reload()">
