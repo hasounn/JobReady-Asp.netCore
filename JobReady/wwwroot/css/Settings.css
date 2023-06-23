@@ -1,0 +1,23 @@
+﻿@import url("root.css");
+
+.form-side {
+    width: 100%;
+    height:100%;
+    background: #38434F;
+    backdrop-filter: blur(2px);
+}
+
+.text-Setting {
+    font-family: "League Gothic";
+    font-size: 30px;
+    font-weight: 200;
+    text-align: left;
+    left:30px;
+}
+
+.setting-item {
+    width: 100%;
+    height: 70px;
+    background-color: #F4FAFF;
+    border-radius:20px;
+}
