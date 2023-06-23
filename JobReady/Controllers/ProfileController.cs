@@ -289,23 +289,21 @@ namespace JobReady.Controllers
 
         #region Update Experience
         [HttpPost]
-        public IActionResult UpdateExperience(ExperienceDetails details)
+        public IActionResult UpdateExperience(UserAccountDetails details)
         {
             if (ModelState.IsValid)
             {
                 var target = (from x in context.Experience
-                              where x.Id == details.Id
+                              where x.Id == details.Experience.Id
                               select x).FirstOrDefault();
 
-                target.Title = details.Title;
-                target.CompanyName = details.CompanyName;
-                target.EmploymentType = details.EmploymentType;
-                target.IsCurrentlyWorking = details.IsCurrentlyWorking;
-                target.UserId = this.User.Claims.First().Value;
-                target.Description = details.Description;
-                target.EndDate = details.EndDate;
-                target.StartDate = details.StartDate;
-                target.CreatedOn = DateTime.Now;
+                target.Title = details.Experience.Title;
+                target.CompanyName = details.Experience.CompanyName;
+                target.EmploymentType = details.Experience.EmploymentType;
+                target.IsCurrentlyWorking = details.Experience.IsCurrentlyWorking;
+                target.Description = details.Experience.Description;
+                target.EndDate = details.Experience.EndDate;
+                target.StartDate = details.Experience.StartDate;
                 target.ModifiedOn = DateTime.Now;
                 context.SaveChanges();
             }
@@ -319,12 +317,14 @@ namespace JobReady.Controllers
             userId ??= this.User.Claims.First().Value;
             var experiences = (from x in context.Experience
                                where x.UserId == userId
+                               orderby x.StartDate descending
                                select new ExperienceDetails()
                                {
                                    Id = x.Id,
                                    Title = x.Title,
                                    Description = x.Description,
                                    EmploymentType = x.EmploymentType,
+                                   IndustryId = x.IndustryId,
                                    StartDate = x.StartDate,
                                    EndDate = x.EndDate,
                                    CompanyName = x.CompanyName,
