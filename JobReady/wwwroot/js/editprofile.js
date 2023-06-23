@@ -36,3 +36,11 @@ $('.textarea-description').each(function () {
         }, 0);
     }
 });
+
+const isCurrentlyWorking = (arg) => {
+    if (arg.checked == true) {
+        arg.parentElement.children[1].value = "true";
+    } else {
+        arg.parentElement.children[1].value = "false";
+    }
+}

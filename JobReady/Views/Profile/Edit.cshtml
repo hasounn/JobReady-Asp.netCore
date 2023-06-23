@@ -190,13 +190,13 @@
             <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <div class="modal-dialog about-dialog color-black">
+    <div class="modal-dialog about-dialog modal-dialog-scrollable color-black">
         <div class="modal-content">
             <div class="modal-header p-4">
                 <h4 class="h4">Add New Experience</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                <form asp-controller="Profile" asp-action="AddExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Tile  <span class="text-danger">*</span></p>
                         <input asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
@@ -214,13 +214,13 @@
                         <select asp-for="Experience.EmploymentType" asp-items="Html.GetEnumSelectList<JobType>()"></select>
                     </div>
                     <div class="remote d-flex flex-row align-items-center gap-1">
-                        <input type="checkbox" id="remote" onclick="handleCheckboxChange(this)" />
-                        <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="false" />
+                        <input type="checkbox" id="remote" onclick="isCurrentlyWorking(this)" />
+                        <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorkingAdd" value="false" />
                         <label>Currently Working</label>
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Start Date <span class="text-danger">*</span></p>
-                        <input asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                        <input asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" value="" class="p-1 rounded-pill fixed-width" required />
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>End Date </p>
@@ -247,13 +247,14 @@
             <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <div class="modal-dialog about-dialog color-black">
+    <div class="modal-dialog about-dialog modal-dialog-scrollable color-black">
         <div class="modal-content">
             <div class="modal-header p-4">
                 <h4 class="h4">Edit  Experience</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Profile" asp-action="EditExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                <form asp-controller="Profile" asp-action="EditExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
+                    <input type="hidden" asp-for="Id" value="@experience.Id"/>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Tile  <span class="text-danger">*</span></p>
                         <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
@@ -264,14 +265,40 @@
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Industry <span class="text-danger">*</span></p>
-                        <select asp-for="Experience.IndustryId" asp-items="@Model.Industries"></select>
+                        <select asp-for="Experience.IndustryId">
+                                @foreach (var industry in Model.Industries)
+                                {
+                                    var selected = industry.Value == experience.IndustryId.ToString();
+                                    if (selected)
+                                    {
+                                        <option value="@industry.Value" selected></option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@industry.Value"></option>
+                                    }
+                                }
+                            </select>
                     </div>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Employment Type  <span class="text-danger">*</span></p>
-                        <select asp-for="Experience.EmploymentType" asp-items="Html.GetEnumSelectList<JobType>()"></select>
+                        <select asp-for="Experience.EmploymentType" >
+                                @foreach (var jobType in Enum.GetValues(typeof(JobType)))
+                                {
+                                    var jobSelected = jobType.Equals(experience.EmploymentType);
+                                    if (jobSelected)
+                                    {
+                                        <option value="@jobType" selected>@jobType</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@jobType">@jobType</option>
+                                    }
+                                }
+                            </select>
                     </div>
                     <div class="remote d-flex flex-row align-items-center gap-1">
-                        <input type="checkbox" id="remote" onclick="handleCheckboxChange(this)" />
+                        <input type="checkbox" id="remote" onclick="isCurrentlyWorking(this)" />
                         <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="false" />
                         <label>Currently Working</label>
                     </div>
