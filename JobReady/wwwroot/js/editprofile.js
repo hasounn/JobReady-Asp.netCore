@@ -1,6 +1,6 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
     divs = document.querySelector(".all-divs"),
-    items = document.querySelectorAll('[data-bs-target^="#editExperienceModal-"]');
+    items = document.querySelectorAll('[id^="editExperienceModal-"]');
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -48,9 +48,9 @@ const isCurrentlyWorking = (arg) => {
     }
 }
 
- items.forEach(item => {
-        const isCurrent = item.getElementById("isCurrentlyWorking"),
-            endDate = item.getElementById("endDate");
+items.forEach(item => {
+    const isCurrent = item.children[1].querySelector("#isCurrentlyWorking"),
+        endDate = item.children[1].querySelector("#endDate");
 
         if (isCurrent.value = "true") {
             endDate.setAttribute("disabled", "true");
