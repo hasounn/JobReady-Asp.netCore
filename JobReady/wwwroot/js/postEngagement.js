@@ -2,7 +2,7 @@
     comments = document.querySelectorAll(".comment"),
     shares = document.querySelectorAll(".share"),
     reports = document.querySelectorAll(".report"),
-    items = document.querySelectorAll('[id^="modalToggler-"]');;
+    items = document.querySelectorAll('[id^="modalToggler-"]');
 
 
 likes.forEach(like => {like.addEventListener("click", () => {

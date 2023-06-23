@@ -1,5 +1,6 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
-    divs = document.querySelector(".all-divs");
+    divs = document.querySelector(".all-divs"),
+    items = document.querySelectorAll('[data-bs-target^="#editExperienceModal-"]');
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -40,7 +41,20 @@ $('.textarea-description').each(function () {
 const isCurrentlyWorking = (arg) => {
     if (arg.checked == true) {
         arg.parentElement.children[1].value = "true";
+        arg.parentElement.parentElement.children[6].children[1].setAttribute("disabled", "true");
     } else {
         arg.parentElement.children[1].value = "false";
+        arg.parentElement.parentElement.children[6].children[1].removeAttribute("disabled");
     }
 }
+
+ items.forEach(item => {
+        const isCurrent = item.getElementById("isCurrentlyWorking"),
+            endDate = item.getElementById("endDate");
+
+        if (isCurrent.value = "true") {
+            endDate.setAttribute("disabled", "true");
+        } else{
+            endDate.removeAttribute("disabled");
+        }
+    })
