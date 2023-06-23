@@ -1,18 +1,65 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly JobReadyContext context;
-        private UserAccountDetails userDetails;
         public ProfileController(JobReadyContext context)
         {
             this.context = context;
         }
 
-        [HttpGet]
         public IActionResult Index(string userId = null)
+        {
+            if (IsCompany(userId))
+            {
+                return RedirectToAction("Company", "Profile", new { userId });
+            }
+            else
+            {
+                var userDetails = GetUserAccount(userId);
+                return View(userDetails);
+            }
+        }
+
+        public IActionResult Company(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
+            if (!IsCompany(userId))
+            {
+                return RedirectToAction("Index", "Company", new { userId });
+            }
+            else
+            {
+                return View(userDetails);
+            }
+        }
+
+
+        public IActionResult Edit(string userId = null)
+        {
+            var userDetails = GetUserAccount(userId);
+            return View(userDetails);
+        }
+
+        #region Check Account Type
+        private bool IsCompany(string userId)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var type = (from x in context.UserAccount
+                        where x.Id == userId
+                        select x.AccountType).FirstOrDefault();
+            return type == UserAccountType.Company;
+        }
+        #endregion
+
+        #region Get User Account
+        private UserAccountDetails GetUserAccount(string userId)
         {
             userId ??= this.User.Claims.First().Value;
             var userDetails = (from x in context.UserAccount
@@ -23,7 +70,7 @@ namespace JobReady.Controllers
                                    Username = x.UserName,
                                    Headline = x.Headline,
                                    About = x.About,
-                                   Type = x.AccountType == UserAccountType.Student ? "student" : 
+                                   Type = x.AccountType == UserAccountType.Student ? "student" :
                                           x.AccountType == UserAccountType.Instructor ? "instructor" :
                                           x.AccountType == UserAccountType.Company ? "company" : "admin",
                                    FullName = x.FullName,
@@ -35,24 +82,15 @@ namespace JobReady.Controllers
                                    IsOwned = x.Id == this.User.Claims.First().Value,
                                }).FirstOrDefault();
 
-            userDetails.Posts = GetUserPosts(userId?? this.User.Claims.First().Value);
-            userDetails.Skills = GetUserSkills(userId?? this.User.Claims.First().Value);
-            this.userDetails = userDetails;
-            if (userDetails.AccountType == UserAccountType.Company)
-            {
-                return ProfileComp();
-            }
-            return Index();
-        }
-
-        private IActionResult Index()
-        {
-            return View(userDetails);
-        }
-
-        private IActionResult ProfileComp()
-        {
-            return View(userDetails);
+            userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
+            userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).AsQueryable();
+            userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
+            userDetails.Followers = GetFollowers(userId);
+            userDetails.Experiences = GetExperiences(userId);
+            userDetails.Experience = new ExperienceDetails();
+            userDetails.Educations = Enumerable.Empty<EducationDetails>();
+            return userDetails;
         }
 
         public async Task<IActionResult> GetProfilePicture(string userId)
@@ -63,13 +101,112 @@ namespace JobReady.Controllers
                            select x.Id).FirstOrDefault();
 
             var photo = await context.FileLink.FindAsync(photoId);
-            if(photo != null)
+            if (photo != null)
             {
                 return File(photo.ContentHash, "image/*");
             }
             return File("/assets/images/image-placeholder.png", "image/png");
         }
+        #endregion
 
+        #region Update About
+        public IActionResult UpdateAbout(UserAccountDetails source)
+        {
+            var target = (from x in context.UserAccount
+                          where x.Id == this.User.Claims.First().Value
+                          select x).FirstOrDefault();
+            target.About = source.About;
+            context.SaveChanges();
+            return RedirectToAction("Index", "Profile", new { userId = target.Id });
+        }
+        #endregion
+
+        #region Get User Skills / Likes
+        [HttpGet]
+        public string[] GetUserSkills([FromBody] string userId)
+        {
+            var skills = (from x in context.UserSkill
+                          join y in context.Skill on x.SkillId equals y.Id
+                          where x.UserAccountId == userId
+                          select y.Name).ToArray();
+            return skills;
+        }
+        public long GetTotalLikesCount(long postId)
+        {
+            var likesCount = (from x in context.PostEngagement
+                              where x.PostId == postId && x.EngagementType == EngagementType.Like
+                              select x).Count();
+            return likesCount;
+        }
+        public bool HasLiked(long postId, string userId)
+        {
+            return (from x in context.PostEngagement
+                    where x.PostId == postId && x.CreatedById == userId
+                    && x.EngagementType == EngagementType.Like
+                    select x).Any();
+        }
+        #endregion
+
+        #region Follow/Unfollow
+        [HttpGet]
+        public IActionResult Follow(string userId)
+        {
+            if (userId == null) return BadRequest();
+            if (!HasFollowed(userId))
+            {
+                var newFollower = new Follower()
+                {
+                    UserAccountId = this.User.Claims.First().Value,
+                    FollowingId = userId,
+                    FollowedOn = DateTime.Now,
+                };
+                context.Follower.Add(newFollower);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Profile", new { userId });
+        }
+        [HttpGet]
+        public IActionResult Unfollow(string userId)
+        {
+            if (userId == null) return BadRequest();
+
+            var loggedInUserId = this.User.Claims.First().Value;
+            var existingFollower = (from x in context.Follower
+                                    where x.FollowingId == userId && x.UserAccountId == loggedInUserId
+                                    select x).FirstOrDefault();
+
+            if (existingFollower != null)
+            {
+                context.Follower.Remove(existingFollower);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Profile", new { userId });
+        }
+
+        public bool HasFollowed(string userId)
+        {
+            var followerId = this.User.Claims.First().Value;
+            return (from x in context.Follower
+                    where x.UserAccountId == followerId && x.FollowingId == userId
+                    select x).Any();
+        }
+
+        [HttpGet]
+        public IQueryable<UserAccountDetails> GetFollowers(string userId)
+        {
+            var followers = (from x in context.Follower
+                             where x.FollowingId == userId
+                             select new UserAccountDetails()
+                             {
+                                 Id = x.UserAccountId,
+                                 Username = x.UserAccount.UserName,
+                             });
+            return followers;
+        }
+        #endregion
+
+        #region Get Post / Comments
         public IEnumerable<PostDetails> GetUserPosts(string userId)
         {
             var posts = (from x in context.Post
@@ -92,36 +229,111 @@ namespace JobReady.Controllers
                              CreatedById = x.CreatedById,
                              CreatedOn = x.CreatedOn,
                          }).ToList();
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 post.LikesCount = GetTotalLikesCount(post.Id);
                 post.HasLiked = HasLiked(post.Id, this.User.Claims.First().Value);
+                post.Comments = GetPostComments(post.Id);
             }
 
             return posts;
         }
 
-        [HttpGet]
-        public string[] GetUserSkills([FromBody] string userId)
+        public IEnumerable<PostEngagementDetails> GetPostComments(long postId)
         {
-            var skills = (from x in context.UserSkill
-                          join y in context.Skill on x.SkillId equals y.Id
-                          where x.UserAccountId == userId
-                          select y.Name).ToArray();
-            return skills;
+            var comments = (from x in context.PostEngagement
+                            where x.PostId == postId && x.EngagementType == EngagementType.Comment
+                            select new PostEngagementDetails()
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                CreatedOn = x.CreatedOn,
+                                PostedOn = $"{x.CreatedOn.Date} - {x.CreatedOn.ToShortTimeString()}",
+                                CreatedById = x.CreatedById,
+                                CreatedBy = new UserAccountDetails()
+                                {
+                                    Id = x.CreatedBy.Id,
+                                    FullName = x.CreatedBy.FullName,
+                                    Username = x.CreatedBy.UserName,
+                                }
+                            }).AsEnumerable();
+            return comments;
         }
-        public long GetTotalLikesCount(long postId)
+        #endregion
+
+        #region Add Experience
+        [HttpPost]
+        public IActionResult AddExperience(UserAccountDetails details)
         {
-            var likesCount = (from x in context.PostEngagement
-                              where x.PostId == postId && x.EngagementType == EngagementType.Like
-                              select x).Count();
-            return likesCount;
+            if (ModelState.IsValid)
+            {
+                var experience = new Experience()
+                {
+                    Title = details.Experience.Title,
+                    CompanyName = details.Experience.CompanyName,
+                    EmploymentType = details.Experience.EmploymentType,
+                    IsCurrentlyWorking = details.Experience.IsCurrentlyWorking,
+                    UserId = this.User.Claims.First().Value,
+                    IndustryId = details.Experience.IndustryId,
+                    Description = details.Experience.Description,
+                    EndDate = details.Experience.EndDate,
+                    StartDate = details.Experience.StartDate,
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now,
+                };
+                context.Experience.Add(experience);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
         }
-        public bool HasLiked(long postId, string userId)
+        #endregion
+
+        #region Update Experience
+        [HttpPost]
+        public IActionResult UpdateExperience(UserAccountDetails details)
         {
-            return (from x in context.PostEngagement
-                    where x.PostId == postId && x.CreatedById == userId
-                    select x).Any();
+            if (ModelState.IsValid)
+            {
+                var target = (from x in context.Experience
+                              where x.Id == details.Experience.Id
+                              select x).FirstOrDefault();
+
+                target.Title = details.Experience.Title;
+                target.CompanyName = details.Experience.CompanyName;
+                target.EmploymentType = details.Experience.EmploymentType;
+                target.IsCurrentlyWorking = details.Experience.IsCurrentlyWorking;
+                target.Description = details.Experience.Description;
+                target.EndDate = details.Experience.EndDate;
+                target.StartDate = details.Experience.StartDate;
+                target.ModifiedOn = DateTime.Now;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
         }
+        #endregion
+
+        #region Get Experiences
+        public IEnumerable<ExperienceDetails> GetExperiences(string userId = null)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var experiences = (from x in context.Experience
+                               where x.UserId == userId
+                               orderby x.StartDate descending
+                               select new ExperienceDetails()
+                               {
+                                   Id = x.Id,
+                                   Title = x.Title,
+                                   Description = x.Description,
+                                   EmploymentType = x.EmploymentType,
+                                   IndustryId = x.IndustryId,
+                                   StartDate = x.StartDate,
+                                   EndDate = x.EndDate,
+                                   CompanyName = x.CompanyName,
+                                   IsCurrentlyWorking = x.IsCurrentlyWorking,
+                               }
+                               ).ToArray();
+            return experiences;
+        }
+        #endregion
     }
 }
