@@ -18,15 +18,24 @@ namespace JobReady.Controllers
             _context = context;
         }
 
+        private bool IsAdmin()
+        {
+            var userType = (from x in _context.Users
+                            where x.Id == this.User.Claims.First().Value
+                            select x.AccountType).FirstOrDefault();
+            return (userType == UserAccountType.Admin);
+        }
         // GET: Skill
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Skill.ToListAsync());
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            return View(await _context.Skill.ToListAsync());
         }
 
         // GET: Skill/Details/5
         public async Task<IActionResult> Details(long? id)
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || _context.Skill == null)
             {
                 return NotFound();
@@ -45,6 +54,7 @@ namespace JobReady.Controllers
         // GET: Skill/Create
         public IActionResult Create()
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -67,6 +77,7 @@ namespace JobReady.Controllers
         // GET: Skill/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || _context.Skill == null)
             {
                 return NotFound();
@@ -118,6 +129,7 @@ namespace JobReady.Controllers
         // GET: Skill/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || _context.Skill == null)
             {
                 return NotFound();
