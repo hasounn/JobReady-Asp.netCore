@@ -4,7 +4,13 @@
     post = document.querySelector("#post-nav"),
     settings = document.querySelector("#settings-nav"),
     profile = document.querySelector("#profile-nav"),
-    navItems = document.querySelectorAll(".nav-item");;
+    navItems = document.querySelectorAll(".nav-item"),
+    industry = document.querySelector("#industry-nav"),
+    skills = document.querySelector("#skills-nav"),
+    users = document.querySelector("#users-nav"),
+    university = document.querySelector("#university-nav"),
+    dashboard = document.querySelector("#dashboard-nav"),
+    company = document.querySelector("#company-nav");
 
 window.addEventListener("load", () => {
     removeAllActives();
@@ -15,12 +21,24 @@ window.addEventListener("load", () => {
         search.classList.add("active");
     } else if (url.includes("notifications")) {
         notifs.classList.add("active");
-    } else if (url.includes("post")) {
+    } else if (url.includes("post") && !url.includes("job")) {
+        post.classList.add("active");
+    } else if (url.includes("jobpost")) {
         post.classList.add("active");
     } else if (url.includes("settings")) {
         settings.classList.add("active");
-    } else if ((url.includes("profile") || url.includes("profile/profilecomp")) && !(url.includes("profile?userid") || url.includes("profile/profilecomp?userid"))) {
+    } else if ((url.includes("profile") || url.includes("profile/company")) && !(url.includes("profile?userid") || url.includes("profile/company?userid"))) {
         profile.classList.add("active");
+    } else if (url.includes("industry")) {
+        industry.classList.add("active");
+    } else if (url.includes("skill")) {
+        skills.classList.add("active");
+    } else if (url.includes("dashboard")) {
+        dashboard.classList.add("active");
+    } else if (url.includes("company")) {
+        company.classList.add("active");
+    } else if (url.includes("university")) {
+        university.classList.add("active");
     }
 })
 

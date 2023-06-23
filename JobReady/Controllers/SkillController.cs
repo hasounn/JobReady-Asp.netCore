@@ -6,102 +6,99 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobReady;
-using Microsoft.AspNetCore.Authorization;
 
 namespace JobReady.Controllers
 {
-    [Authorize]
-    public class IndustryController : Controller
+    public class SkillController : Controller
     {
-        private readonly JobReadyContext context;
+        private readonly JobReadyContext _context;
 
-        public IndustryController(JobReadyContext context)
+        public SkillController(JobReadyContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         private bool IsAdmin()
         {
-            var userType = (from x in context.Users
+            var userType = (from x in _context.Users
                             where x.Id == this.User.Claims.First().Value
                             select x.AccountType).FirstOrDefault();
             return (userType == UserAccountType.Admin);
         }
-        // GET: Industry
+        // GET: Skill
         public async Task<IActionResult> Index()
         {
-              if(!IsAdmin()) return RedirectToAction("Index", "Home");
-              return View(await context.Industry.ToListAsync());
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            return View(await _context.Skill.ToListAsync());
         }
 
-        // GET: Industry/Details/5
+        // GET: Skill/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (id == null || _context.Skill == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry
+            var skill = await _context.Skill
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (industry == null)
+            if (skill == null)
             {
                 return NotFound();
             }
 
-            return View(industry);
+            return View(skill);
         }
 
-        // GET: Industry/Create
+        // GET: Skill/Create
         public IActionResult Create()
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-
             return View();
         }
 
-        // POST: Industry/Create
+        // POST: Skill/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Industry industry)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Skill skill)
         {
             if (ModelState.IsValid)
             {
-                context.Add(industry);
-                await context.SaveChangesAsync();
+                _context.Add(skill);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(industry);
+            return View(skill);
         }
 
-        // GET: Industry/Edit/5
+        // GET: Skill/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-              if(!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            if (id == null || _context.Skill == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry.FindAsync(id);
-            if (industry == null)
+            var skill = await _context.Skill.FindAsync(id);
+            if (skill == null)
             {
                 return NotFound();
             }
-            return View(industry);
+            return View(skill);
         }
 
-        // POST: Industry/Edit/5
+        // POST: Skill/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name")] Industry industry)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name")] Skill skill)
         {
-            if (id != industry.Id)
+            if (id != skill.Id)
             {
                 return NotFound();
             }
@@ -110,12 +107,12 @@ namespace JobReady.Controllers
             {
                 try
                 {
-                    context.Update(industry);
-                    await context.SaveChangesAsync();
+                    _context.Update(skill);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IndustryExists(industry.Id))
+                    if (!SkillExists(skill.Id))
                     {
                         return NotFound();
                     }
@@ -126,50 +123,50 @@ namespace JobReady.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(industry);
+            return View(skill);
         }
 
-        // GET: Industry/Delete/5
+        // GET: Skill/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if(!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            if (id == null || _context.Skill == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry
+            var skill = await _context.Skill
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (industry == null)
+            if (skill == null)
             {
                 return NotFound();
             }
 
-            return View(industry);
+            return View(skill);
         }
 
-        // POST: Industry/Delete/5
+        // POST: Skill/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (context.Industry == null)
+            if (_context.Skill == null)
             {
-                return Problem("Entity set 'JobReadyContext.Industries'  is null.");
+                return Problem("Entity set 'JobReadyContext.Skill'  is null.");
             }
-            var industry = await context.Industry.FindAsync(id);
-            if (industry != null)
+            var skill = await _context.Skill.FindAsync(id);
+            if (skill != null)
             {
-                context.Industry.Remove(industry);
+                _context.Skill.Remove(skill);
             }
             
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IndustryExists(long id)
+        private bool SkillExists(long id)
         {
-          return context.Industry.Any(e => e.Id == id);
+          return _context.Skill.Any(e => e.Id == id);
         }
     }
 }
