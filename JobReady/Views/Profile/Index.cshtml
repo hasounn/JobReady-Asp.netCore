@@ -81,8 +81,14 @@
                 <p class="fw-light fs-5 white-space">@Model.About</p>
             </div>
         }
-        <partial name="_Experience" model="@Model.Experiences"/>
-        <partial name="_Education"/>
+        @if (Model.Experiences.Count() > 0)
+        {
+            <partial name="_Experience" model="@Model.Experiences"/>
+        }
+        @if (Model.Educations.Count() > 0)
+        {
+            <partial name="_Education"/>
+        }
         @if(Model.Skills.Count() != 0){
         <div class="d-flex flex-column flex-lg-row gap-3">
                 @if(Model.Skills.Count() != 0)
