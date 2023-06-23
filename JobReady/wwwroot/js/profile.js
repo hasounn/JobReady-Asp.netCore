@@ -1,5 +1,6 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
-    divs = document.querySelector(".all-divs");
+    divs = document.querySelector(".all-divs")
+    instructors = document.querySelectorAll(".instructor");
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -7,6 +8,29 @@ window.addEventListener("load", () => {
     } else {
         maindiv.style.height = "100vh";
     }
+
+    instructors.forEach(instructor => {
+        const sendRequest = instructor.querySelector("#sendRequest");
+        const instructorId = 12;
+        console.log("clickedd");
+        sendRequest.addEventListener("click", () => {
+            $.ajax({
+                type: "POST",
+                url: "/Recommendation/AddRecommendation",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(instructorId),
+                dataType: "json",
+                success: function (response) {
+                    sendRequest.textContent = "Sent!";
+                    sendRequest.setAttribute("disabled", "true");
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    alert("An error occurred: " + error);
+                }
+            })
+        })
+    });
 })
 
 var tagCloud = TagCloud('.skills', skills, {
