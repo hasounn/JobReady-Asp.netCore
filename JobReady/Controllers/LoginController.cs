@@ -40,7 +40,7 @@ namespace JobReady.Controllers
                     }
                     else
                     {
-                        var role = (from x in context.Users where x.UserName == this.User.Identity.Name
+                        var role = (from x in context.Users where x.UserName == details.Username
                                     select x.AccountType).FirstOrDefault();
                         if(role == UserAccountType.Admin)
                         {
