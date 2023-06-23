@@ -17,7 +17,9 @@ builder.Services.AddDbContext<JobReadyContext>(options =>
 // Configure Identity
 builder.Services.AddIdentity<UserAccount, IdentityRole>(options =>
 {
-    // Configure password requirements if needed
+    //Configure username requirements
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._";
+    // Configure password requirements 
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
