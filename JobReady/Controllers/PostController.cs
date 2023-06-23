@@ -160,7 +160,7 @@ namespace JobReady.Controllers
         public bool HasLiked(long postId, string userId)
         {
             return (from x in context.PostEngagement
-                    where x.PostId == postId && x.CreatedById == userId
+                    where x.PostId == postId && x.CreatedById == userId && x.EngagementType == EngagementType.Like
                     select x).Any();
         }
         #endregion

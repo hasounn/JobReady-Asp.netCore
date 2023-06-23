@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/jobOpps.css">
 <link rel="stylesheet" href="~/css/search.css"/>
 
-<div class="d-flex flex-column h-auto p-5 w-100 gap-4 light-main-bg">
+<div class="d-flex flex-column height-fix p-5 w-100 gap-4 light-main-bg">
     <p class="search-title">Search</p>
     <form asp-controller="Search" asp-action="Index" method="post" class="d-flex flex-row">
         <input asp-for="SearchText" value="@Model?.SearchText" type="text" placeholder="Search JobReady..." class="search-input w-100" />
@@ -21,7 +21,7 @@
             </div>
         </button>
     </form>
-   <div class="d-flex flex-column gap-3">
+   <div class="d-flex flex-column gap-3 searchDiv">
             <partial name="_Search" model="Model" />
    </div>
 </div>
@@ -29,3 +29,4 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/postEngagement.js"></script>
+<script src="~/js/search.js"></script>
