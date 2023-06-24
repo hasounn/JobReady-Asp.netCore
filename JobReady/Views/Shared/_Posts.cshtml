@@ -5,7 +5,7 @@
         <div class="d-flex flex-row w-100 gap-3 align-items-start top-post">
         <img src="@Url.Action("GetProfilePicture","Profile", new {userId = post.CreatedById})" alt="Profile" class="rounded-circle img-post mt-2" />
             <div class="d-flex flex-column w-100">
-                <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-column w-100 gap-1">
                 <div class="d-flex flex-row w-100 gap-2 align-items-center">
                         @if (post.CreatedBy.AccountType == UserAccountType.Company)
                         {
