@@ -141,12 +141,24 @@
                 }
             </ul>
         </div>
-        @if (Model.Skills.Count() != 0)
-        {
-            <div class="d-flex flex-column flex-lg-row gap-3">
-                <partial name="_Skills" />
+        <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
+            <div class="d-flex flex-row justify-content-between w-100">
+                <p class="fw-bold section-title">Skills</p>
+                <svg class="pointer" data-bs-toggle="modal" data-bs-target="#addSkillModal" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12H18" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 18V6" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
             </div>
-        }
+            <div class="d-flex flex-row gap-3">
+                @foreach (var skill in Model.UserSkills)
+                {
+                    <div class="d-flex flex-row justify-content-between">
+                        <p>@skill.Name</p>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editSkillModal-@skill.Id"><img src="~/icons/edit-2.svg" /></button>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
@@ -315,7 +327,12 @@
                             <textarea asp-for="@experience.Description" class="p-1 textarea-description w-100 color-black">@experience.Description</textarea>
                         </div>
                         <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
-                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        <div class="d-flex flex-row gap-2">
+                            <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
+                            </form>
+                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -438,12 +455,92 @@
                             <p>Description</p>
                             <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description w-100">@education.Description</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        <div class="d-flex flex-row gap-2">
+                            <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
+                            </form>
+                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
         </div>
     </div>
+}
+
+<!-- Add Skill Modal -->
+<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-addSkill h-100 modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Add a Skill</h4>
+            </div>
+            <form asp-controller="Profile" asp-action="AddSkillInEdit" method="post">
+            <div class="modal-body p-3">
+                <select id="skillInput" class="addSkillText m-3">
+                    @foreach (SkillDetails skill in Model.AllSkills)
+                    {
+                        <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Skill Modal -->
+@foreach(var userSkill in Model.UserSkills){
+<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-addSkill h-100 modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Edit Skill</h4>
+            </div>
+            <form asp-controller="Profile" asp-action="UpdateSkill" method="post">
+                <div class="modal-body p-3">
+                    <select asp-for="@Model.Skill.Id" id="skillInput" class="addSkillText m-3">
+                        @foreach (SkillDetails skill in Model.AllSkills)
+                            { 
+                                var skillSelected = userSkill.Id == skill.Id;
+                                @if (skillSelected)
+                                {
+                                    <option value="@skill.Id" selected>@skill.Name</option>
+                                }
+                                else{
+                                    <option value="@skill.Id">@skill.Name</option>
+                                }
+                            }
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
+                        <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
+                    </form>
+                    <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/editprofile.js"></script>

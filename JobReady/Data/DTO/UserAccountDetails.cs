@@ -74,6 +74,9 @@ public class UserAccountDetails
     public EducationDetails Education { get; set; }
     public IEnumerable<ExperienceDetails> Experiences { get; set; }
     public ExperienceDetails Experience { get; set; }
+    public IEnumerable<SkillDetails> UserSkills { get; set; }
+    public IEnumerable<SkillDetails> AllSkills { get; set; }
+    public SkillDetails Skill { get; set; }
     public void Validate()
     {
         if(AccountType == UserAccountType.Company && IndustryId == null)
