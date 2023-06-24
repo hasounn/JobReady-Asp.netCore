@@ -53,5 +53,5 @@
         </tbody>
     </table>
 
-    <partial name="_RecommendationLetter" model="@Model" />
+    <partial name="_RecommendationLetter" model="@Model.FirstOrDefault()?.Reply" />
 }

@@ -47,5 +47,26 @@ namespace JobReady.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", "Notifications", new { view = "_RecommendationView" });
         }
+
+        [HttpPost]
+        public IActionResult AcceptRecommendation(RecommendationDetails details)
+        {
+            var instructorId = (from x in context.UserAccount
+                                where x.Id == this.User.Claims.First().Value
+                                && x.AccountType == UserAccountType.Instructor
+                                select x).FirstOrDefault();
+            if (instructorId == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var target = (from x in context.Recommendation
+                          where x.Id == details.Id
+                          select x).FirstOrDefault();
+            target.Status = RecommendationStatus.Rejected;
+            target.ResponseDate = DateTime.Now;
+            context.SaveChanges();
+            return RedirectToAction("Index", "Notifications", new { view = "_RecommendationView" });
+        }
     }
 }
