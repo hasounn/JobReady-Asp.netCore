@@ -12,6 +12,8 @@ namespace JobReady.Controllers
         {
             this.context = context;
         }
+
+        #region Index
         public IActionResult Index(long jobId)
         {
             var jobApp = (from x in context.JobPost
@@ -21,31 +23,38 @@ namespace JobReady.Controllers
                           where x.Id == jobId
                           select new JobPostDetails()
                           {
-                                  Id = x.Id,
-                                  CreatedById = x.CreatedById,
-                                  CreatedBy = new UserAccountDetails()
-                                  {
-                                      Username = z.UserName,
-                                      AccountType = z.AccountType,
-                                  },
-                                  Description = x.Description,
-                                  CreatedOn = x.CreatedOn,
-                                  Title = x.Title,
-                                  IsRemote = x.IsRemote,
-                                  Skills = new List<SkillDetails>()
+                              Id = x.Id,
+                              CreatedById = x.CreatedById,
+                              CreatedBy = new UserAccountDetails()
+                              {
+                                  Username = z.UserName,
+                                  AccountType = z.AccountType,
+                              },
+                              Description = x.Description,
+                              CreatedOn = x.CreatedOn,
+                              Title = x.Title,
+                              IsRemote = x.IsRemote,
+                              Skills = new List<SkillDetails>()
                                       {
                                             new SkillDetails()
                                             {
                                                       Id = s.Id,
                                                       Name = s.Name
                                             }
-                                      }.AsEnumerable()
+                                      }.AsEnumerable() ,
+                              HasApplied = (from x in context.JobApplication 
+                                            where x.JobPostId == jobId 
+                                            && x.ApplicantId == this.User.Claims.First().Value
+                                            select x).Any() 
                           }).FirstOrDefault();
             return View(jobApp);
         }
+        #endregion
+
+        #region Apply
         public IActionResult Apply(JobPostDetails details)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var application = new JobApplication()
                 {
@@ -59,5 +68,6 @@ namespace JobReady.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        #endregion
     }
 }
