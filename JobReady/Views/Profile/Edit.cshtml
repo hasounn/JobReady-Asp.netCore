@@ -372,7 +372,7 @@
 <!-- Modal Edit Education -->
 @foreach (var education in Model.Educations)
 {
-    <div class="modal w-100 fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal w-100 fade" id="editEducationModal-@education.Id" tabindex="-1" aria-labelledby="editEducationLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
         <button type="button" class="btn close" data-bs-dismiss="modal" onclick="window.location.reload()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -386,8 +386,9 @@
                     <h4 class="h4">Edit Education</h4>
                 </div>
                 <div class="modal-body">
-                    <form asp-controller="Profile" asp-action="AddEducation" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                    <form asp-controller="Profile" asp-action="UpdateEducation" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
                         <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                            <input type="hidden" value="@education.Id" asp-for="Education.Id"/>
                             <p>University <span class="text-danger">*</span></p>
                             <select asp-for="Education.SchoolId">
                                 @foreach (var uni in Model.Universities)
@@ -416,7 +417,7 @@
                                     var degreeSelected = degreeType.Equals(education.Degree);
                                     if (degreeSelected)
                                     {
-                                        <option value="@degreeType" selected>@degreeSelected</option>
+                                        <option value="@degreeType" selected>@degreeType</option>
                                     }
                                     else
                                     {
@@ -437,7 +438,7 @@
                             <p>Description</p>
                             <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description w-100">@education.Description</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Add Education</button>
+                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                     </form>
                 </div>
             </div>
