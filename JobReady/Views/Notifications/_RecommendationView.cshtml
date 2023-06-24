@@ -1,26 +1,27 @@
-﻿<table class="table color-light-white table-striped table-hover">
+﻿@model IEnumerable<RecommendationDetails>;
+
+<table class="table color-light-white table-striped table-hover">
     <thead class="table-dark">
         <tr>
             <th scope="col" width="40%">DateTime Sent</th>
+            @if(ViewBag.currentType == UserAccountType.Instructor)
+            {
+                <th scope="col">Send By</th>
+            }
+            else
+            {
             <th scope="col">Send To</th>
+            }
             <th scope="col">Result</th>
         </tr>
     </thead>
     <tbody class="table-group-divider">
+        @foreach(var recommendation in Model){
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">@recommendation.RequestDate.ToString("ddd dd MMMM yyyy")</th>
             <td>Mark</td>
             <td>Otto</td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td> the Bird</td>
-        </tr>
+        }
     </tbody>
 </table>

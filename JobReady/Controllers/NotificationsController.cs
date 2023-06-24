@@ -15,6 +15,7 @@ namespace JobReady.Controllers
             var notification = new NotificationDetails()
             {
                 Engagements = GetAllEngagements(),
+                Recommendations = GetAllRecommendations(),
                 Partial = view,
             };
             return View(notification);
@@ -63,6 +64,58 @@ namespace JobReady.Controllers
                                  });
 
             return engagements.OrderByDescending(x => x.CreatedOn).AsEnumerable().Take(20);
+        }
+        public IActionResult GetRecommendations()
+        {
+            return Index("_RecommendationView");
+        }
+
+        private IEnumerable<RecommendationDetails> GetAllRecommendations()
+        {
+            var currentUser = this.User.Claims.First().Value;
+            var currentType = (from x in context.UserAccount
+                               where x.Id == currentUser
+                               select x.AccountType).FirstOrDefault();
+            ViewBag.cureentType = currentType;
+            if (currentType == UserAccountType.Instructor)
+            {
+                var recommendations = (from x in context.Recommendation
+                                       where x.InstructorId == currentUser && x.Status == RecommendationStatus.Pending
+                                       orderby x.Id descending
+                                       select new RecommendationDetails()
+                                       {
+                                           Id = x.Id,
+                                           StudentId = x.StudentId,
+                                           Student = new UserAccountDetails()
+                                           {
+                                               Username = x.Student.UserName,
+                                           },
+                                           InstructorId = x.InstructorId,
+                                           RequestDate = x.RequestDate,
+                                           Status = x.Status
+                                       }).ToList();
+                return recommendations.OrderByDescending(x => x.RequestDate).AsEnumerable().Take(20);
+            }
+            else
+            {
+                var recommendations = (from x in context.Recommendation
+                                       where x.StudentId == currentUser
+                                       orderby x.Id descending
+                                       select new RecommendationDetails()
+                                       {
+                                           Id = x.Id,
+                                           StudentId = x.StudentId,
+                                           Student = new UserAccountDetails()
+                                           {
+                                               Username = x.Student.UserName,
+                                           },
+                                           InstructorId = x.InstructorId,
+                                           RequestDate = x.RequestDate,
+                                           Status = x.Status
+                                       }).ToList();
+
+                return recommendations.OrderByDescending(x => x.RequestDate).AsEnumerable().Take(20);
+            }
         }
     }
 
