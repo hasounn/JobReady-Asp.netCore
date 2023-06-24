@@ -6,102 +6,98 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobReady;
-using Microsoft.AspNetCore.Authorization;
 
 namespace JobReady.Controllers
 {
-    [Authorize]
-    public class IndustryController : Controller
+    public class UniversityController : Controller
     {
-        private readonly JobReadyContext context;
+        private readonly JobReadyContext _context;
 
-        public IndustryController(JobReadyContext context)
+        public UniversityController(JobReadyContext context)
         {
-            this.context = context;
+            _context = context;
         }
-
         private bool IsAdmin()
         {
-            var userType = (from x in context.Users
+            var userType = (from x in _context.Users
                             where x.Id == this.User.Claims.First().Value
                             select x.AccountType).FirstOrDefault();
             return (userType == UserAccountType.Admin);
         }
-        // GET: Industry
+        // GET: University
         public async Task<IActionResult> Index()
         {
-              if(!IsAdmin()) return RedirectToAction("Index", "Home");
-              return View(await context.Industry.ToListAsync());
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+              return View(await _context.University.ToListAsync());
         }
 
-        // GET: Industry/Details/5
+        // GET: University/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (id == null || _context.University == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry
+            var university = await _context.University
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (industry == null)
+            if (university == null)
             {
                 return NotFound();
             }
 
-            return View(industry);
+            return View(university);
         }
 
-        // GET: Industry/Create
+        // GET: University/Create
         public IActionResult Create()
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-
             return View();
         }
 
-        // POST: Industry/Create
+        // POST: University/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Industry industry)
+        public async Task<IActionResult> Create([Bind("Id,Name,HeadQuarterLocation,BranchesCount")] University university)
         {
             if (ModelState.IsValid)
             {
-                context.Add(industry);
-                await context.SaveChangesAsync();
+                _context.Add(university);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(industry);
+            return View(university);
         }
 
-        // GET: Industry/Edit/5
+        // GET: University/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-              if(!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            if (id == null || _context.University == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry.FindAsync(id);
-            if (industry == null)
+            var university = await _context.University.FindAsync(id);
+            if (university == null)
             {
                 return NotFound();
             }
-            return View(industry);
+            return View(university);
         }
 
-        // POST: Industry/Edit/5
+        // POST: University/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name")] Industry industry)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,HeadQuarterLocation,BranchesCount")] University university)
         {
-            if (id != industry.Id)
+            if (id != university.Id)
             {
                 return NotFound();
             }
@@ -110,12 +106,12 @@ namespace JobReady.Controllers
             {
                 try
                 {
-                    context.Update(industry);
-                    await context.SaveChangesAsync();
+                    _context.Update(university);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IndustryExists(industry.Id))
+                    if (!UniversityExists(university.Id))
                     {
                         return NotFound();
                     }
@@ -126,50 +122,50 @@ namespace JobReady.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(industry);
+            return View(university);
         }
 
-        // GET: Industry/Delete/5
+        // GET: University/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if(!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || context.Industry == null)
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+            if (id == null || _context.University == null)
             {
                 return NotFound();
             }
 
-            var industry = await context.Industry
+            var university = await _context.University
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (industry == null)
+            if (university == null)
             {
                 return NotFound();
             }
 
-            return View(industry);
+            return View(university);
         }
 
-        // POST: Industry/Delete/5
+        // POST: University/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (context.Industry == null)
+            if (_context.University == null)
             {
-                return Problem("Entity set 'JobReadyContext.Industries'  is null.");
+                return Problem("Entity set 'JobReadyContext.University'  is null.");
             }
-            var industry = await context.Industry.FindAsync(id);
-            if (industry != null)
+            var university = await _context.University.FindAsync(id);
+            if (university != null)
             {
-                context.Industry.Remove(industry);
+                _context.University.Remove(university);
             }
             
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IndustryExists(long id)
+        private bool UniversityExists(long id)
         {
-          return context.Industry.Any(e => e.Id == id);
+          return _context.University.Any(e => e.Id == id);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<JobReady.Industry>
+﻿@model IEnumerable<JobReady.University>
 
 @{
-    Layout = "_AdminLayout";
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Manage Industries</h1>
+<h1>Manage Universities</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,6 +16,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeadQuarterLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchesCount)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +30,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeadQuarterLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchesCount)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
