@@ -160,3 +160,40 @@
     height: 40px;
     border-radius: 15px;
 }
+
+.backdrop{
+    width:100%;
+    height:100vh;
+    opacity:0;
+    cursor:none;
+    pointer-events:none;
+    transition:all 0.25s ease-in-out;
+    position:fixed;
+    top:0;
+    left:0;     
+}
+.modal.show + .backdrop {
+
+    width: 100%;
+    height: 100vh;
+    background:var(--black);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.close, .close:focus {
+    all: unset;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+    .close:hover > svg > path {
+        stroke: var(--lightblue);
+    }
+
+    .close > svg {
+        width: 35px;
+        height: 35px;
+    }
