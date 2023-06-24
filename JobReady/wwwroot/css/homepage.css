@@ -9,7 +9,7 @@
     font-family:'League Gothic', sans-serif;
     cursor:pointer;
     user-select:none;
-    width:380px;
+    width:fit-content;
 }
 
 .filter-news-item {
@@ -26,10 +26,6 @@
     .filter-news-item.active .homepage-path {
         stroke: var(--lightblue);
     }
-
-.post{
-    width:calc(100% - 100px)!important;
-}
 .jobs {
     all:unset;
     border:none;
@@ -69,8 +65,10 @@
     font-family: 'League Gothic', sans-serif;
     font-size: 2.5em;
 }
-imageJobOpp{
-    width:80px;
+.imageJobOpp {
+    width: 80px;
+    height: 80px;
+    border-radius:20px;
 }
 
 .jobApp{
@@ -97,6 +95,10 @@ imageJobOpp{
 }
 .timeOn {
     font-size: 12px;
+}
+
+.posts{
+    max-width:calc(100% - 150px);
 }
 
 @media only screen and (max-width:1023.5px) {

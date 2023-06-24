@@ -1,0 +1,27 @@
+﻿@model RecommendationReply
+<div class="modal fade" id="replyModal" data-bs-backdrop="false" tabindex="-1" aria-labelledby="replyModal" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-title">Write Recommendation</h1>
+            </div>
+            <form asp-controller="Recommendation" asp-action="AcceptRecommendation" method="post">
+                <div class="modal-body">
+                    <textarea asp-for="@Model.Reply" class="letter" placeholder="Reply Here..."></textarea>
+                    <input asp-for="@Model.Id" type="hidden" value="" id="recommendationId" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" role="button" class="btn btn-primary rounded-pill">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="backdrop"></div>

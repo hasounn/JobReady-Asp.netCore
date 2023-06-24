@@ -14,4 +14,5 @@ public class PostEngagementDetails
     public string CreatedById { get; set; }
     public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
+    public string PostedOn { get; set; }
 }

@@ -11,4 +11,6 @@ public class RecommendationDetails
     public string InstructorReply { get; set; }
     public DateTime? RequestDate { get; set; }
     public DateTime? ResponseDate { get; set; }
+    public bool IsStudent { get; set; }
+    public RecommendationReply Reply { get; set; }
 }

@@ -1,8 +1,8 @@
-﻿namespace JobReady.Data.DTO
+﻿namespace JobReady;
+
+public class IndustryDetails
 {
-    public class IndustryDetails
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
+    public long Id { get; set; }
+    public string Name { get; set; }
 }
+

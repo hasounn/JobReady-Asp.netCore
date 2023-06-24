@@ -21,6 +21,9 @@ public class JobPost
     [Display(Name = "Active")]
     public bool IsActive { get; set; }
 
+    [Display(Name ="Remote")]
+    public bool? IsRemote { get; set; }
+
     [Required]
     public string CreatedById { get; set; }
     public UserAccount CreatedBy { get; set; }

@@ -5,10 +5,10 @@ const maindiv = document.querySelector(".height-fix"),
 
 window.addEventListener("load", () => {
     if (posts.children.length > 3) {
-        maindiv.style.height = "fit-content";
+        maindiv.style.height = document.body.scrollHeight + "px";
         maindiv.style.paddingBottom = "20px";
     } else {
-        maindiv.style.height = "100vh";
+        maindiv.style.height = maindiv.style.height = document.body.scrollHeight + "px";
         maindiv.style.paddingBottom = "0px";
     }
 

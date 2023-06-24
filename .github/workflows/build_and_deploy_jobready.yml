@@ -57,3 +57,5 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C3DF7B3EA3044698806505987B09EF7 }}
           package: .
+          app-settings: |
+           DefaultConnection = ${{ secrets.CONNECTION_STRING }}

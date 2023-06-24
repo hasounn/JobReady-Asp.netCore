@@ -19,12 +19,6 @@ public class Recommendation
     [Required]
     public RecommendationStatus Status { get; set; }
 
-    [Required]
-    [StringLength(500)]
-    [InverseProperty("StudentRequest")]
-    public string StudentRequest { get; set; }
-
-    [Required]
     [StringLength(2000)]
     [InverseProperty("InstructorReply")]
     public string InstructorReply { get; set; }

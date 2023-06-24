@@ -1,49 +1,30 @@
-﻿<div class="glass-box d-flex flex-column p-4 gap-2">
-    <p class="fw-bold section-title">Experience</p>
-    <ul class="joined-custom-list">
-        <li>
-            <div class="bullet">
-                <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                    <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                </svg>
-            </div>
-            <section class="d-flex flex-column gap-3 w-100">
-                <div>
-                    <h6 class="fw-bold"><span class="company-name">Company</span> | <span class="company-location">Location</span></h6>
-                    <p class="company-time fw-bold">
-                        <span class="company-start">July 2022</span> - <span class="company-end">October 2022</span> &#8226;
-                        <span class="fw-light"><span class="calculated-time">4</span> mos.</span>
-                    </p>
-                </div>
-                <p class="fw-light ps-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere reprehenderit iste libero velit rerum voluptatum dicta blanditiis dolore placeat enim? Est hic, officiis nulla, cum accusantium animi fugit tempore commodi nihil ex ullam consequatur repellat a iusto ut excepturi nemo rem doloremque molestias error, eveniet ipsam accusamus repellendus aliquam! Saepe!</p>
-            </section>
-        </li>
-        <li>
-            <div class="bullet">
-                <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false"><circle stroke="none" cx="16" cy="16" r="10"></circle></svg>
-            </div>
-            <section class="d-flex flex-column gap-3 w-100">
-                <div>
-                    <h6 class="fw-bold"><span class="company-name">Company</span> | <span class="company-location">Location</span></h6>
-                    <p class="company-time fw-bold">
-                        <span class="company-start">January 2022</span> - <span class="company-end">June 2022</span> &#8226;
-                        <span class="fw-light"><span class="calculated-time">6</span> mos.</span>
-                    </p>
+﻿@model IEnumerable<ExperienceDetails>
 
+    <div class="glass-box d-flex flex-column p-4 gap-2">
+        <p class="fw-bold section-title">Experience</p>
+        <ul class="joined-custom-list">
+@foreach (var experience in Model){
+            <li>
+                <div class="bullet">
+                    <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                        <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    </svg>
                 </div>
-                <p class="fw-light ps-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere reprehenderit iste libero velit rerum voluptatum dicta blanditiis dolore placeat enim? Est hic, officiis nulla, cum accusantium animi fugit tempore commodi nihil ex ullam consequatur repellat a iusto ut excepturi nemo rem doloremque molestias error, eveniet ipsam accusamus repellendus aliquam! Saepe!</p>
-                <ul class="custom-list">
-                    <li>
-                        Position 1 &#8226; <span class="position-time">4</span> mos.
-                    </li>
-                    <li>
-                        Position 2 &#8226; <span class="position-time">#</span> mos.
-                    </li>
-                    <li>
-                        Position 3 &#8226; <span class="position-time">#</span> mos.
-                    </li>
-                </ul>
-            </section>
-        </li>
-    </ul>
-</div>
+                <section class="d-flex flex-column gap-3 w-100">
+                    <div>
+                        <h6 class="fw-bold"><span class="company-name">@experience.CompanyName</span> | <span class="company-location">@experience.Title</span></h6>
+                        <p class="company-time fw-bold">
+                            <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">
+                                @{
+                                    var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM yyyy");
+                                    @endDate
+                                }
+                            </span>
+                        </p>
+                    </div>
+                    <p class="fw-light ps-1">@experience.Description</p>
+                </section>
+            </li>
+            }
+        </ul>
+    </div>

@@ -1,5 +1,6 @@
-﻿:root {
+﻿    :root {
     --lightwhite: #F4FAFF;
+    --lightwhite-faded: #f4faff80;
     --lightblue: #139BE4;
     --lightblue-faded: #70BAE180;
     --lightgray: #ACACAC;
@@ -12,10 +13,11 @@
     --dark-bg1: #38434F;
     --greenish-blue: #50646F;
     --snow-white: #DEE7E7;
+    --black:#000000;
 }
 
 .color-light-blue{
-    color:var(--lightblue);
+    color:var(--lightblue)!important;
 }
 .color-light-white{
     color:var(--lightwhite)!important;
@@ -28,6 +30,9 @@
 .color-grayish-blue {
     color: var(--grayish-blue);
 }
+.color-black{
+    color:var(--black);
+}
 
 .hidden {
     display: none;
@@ -37,6 +42,40 @@
     user-select:none;
 }
 
+.pointer{
+    cursor:pointer;
+}
+
 .modal{
     overflow:hidden!important;
+}
+
+.btn-outline-danger, .btn-outline-danger:focus{
+    border: 1px solid var(--error) !important;
+}
+
+.btn-outline-success, .btn-outline-success:focus {
+    border: 1px solid #198754 !important;
+}
+
+.btn-outline-primary{
+    border: 1px solid var(--lightblue) !important;
+    color: var(--snow-white);
+}
+
+    .btn-outline-primary:hover, .btn-outline-primary:focus {
+        background: var(--lightblue);
+        color: var(--snow-white) !important;
+    }
+
+.btn-primary{
+    background:var(--lightblue)!important;
+}
+
+    .btn-primary:hover {
+        background: #127db6!important;
+    }
+
+.white-space{
+    white-space:pre-wrap;
 }

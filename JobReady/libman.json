@@ -9,6 +9,15 @@
         "dist/TagCloud.js",
         "dist/TagCloud.min.js"
       ]
+    },
+    {
+      "library": "toastr@2.1.4",
+      "destination": "wwwroot/lib/toastr/",
+      "files": [
+        "toastr.js",
+        "toastr.min.js",
+        "build/toastr.css"
+      ]
     }
   ]
 }

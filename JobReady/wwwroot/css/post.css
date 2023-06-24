@@ -45,15 +45,17 @@
     background: var(--lightwhite);
 }
 
-.img-resizing{
-    width:60px;
+.img-resizing {
+    width: 60px;
+    height: 60px;
 }
 
 .textarea-post{
     all:unset;
     height:30px;
-    max-height:80px;
-    overflow:visible;
+    max-height:100px;
+    overflow-x:hidden;
+    overflow-y:scroll;
 }
 
 .photo-video-choose{
@@ -68,11 +70,13 @@
 .picture-wrapper{
     background-color:#c7c7c7;
     border-radius:25px;
+    width:100%;
+    max-height:280px;
 }
 
-.img-user{
-    width:100%;
-    max-width:180px;
+.img-user {
+    width: 100%;
+    max-width: 300px;
 }
 
 .post-btn {

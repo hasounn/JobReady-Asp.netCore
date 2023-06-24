@@ -316,6 +316,9 @@ namespace JobReady.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsRemote")
+                        .HasColumnType("bit");
+
                     b.Property<int>("JobType")
                         .HasColumnType("int");
 
@@ -406,11 +409,10 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CommentId")
+                    b.Property<long?>("CommentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -451,7 +453,6 @@ namespace JobReady.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InstructorReply")
-                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -467,11 +468,6 @@ namespace JobReady.Migrations
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("StudentRequest")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -969,8 +965,7 @@ namespace JobReady.Migrations
                     b.HasOne("JobReady.PostEngagement", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("JobReady.UserAccount", "CreatedBy")
                         .WithMany()

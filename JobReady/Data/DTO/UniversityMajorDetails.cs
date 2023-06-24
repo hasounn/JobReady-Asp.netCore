@@ -1,4 +1,6 @@
-﻿namespace JobReady;
+﻿using JobReady;
+
+namespace JobReady;
 
 public class UniversityMajorDetails
 {
