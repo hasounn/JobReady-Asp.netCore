@@ -81,7 +81,9 @@ namespace JobReady.Controllers
                                    IsVerified = x.IsVerified,
                                    IsOwned = x.Id == this.User.Claims.First().Value,
                                }).FirstOrDefault();
-
+            userDetails.OriginalType = (from x in context.UserAccount
+                                        where x.Id == this.User.Claims.First().Value
+                                        select x.AccountType).FirstOrDefault();
             userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
             userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();

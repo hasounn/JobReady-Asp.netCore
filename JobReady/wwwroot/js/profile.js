@@ -1,5 +1,6 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
-    divs = document.querySelector(".all-divs");
+    divs = document.querySelector(".all-divs")
+sendRequest = document.querySelector(".askrecoms");
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -7,6 +8,28 @@ window.addEventListener("load", () => {
     } else {
         maindiv.style.height = "100vh";
     }
+
+    sendRequest.addEventListener("click", () => {
+        let image = sendRequest.querySelector("img");
+        if (image.getAttribute("src") !== "/icons/tick-white.svg") {
+        const instructorId = sendRequest.querySelector("input").value;
+        $.ajax({
+            type: "POST",
+            url: "/Recommendation/AddRecommendationRequest",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(instructorId),
+            dataType: "json",
+            success: function (response) {
+                const img = sendRequest.querySelector("img");
+                img.setAttribute("src", response.image);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                alert("An error occurred: " + error);
+            }
+        })
+        }
+    })
 })
 
 var tagCloud = TagCloud('.skills', skills, {
