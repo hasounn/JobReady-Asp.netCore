@@ -152,7 +152,7 @@
             <div class="d-flex flex-row gap-3">
                 @foreach (var skill in Model.UserSkills)
                 {
-                    <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
                         <p>@skill.Name</p>
 
                         <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
@@ -493,7 +493,7 @@
             </div>
             <form asp-controller="Profile" asp-action="AddSkillInEdit" method="post">
             <div class="modal-body p-3">
-                <select id="skillInput" class="addSkillText m-3">
+                <select asp-for="Skill.Id" id="skillInput" class="addSkillText m-3">
                     @foreach (SkillDetails skill in Model.AllSkills)
                     {
                         <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
