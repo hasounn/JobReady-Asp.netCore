@@ -1,4 +1,4 @@
-﻿using JobReady.Data.DTO;
+﻿using JobReady;
 
 namespace JobReady;
 

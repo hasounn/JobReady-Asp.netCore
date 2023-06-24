@@ -10,7 +10,7 @@ public class EducationDetails
     public UserAccountDetails User { get; set; }
 
     public long? SchoolId { get; set; }
-    public University School { get; set; }
+    public UniversityDetails School { get; set; }
 
     [Display(Name ="School Name")]
     public string SchoolName { get; set; }
@@ -20,11 +20,12 @@ public class EducationDetails
     [Display(Name = "Other Degree")]
     public string OtherDegree { get; set; }
 
-    [Display(Name = "Field Of Study")]
-    public long? MajorId { get; set; }
-    public Major Major { get; set; }
-
-    public long? Grade { get; set; }
+        [Display(Name = "Field Of Study")]
+        public long? MajorId { get; set; }
+        public Major Major { get; set; }
+        [Display(Name = "Field Of Study")]
+        public string FieldOfStudy { get; set; }
+        public long? Grade { get; set; }
 
     public string Description { get; set; }
 

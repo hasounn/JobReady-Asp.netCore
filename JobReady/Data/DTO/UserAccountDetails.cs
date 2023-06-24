@@ -69,6 +69,7 @@ public class UserAccountDetails
     public IEnumerable<JobPostDetails> JobPosts { get; set; }
     public string[] Skills { get; set; }
     public IEnumerable<SelectListItem> Industries {get;set;}
+    public IEnumerable<SelectListItem> Universities {get;set; }
     public IEnumerable<EducationDetails> Educations { get; set; }
     public EducationDetails Education { get; set; }
     public IEnumerable<ExperienceDetails> Experiences { get; set; }

@@ -4,6 +4,7 @@ using JobReady;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobReady.Migrations
 {
     [DbContext(typeof(JobReadyContext))]
-    partial class JobReadyContextModelSnapshot : ModelSnapshot
+    [Migration("20230624183051_AddFieldOfStudyToEducationTable")]
+    partial class AddFieldOfStudyToEducationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.8")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -56,6 +59,7 @@ namespace JobReady.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("SchoolName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("StartDate")
@@ -315,9 +319,6 @@ namespace JobReady.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsRemote")
-                        .HasColumnType("bit");
-
                     b.Property<int>("JobType")
                         .HasColumnType("int");
 
@@ -408,10 +409,11 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("CommentId")
+                    b.Property<long>("CommentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -452,6 +454,7 @@ namespace JobReady.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InstructorReply")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -467,6 +470,11 @@ namespace JobReady.Migrations
                     b.Property<string>("StudentId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StudentRequest")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -964,7 +972,8 @@ namespace JobReady.Migrations
                     b.HasOne("JobReady.PostEngagement", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("JobReady.UserAccount", "CreatedBy")
                         .WithMany()
