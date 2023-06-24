@@ -6,8 +6,16 @@
     border-radius: 20px;
 }
 
+.heading-post{
+    margin-top: -11px;
+}
+
 .img-post {
     width: 55px;
+    height: 55px;
+}
+.image-post-sizing{
+    width:inherit;
 }
 
 .dot-post {
@@ -15,7 +23,11 @@
 }
 
 .time-post{
-    font-size:12px;
+    font-size:11px;
+}
+
+.content-post {
+    white-space: pre-wrap;
 }
 
 .like,.comment,.share, .report{
@@ -41,6 +53,7 @@
 .modal-xl{
     max-width:calc(100% - 150px)!important;
     padding:0;
+    overflow:hidden;
 }
 
 .modal-content{
@@ -84,19 +97,33 @@
 
 .image-modal-resize{
     width:2.6em;
+    height:2.6em;
+}
+
+.image-post-modal{
+    height:fit-content;
+    width:100%;
 }
 
 .username-wrapper{
     grid-area:username;
 }
 
+.text-wrapper > p{
+    white-space:pre-wrap;
+}
+
 .engagement-wrapper {
     grid-area: engagement;
+    max-height: 45em;
 }
 
 .all-comments {
     background: var(--gray-asset3);
     border-radius: 12px 0 0 12px;
+    max-height:500px;
+    height: calc(100% - 5em);
+    overflow-y: scroll;
 }
 
 #comment{
@@ -138,6 +165,16 @@
     padding: 5px 10px 5px 10px;
     max-height: 150px;
 }
+.fullname-p-modal {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.username-span-modal {
+    font-weight: 200;
+    color: var(--gray-asset2);
+    font-size: 12px;
+}
 
 @media only screen and (max-width:1023.5px) {
     .grid-container{
@@ -147,5 +184,11 @@
             "username"
             "image"
             "engagement";
+    }
+    .post{
+        width:100%;
+    }
+    .modal-xl .modal-content {
+        overflow-y: scroll;
     }
 }

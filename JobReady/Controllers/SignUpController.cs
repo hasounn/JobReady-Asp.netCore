@@ -22,7 +22,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(SignUpUserRegistry model)
+        public IActionResult Index(UserAccountDetails model)
         {
             if(ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace JobReady.Controllers
                     // Optionally, you can sign in the user after registration
                     await signInManager.SignInAsync(newUser, isPersistent: false);
 
-                    if (details.ProfileImage.Length > 0)
+                    if (details.ProfileImage!=null && details.ProfileImage.Length > 0)
                     {
                         using (var memoryStream = new MemoryStream())
                         {

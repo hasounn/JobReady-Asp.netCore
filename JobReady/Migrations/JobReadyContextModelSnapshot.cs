@@ -313,6 +313,9 @@ namespace JobReady.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsRemote")
+                        .HasColumnType("bit");
+
                     b.Property<int>("JobType")
                         .HasColumnType("int");
 
@@ -403,11 +406,10 @@ namespace JobReady.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CommentId")
+                    b.Property<long?>("CommentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -451,6 +453,12 @@ namespace JobReady.Migrations
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime?>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ResponseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -960,8 +968,7 @@ namespace JobReady.Migrations
                     b.HasOne("JobReady.PostEngagement", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("JobReady.UserAccount", "CreatedBy")
                         .WithMany()

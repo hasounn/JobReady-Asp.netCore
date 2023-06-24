@@ -180,7 +180,7 @@ a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:
             }
 }
 
-@media(min-width:768px) and (max-width: 1300px){
+@media(min-width:768px) and (max-width: 1320px){
     body {
         flex-direction: column;
     }
@@ -203,7 +203,7 @@ a, a:focus, a:focus-visible, a:focus-within, a:active, a:active:focus, a:active:
     }
 }
 
-@media (max-width:1300px){
+@media (max-width:1320px){
     .head-div{
         padding-top:8em;
     }

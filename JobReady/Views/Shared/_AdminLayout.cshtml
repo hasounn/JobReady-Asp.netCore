@@ -21,7 +21,7 @@
             </div>
             <div class="collapse navbar-collapse w-100 d-flex flex-column h-100 justify-content-lg-between gap-lg-0 gap-3" id="navbarNav">
                 <ul class="navbar-nav d-flex flex-column gap-3 w-100">
-                    <li class="nav-item" id="home-nav">
+                    <li class="nav-item" id="dashboard-nav">
                         <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +45,19 @@
                             </div>
                         </a>
                     </li>
+                    <li class="nav-item" id="company-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p>Create Company</p>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="nav-item" id="industry-nav">
                         <a class="nav-link" asp-area="" asp-controller="Industry" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
@@ -61,15 +74,40 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item" id="company-nav">
-                        <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">
+                    <li class="nav-item" id="skills-nav">
+                        <a class="nav-link" asp-area="" asp-controller="Skill" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path class="path" d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M3.5 20.4999C4.33 21.3299 5.67 21.3299 6.5 20.4999L19.5 7.49994C20.33 6.66994 20.33 5.32994 19.5 4.49994C18.67 3.66994 17.33 3.66994 16.5 4.49994L3.5 17.4999C2.67 18.3299 2.67 19.6699 3.5 20.4999Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M18.01 8.98999L15.01 5.98999" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M8.5 2.44L10 2L9.56 3.5L10 5L8.5 4.56L7 5L7.44 3.5L7 2L8.5 2.44Z" stroke="#535657" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M4.5 8.44L6 8L5.56 9.5L6 11L4.5 10.56L3 11L3.44 9.5L3 8L4.5 8.44Z" stroke="#535657" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M19.5 13.44L21 13L20.56 14.5L21 16L19.5 15.56L18 16L18.44 14.5L18 13L19.5 13.44Z" stroke="#535657" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <p>Create Company</p>
+
+
+                                <p>Manage Skills</p>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" id="university-nav">
+                        <a class="nav-link" asp-area="" asp-controller="University" asp-action="Index">
+                            <div class="d-flex flex-row gap-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="path" d="M2 22H22" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M17 2H7C4 2 3 3.79 3 6V22H21V6C21 3.79 20 2 17 2Z" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M7 16.5H10" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M14 16.5H17" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M7 12H10" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M14 12H17" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M7 7.5H10" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="path" d="M14 7.5H17" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+
+
+                                <p>Manage Universities</p>
                             </div>
                         </a>
                     </li>
@@ -88,7 +126,7 @@
                         <li>
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-between justify-content-start list-unstyled">
                             <li class="nav-item" id="profile-nav">
-                                    <div class="d-flex flex-row gap-3">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path class="path" d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             <path class="path" d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -97,7 +135,7 @@
                                     </div>
                             </li>
                             <li class="nav-item logout" id="logout-nav">
-                                <a class="nav-link" asp-area="" asp-controller="Logout" asp-action="Index">
+                                <a class="nav-link" asp-area="" asp-controller="Logout" asp-action="Logout">
                                     <div class="d-flex flex-row gap-3">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path class="path" d="M17.4399 14.62L19.9999 12.06L17.4399 9.5" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -115,7 +153,7 @@
         </nav>
     </header>
     
-    <div class="w-100 vh-100 head-div">
+    <div class="w-100 vh-100 p-5 head-div">
         @RenderBody()
     </div>
 

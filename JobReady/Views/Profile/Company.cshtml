@@ -1,0 +1,149 @@
+﻿@model JobReady.UserAccountDetails;
+@{
+    ViewData["Title"] = "Profile";
+}
+<link rel="stylesheet" href="~/css/posts.css">
+<link rel="stylesheet" href="~/css/jobOpps.css">
+<link rel="stylesheet" href="~/css/profile.css">
+
+<div class="d-flex flex-column gap-5 w-100 height-fix dark-main-bg p-5">
+    <div class="d-flex flex-column flex-lg-row w-100 h-auto justify-content-center gap-5">
+        <div class="image-and-button d-flex flex-column h-100 justify-content-between align-items-center gap-4">
+            <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
+            @if (Model.IsOwned == true)
+            {
+                <a role="button" class="btn profile-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#aboutModal">Edit Profile</a>
+            }
+            else
+            {
+                @if (!Model.HasFollowed)
+                {
+                    <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"
+                       asp-controller="Profile" asp-action="Follow" asp-route-userId="@Model.Id">
+                        <img src="~/icons/profile-add.svg" />
+                        <p>Follow</p>
+                    </a>
+                }
+                else
+                {
+                    <a role="button" class="btn profile-btn unfollow d-flex flex-row gap-2 rounded-pill"
+                       asp-controller="Profile" asp-action="Unfollow" asp-route-userId="@Model.Id">
+                        <p>Followed</p>
+                    </a>
+                }
+            }
+
+        </div>
+        <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
+            <div class="fullname-p d-flex flex-row align-items-center gap-1">
+                <p>@Model.FullName</p>
+                <span class="username-span">&#8226; @@@Model.Username</span>
+                @if (Model.IsVerified == true)
+                {
+                    <img src="~/icons/verify.svg" class="ms-1" />
+                }
+            </div>
+            <div class="d-flex flex-row justify-content-lg-between justify-content-around width-fix">
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <p class="nb-of-posts">@Model.Posts.Count()</p>
+                    <p>Posts</p>
+                </div>
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16006 10.87C9.06006 10.86 8.94006 10.86 8.83006 10.87C6.45006 10.79 4.56006 8.84 4.56006 6.44C4.56006 3.99 6.54006 2 9.00006 2C11.4501 2 13.4401 3.99 13.4401 6.44C13.4301 8.84 11.5401 10.79 9.16006 10.87Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M16.41 4C18.35 4 19.91 5.57 19.91 7.5C19.91 9.39 18.41 10.93 16.54 11C16.46 10.99 16.37 10.99 16.28 11" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4.15997 14.56C1.73997 16.18 1.73997 18.82 4.15997 20.43C6.90997 22.27 11.42 22.27 14.17 20.43C16.59 18.81 16.59 16.17 14.17 14.56C11.43 12.73 6.91997 12.73 4.15997 14.56Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M18.3401 20C19.0601 19.85 19.7401 19.56 20.3001 19.13C21.8601 17.96 21.8601 16.03 20.3001 14.86C19.7501 14.44 19.0801 14.16 18.3701 14" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p><span class="nb-of-followers">@Model.Followers.Count()</span> Followers</p>
+                </div>
+                <div class="d-flex flex-column align-items-center h-100 justify-content-between">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#F4FAFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12.33 17.45C12.15 17.51 11.84 17.51 11.66 17.45C10.1 16.92 6.59998 14.69 6.59998 10.91C6.59998 9.24 7.93998 7.89001 9.59998 7.89001C10.58 7.89001 11.45 8.36001 12 9.10001C12.54 8.37001 13.42 7.89001 14.4 7.89001C16.06 7.89001 17.4 9.24 17.4 10.91C17.4 14.69 13.9 16.92 12.33 17.45Z" stroke="#F4FAFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <p>
+                        <span class="nb-of-likes">
+                            @{
+                                var likes = (from x in Model.Posts select x.LikesCount);
+                                long total = 0;
+                                foreach (var like in likes)
+                                {
+                                    total += like;
+                                }
+                                @total
+                            }
+                        </span>
+                        Likes
+                    </p>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100 headline">
+                <p class="fw-bold fs-6">@Model.Headline</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column gap-2">
+        <div class="industry d-flex flex-column gap-1">
+            <p class="fs-6 fw-bold">Industry</p>
+            <p class="fw-light lower-fs-6">IT Services and IT Consulting</p>
+        </div>
+        <div class="compsize d-flex flex-column gap-1">
+            <p class="fs-6 fw-bold">Company Size</p>
+            <p class="fw-light lower-fs-6">2 - 10 Employees</p>
+        </div>
+        <div class="founded d-flex flex-column gap-1">
+            <p class="fs-6 fw-bold">Founded</p>
+            <p class="fw-light lower-fs-6">2019</p>
+        </div>
+    </div>
+    @if (Model.About != null)
+    {
+        <div class="d-flex flex-column gap-4">
+            <p class="about-title">About</p>
+            <p class="fw-light fs-5 white-space">@Model.About</p>
+        </div>
+    }
+    <div class="all-divs d-flex flex-column gap-4">
+        <div class="d-flex flex-column gap-4">
+            <p class="yourjobs-title">Your Jobs</p>
+            <div class="jobs d-flex flex-column gap-3">
+                <partial name="_Jobs" model="@Model.JobPosts"/>
+            </div>
+        </div>
+        <div class="d-flex flex-column gap-4">
+            <p class="yourposts-title">Your Posts</p>
+            <div class="posts d-flex flex-column gap-3">
+                <partial name="_Posts" model="@Model.Posts" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal w-100 fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog about-dialog color-black">
+        <div class="modal-content">
+            <div class="modal-header d-flex flex-column p-4 align-items-start gap-2">
+                <h4 class="h4">Edit About</h4>
+                <p>You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.</p>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Profile" asp-action="UpdateAbout" method="post" class="d-flex flex-column p-5 h-100 align-items-center gap-5">
+                    <textarea rows="15" asp-for="About" class="about-textarea h-100 w-100 p-3">@Model.About</textarea>
+                    <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/profilecomp.js"></script>

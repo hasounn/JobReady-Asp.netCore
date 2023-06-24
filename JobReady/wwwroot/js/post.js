@@ -4,10 +4,17 @@
 
 
 $(".textarea-post").each(function () {
-    this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+    this.setAttribute("style", "height:" + (this.scrollHeight) + "px; overflow-y:auto;");
 }).on("input", function () {
-    this.style.height = 30+"px";
+    this.style.height = "auto";
     this.style.height = (this.scrollHeight) + "px";
+}).on("keydown", function (e) {
+    if (e.keyCode === 8 || e.keyCode === 46) { // Check if backspace or delete key is pressed
+        setTimeout(() => {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
+        }, 0);
+    }
 });
 
 divFile.addEventListener("click", () => {

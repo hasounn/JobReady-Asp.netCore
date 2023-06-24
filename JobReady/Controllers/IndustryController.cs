@@ -20,15 +20,24 @@ namespace JobReady.Controllers
             this.context = context;
         }
 
+        private bool IsAdmin()
+        {
+            var userType = (from x in context.Users
+                            where x.Id == this.User.Claims.First().Value
+                            select x.AccountType).FirstOrDefault();
+            return (userType == UserAccountType.Admin);
+        }
         // GET: Industry
         public async Task<IActionResult> Index()
         {
+              if(!IsAdmin()) return RedirectToAction("Index", "Home");
               return View(await context.Industry.ToListAsync());
         }
 
         // GET: Industry/Details/5
         public async Task<IActionResult> Details(long? id)
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || context.Industry == null)
             {
                 return NotFound();
@@ -47,6 +56,8 @@ namespace JobReady.Controllers
         // GET: Industry/Create
         public IActionResult Create()
         {
+            if (!IsAdmin()) return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -69,6 +80,7 @@ namespace JobReady.Controllers
         // GET: Industry/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+              if(!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || context.Industry == null)
             {
                 return NotFound();
@@ -120,6 +132,7 @@ namespace JobReady.Controllers
         // GET: Industry/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            if(!IsAdmin()) return RedirectToAction("Index", "Home");
             if (id == null || context.Industry == null)
             {
                 return NotFound();

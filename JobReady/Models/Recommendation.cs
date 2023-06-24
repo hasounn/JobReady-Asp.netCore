@@ -28,4 +28,10 @@ public class Recommendation
     [StringLength(2000)]
     [InverseProperty("InstructorReply")]
     public string InstructorReply { get; set; }
+
+    [Display(Name="Request Date")]
+    public DateTime? RequestDate { get; set; }
+
+    [Display(Name="Response Date")]
+    public DateTime? ResponseDate { get; set; }
 }

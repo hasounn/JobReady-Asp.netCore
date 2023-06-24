@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class LogoutController : Controller
     {
         private readonly JobReadyContext context;
