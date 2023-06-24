@@ -154,7 +154,10 @@
                 {
                     <div class="d-flex flex-row justify-content-between">
                         <p>@skill.Name</p>
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editSkillModal-@skill.Id"><img src="~/icons/edit-2.svg" /></button>
+
+                        <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
+                            <button type="submit" class="btn"><img src="~/icons/close-circle-red.svg"/></button>
+                        </form>
                     </div>
                 }
             </div>
@@ -499,48 +502,5 @@
         </div>
     </div>
 </div>
-
-<!-- Edit Skill Modal -->
-@foreach(var userSkill in Model.UserSkills){
-<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
-    <button type="button" class="btn close" data-bs-dismiss="modal">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </button>
-    <div class="modal-dialog modal-dialog-addSkill h-100 modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Skill</h4>
-            </div>
-            <form asp-controller="Profile" asp-action="UpdateSkill" method="post">
-                <div class="modal-body p-3">
-                    <select asp-for="@Model.Skill.Id" id="skillInput" class="addSkillText m-3">
-                        @foreach (SkillDetails skill in Model.AllSkills)
-                            { 
-                                var skillSelected = userSkill.Id == skill.Id;
-                                @if (skillSelected)
-                                {
-                                    <option value="@skill.Id" selected>@skill.Name</option>
-                                }
-                                else{
-                                    <option value="@skill.Id">@skill.Name</option>
-                                }
-                            }
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
-                        <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
-                    </form>
-                    <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-}
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/editprofile.js"></script>
