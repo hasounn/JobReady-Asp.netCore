@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
         const instructorId = sendRequest.querySelector("input").value;
         $.ajax({
             type: "POST",
-            url: "/Recommendation/AddRecommendation",
+            url: "/Recommendation/AddRecommendationRequest",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(instructorId),
             dataType: "json",

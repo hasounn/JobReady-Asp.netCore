@@ -11,7 +11,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRecommendation([FromBody] string instructorId)
+        public IActionResult AddRecommendationRequest([FromBody] string instructorId)
         {
             var askForRecommendation = new Recommendation()
             {
