@@ -78,6 +78,7 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
+                @if (Model.Experiences.Count() > 0)
                 @foreach (var experience in Model.Experiences)
                 {
                     <li class="w-100">
@@ -106,6 +107,7 @@
                         </section>
                     </li>
                 }
+                }
             </ul>
         </div>
         <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
@@ -117,27 +119,31 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
-                @foreach (var education in Model.Educations)
+                
+                @if (Model.Educations.Count() > 0)
                 {
-                    <li class="w-100">
-                        <div class="bullet">
-                            <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                                <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    @foreach (var education in Model.Educations)
+                    {
+                        <li class="w-100">
+                            <div class="bullet">
+                                <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                                    <circle stroke="none" cx="16" cy="16" r="10"></circle>
 
-                            </svg>
-                        </div>
-                        <section class="d-flex flex-row gap-3 w-100 justify-content-between">
-                            <div class="d-flex flex-column gap-1">
-                                <h6 class="fw-bold"><span class="uni-name">@education.School.Name</span> | <span class="uni-location">@education.FieldOfStudy</span></h6>
-                                <p class="uni-time fw-bold">
-                                    <span class="uni-start">@education.StartDate?.ToString("MMMM yyyy")</span> - <span class="uni-end">@education.EndDate?.ToString("MMMM yyyy")</span> &#8226;
-                                    <span class="fw-light">@education.Degree.ToString()</span>
-                                </p>
-                                <p class="fw-light ps-1">@education.Description</p>
+                                </svg>
                             </div>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
-                        </section>
-                    </li>
+                            <section class="d-flex flex-row gap-3 w-100 justify-content-between">
+                                <div class="d-flex flex-column gap-1">
+                                    <h6 class="fw-bold"><span class="uni-name">@education.School.Name</span> | <span class="uni-location">@education.FieldOfStudy</span></h6>
+                                    <p class="uni-time fw-bold">
+                                        <span class="uni-start">@education.StartDate?.ToString("MMMM yyyy")</span> - <span class="uni-end">@education.EndDate?.ToString("MMMM yyyy")</span> &#8226;
+                                        <span class="fw-light">@education.Degree.ToString()</span>
+                                    </p>
+                                    <p class="fw-light ps-1">@education.Description</p>
+                                </div>
+                                <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                            </section>
+                        </li>
+                    }
                 }
             </ul>
         </div>
@@ -150,16 +156,18 @@
                 </svg>
             </div>
             <div class="d-flex flex-row gap-3">
-                @foreach (var skill in Model.UserSkills)
-                {
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <p>@skill.Name</p>
+                @if(Model.UserSkills.Count() > 0){
+                    @foreach (var skill in Model.UserSkills)
+                    {
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <p>@skill.Name</p>
 
-                        <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
-                                <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
-                            <button type="submit" class="btn"><img src="~/icons/close-circle-red.svg"/></button>
-                        </form>
-                    </div>
+                            <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
+                                    <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
+                                <button type="submit" class="btn"><img src="~/icons/close-circle-red.svg"/></button>
+                            </form>
+                        </div>
+                    }
                 }
             </div>
         </div>
