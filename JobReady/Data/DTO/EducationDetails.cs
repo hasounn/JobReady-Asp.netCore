@@ -23,7 +23,8 @@ namespace JobReady.Data.DTO
         [Display(Name = "Field Of Study")]
         public long? MajorId { get; set; }
         public Major Major { get; set; }
-
+        [Display(Name = "Field Of Study")]
+        public string FieldOfStudy { get; set; }
         public long? Grade { get; set; }
 
         public string Description { get; set; }
