@@ -49,7 +49,7 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult AcceptRecommendation(RecommendationDetails details)
+        public IActionResult AcceptRecommendation(RecommendationReply details)
         {
             var instructorId = (from x in context.UserAccount
                                 where x.Id == this.User.Claims.First().Value
@@ -63,7 +63,7 @@ namespace JobReady.Controllers
             var target = (from x in context.Recommendation
                           where x.Id == details.Id
                           select x).FirstOrDefault();
-            target.Status = RecommendationStatus.Rejected;
+            target.Status = RecommendationStatus.Accepted;
             target.ResponseDate = DateTime.Now;
             context.SaveChanges();
             return RedirectToAction("Index", "Notifications", new { view = "_RecommendationView" });
