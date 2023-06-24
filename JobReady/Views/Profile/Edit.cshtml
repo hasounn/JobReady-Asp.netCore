@@ -156,6 +156,7 @@
                         <p>@skill.Name</p>
 
                         <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
+                                <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
                             <button type="submit" class="btn"><img src="~/icons/close-circle-red.svg"/></button>
                         </form>
                     </div>
@@ -332,7 +333,9 @@
                         <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
                         <div class="d-flex flex-row gap-2">
                             <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
-                                <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
+
+                                <input type="hidden" value="@skill.Id" asp-for="@experience.Id" />
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Experience</button>
                             </form>
                             <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                         </div>
@@ -460,7 +463,9 @@
                         </div>
                         <div class="d-flex flex-row gap-2">
                             <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
-                                <button type="submit" class="btn btn-danger rounded-pill">Remove Skill</button>
+
+                                <input type="hidden" value="@skill.Id" asp-for="@education.Id" />
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Education</button>
                             </form>
                             <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                         </div>
