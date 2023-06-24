@@ -1,6 +1,6 @@
 ﻿const maindiv = document.querySelector(".height-fix"),
     divs = document.querySelector(".all-divs")
-    instructors = document.querySelectorAll(".instructor");
+sendRequest = document.querySelector(".askrecoms");
 
 window.addEventListener("load", () => {
     if (divs.children.length > 0) {
@@ -9,28 +9,27 @@ window.addEventListener("load", () => {
         maindiv.style.height = "100vh";
     }
 
-    instructors.forEach(instructor => {
-        const sendRequest = instructor.querySelector("#sendRequest");
-        const instructorId = instructor.querySelector("#instructorId").value;
-        console.log("clickedd");
-        sendRequest.addEventListener("click", () => {
-            $.ajax({
-                type: "POST",
-                url: "/Recommendation/AddRecommendation",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(instructorId),
-                dataType: "json",
-                success: function (response) {
-                    sendRequest.textContent = "Sent!";
-                    sendRequest.setAttribute("disabled", "true");
-                },
-                error: function (xhr, status, error) {
-                    // Handle error
-                    alert("An error occurred: " + error);
-                }
-            })
+    sendRequest.addEventListener("click", () => {
+        let image = sendRequest.querySelector("img");
+        if (image.getAttribute("src") !== "/icons/tick-white.svg") {
+        const instructorId = sendRequest.querySelector("input").value;
+        $.ajax({
+            type: "POST",
+            url: "/Recommendation/AddRecommendation",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(instructorId),
+            dataType: "json",
+            success: function (response) {
+                const img = sendRequest.querySelector("img");
+                img.setAttribute("src", response.image);
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                alert("An error occurred: " + error);
+            }
         })
-    });
+        }
+    })
 })
 
 var tagCloud = TagCloud('.skills', skills, {

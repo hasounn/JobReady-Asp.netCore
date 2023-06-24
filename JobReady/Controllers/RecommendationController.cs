@@ -11,9 +11,11 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRecommendation([FromBody] long instructorId)
+        public IActionResult AddRecommendation([FromBody] string instructorId)
         {
-            return Ok(true); ;
+
+            var image = "/icons/tick-white.svg";
+            return Ok(new {image});
         }
     }
 }

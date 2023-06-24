@@ -38,7 +38,7 @@ $('.textarea-description').each(function () {
     }
 });
 
-const isCurrentlyWorking = (arg) => {
+function isWorking(arg){
     if (arg.checked == true) {
         arg.parentElement.children[1].value = "true";
         arg.parentElement.parentElement.children[6].children[1].setAttribute("disabled", "true");

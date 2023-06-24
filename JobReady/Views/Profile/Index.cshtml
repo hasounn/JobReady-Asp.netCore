@@ -10,10 +10,9 @@
         <div class="image-and-button d-flex flex-column h-100 justify-content-between align-items-center gap-4">
             <img src="@Url.Action("GetProfilePicture", "Profile", new {userId = Model.Id})" class="rounded-circle img-sizing" />
             <div class="d-flex flex-row gap-2">
-                @if(Model.IsOwned == true)
+                @if(Model.IsOwned)
                 {
                     <a role="button" class="btn profile-btn rounded-pill" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
-                    <button class="btn askrecoms rounded-circle btn-primary" data-bs-toggle="modal" data-bs-target="#recommendationModal"><img src="~/icons/star.svg"/></button>
                 }else{
                     @if(!Model.HasFollowed){
                     <a role="button" class="btn profile-btn d-flex flex-row gap-2 rounded-pill"
@@ -28,7 +27,13 @@
                     </a>
                     }
                 }
-                
+                @if ((Model.AccountType == UserAccountType.Instructor && !Model.IsOwned) && Model.OriginalType == UserAccountType.Student && Model.HasFollowed)
+                {
+                    <button class="btn askrecoms rounded-circle btn-primary">
+                        <img src = "~/icons/star.svg" />
+                        <input type="hidden" value="@Model.Id" id="instructorId"/>
+                    </button>
+                }
             </div>
         </div>
         <div class="w-100 p-2 d-flex flex-column justify-content-center align-items-center align-items-lg-start justify-content-lg-start gap-4">
@@ -105,36 +110,6 @@
                 </div>
         </div>
         }
-    </div>
-</div>
-
-<!-- Instructor Modal -->
-<div class="modal fade color-black" id="recommendationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="recommendationModalLabel" aria-hidden="true">
-    <button type="button" class="btn close" data-bs-dismiss="modal">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </button>
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content w-100">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask For Recommendation</h1>
-            </div>
-            <div class="modal-body p-5 w-100">
-                <div class="d-flex flex-column w-100 p-5">
-                    <div class="d-flex flex-row gap-2 w-100 justify-content-between align-items-center instructor">
-                        <div class="d-flex flex-row gap-2 align-items-center">
-                        <!--<img src="Url.Action("GetProfilePicture","Profile",new {userI})" claas="img-instructor rounded-circle"/>-->
-                            <p class="instructor-name">Santiago</p>
-                        </div>
-                        <a role="button" class="btn btn-outline-primary color-light-blue" id="sendRequest">Send</a>
-                        <input type="hidden" value="" id="instructorId"/>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>

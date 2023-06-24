@@ -90,7 +90,7 @@
                         <div class="d-flex flex-column gap-1">
                             <h6 class="fw-bold"><span class="company-name">@experience.CompanyName</span> | <span class="company-location">@experience.Title</span></h6>
                             <p class="company-time fw-bold">
-                                <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">@{var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM YYYY"); @endDate}</span> 
+                                <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">@{var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM yyyy"); @endDate}</span> 
                                 @*<span class="fw-light"><span class="calculated-time">4</span> mos.</span>*@
                             </p>
                            @* <p>
@@ -214,7 +214,7 @@
                         <select asp-for="Experience.EmploymentType" asp-items="Html.GetEnumSelectList<JobType>()"></select>
                     </div>
                     <div class="remote d-flex flex-row align-items-center gap-1">
-                        <input type="checkbox" id="remote" onclick="isCurrentlyWorking(this)" />
+                        <input type="checkbox" id="remote" onclick="isWorking(this)" />
                         <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorkingAdd" value="false" />
                         <label>Currently Working</label>
                     </div>
@@ -254,7 +254,6 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="Profile" asp-action="UpdateExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
-                    <input type="hidden" asp-for="Experience.Id" value="@experience.Id"/>
                     <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                         <p>Title  <span class="text-danger">*</span></p>
                         <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
@@ -299,11 +298,11 @@
                     </div>
                     <div class="remote d-flex flex-row align-items-center gap-1">
 
-                            <input type="checkbox" id="remote" onclick="isCurrentlyWorking(this)" @if (experience.IsCurrentlyWorking)
+                            <input type="checkbox" id="remote" @if (experience.IsCurrentlyWorking)
                             {
                                 var s = "checked";
-                                @s
-                            } />
+                                @s;
+                            } onclick="isWorking(this)" />
                             <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="@experience.IsCurrentlyWorking" />
                         <label>Currently Working</label>
                     </div>
@@ -319,7 +318,7 @@
                         <p>Describe Your Experience...</p>
                         <textarea asp-for="@experience.Description" class="p-1 textarea-description w-100 color-black">@experience.Description</textarea>
                     </div>
-
+                        <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
                     <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
                 </form>
             </div>

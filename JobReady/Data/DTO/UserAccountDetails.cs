@@ -20,6 +20,7 @@ public class UserAccountDetails
     public string Type { get; set; }
 
     private UserAccountType accountType;
+    public UserAccountType OriginalType;
 
     public UserAccountType AccountType
     {
