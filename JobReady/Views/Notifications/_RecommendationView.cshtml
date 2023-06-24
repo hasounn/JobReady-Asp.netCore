@@ -18,7 +18,7 @@
     <tbody class="table-group-divider">
         @foreach(var recommendation in Model){
         <tr>
-            <th scope="row">@recommendation.RequestDate.ToString("ddd dd MMMM yyyy")</th>
+            <th scope="row">@recommendation.RequestDate?.ToString("ddd dd MMMM yyyy")</th>
             <td>Mark</td>
             <td>Otto</td>
         </tr>
