@@ -30,7 +30,7 @@
         <img src="@Url.Action("GetProfilePicture","Profile", new{userId = Model.CreatedById})" class="rounded-circle logo-resizing" />
         <div class="d-flex flex-column gap-3 ">
             <p class="company-name color-light-white fs-5 fw-bold text-lg-start text-center">Company:<br /><span class="name fs-6 fw-normal">@Model.CreatedBy.Username</span></p>
-            @if(Model.CreatedBy.AccountType == UserAccountType.Student){
+            @if(Model.CreatedBy.AccountType == UserAccountType.Student && !Model.HasApplied){
                 <a role="button" class="apply-btn">
                     <div class="d-flex flex-row align-items-center p-1 gap-2" data-bs-toggle="modal" data-bs-target="#applyLetterModal">
                         <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
                     </div>
                 </a>
             }
-            else
+            else if (Model.CreatedBy.AccountType == UserAccountType.Company)
             {
                 <a role="button" class="apply-btn pe-2" asp-controller="Applicants" asp-action="Index">
                     <div class="d-flex flex-row align-items-center p-1 gap-1">
