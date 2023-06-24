@@ -15,11 +15,13 @@ namespace JobReady.Controllers
             var notification = new NotificationDetails()
             {
                 Engagements = GetAllEngagements(),
+                Recommendations = GetAllRecommendations(),
                 Partial = view,
             };
             return View(notification);
         }
 
+        #region Get Engagements
         public IActionResult GetEngagements()
         {
             return Index("_Engagement");
@@ -64,6 +66,60 @@ namespace JobReady.Controllers
 
             return engagements.OrderByDescending(x => x.CreatedOn).AsEnumerable().Take(20);
         }
-    }
+        #endregion
 
+        #region Get Recommendations
+        public IActionResult GetRecommendations()
+        {
+            return RedirectToAction("Index","Notifications",new { view = "_RecommendationView" });
+        }
+
+        private IEnumerable<RecommendationDetails> GetAllRecommendations()
+        {
+            var currentUser = this.User.Claims.First().Value;
+            var currentType = (from x in context.UserAccount
+                               where x.Id == currentUser
+                               select x.AccountType).FirstOrDefault();
+            ViewBag.cureentType = currentType;
+            var isStudent = (currentType == UserAccountType.Student);
+
+
+            var recommendations = (from x in context.Recommendation
+                                   where (isStudent && x.StudentId == currentUser)
+                                   || (!isStudent && x.InstructorId == currentUser && x.Status == RecommendationStatus.Pending)
+                                   orderby x.Id descending, x.ResponseDate descending
+                                   select new RecommendationDetails()
+                                   {
+                                       Id = x.Id,
+                                       StudentId = x.StudentId,
+                                       Student = new UserAccountDetails()
+                                       {
+                                           Id = x.Student.Id,
+                                           Username = x.Student.UserName,
+                                           FullName = x.Student.FullName,
+                                           Headline = x.Student.Headline,
+                                       },
+                                       InstructorId = x.InstructorId,
+                                       Instructor = new UserAccountDetails()
+                                       {
+                                           Id = x.Instructor.Id,
+                                           Username = x.Instructor.UserName,
+                                           FullName = x.Instructor.FullName,
+                                           Headline = x.Instructor.Headline,
+                                       },
+                                       RequestDate = x.RequestDate,
+                                       ResponseDate = x.ResponseDate,
+                                       Status = x.Status,
+                                       InstructorReply = x.InstructorReply,
+                                       IsStudent = isStudent,
+                                       Reply = new RecommendationReply()
+                                       {
+                                           Id = x.Id,
+                                           Reply = x.InstructorReply
+                                       }
+                                   }).AsQueryable();
+            return recommendations;
+        }
+        #endregion  
+    }
 }

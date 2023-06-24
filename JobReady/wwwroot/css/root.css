@@ -50,12 +50,12 @@
     overflow:hidden!important;
 }
 
-.btn-outline-danger{
-    border: 1px solid var(--error)!important;
+.btn-outline-danger, .btn-outline-danger:focus{
+    border: 1px solid var(--error) !important;
 }
 
-.btn-outline-success {
-    border: 1px solid #198754!important;
+.btn-outline-success, .btn-outline-success:focus {
+    border: 1px solid #198754 !important;
 }
 
 .btn-outline-primary{
