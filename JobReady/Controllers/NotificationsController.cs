@@ -17,10 +17,19 @@ namespace JobReady.Controllers
                 Engagements = GetAllEngagements(),
                 Recommendations = GetAllRecommendations(),
                 Applications = GetAllApplications(),
+                UserAccountType = GetUserType(),
                 Partial = view,
             };
             return View(notification);
         }
+
+        #region Get Type
+        private UserAccountType GetUserType()
+        {
+            return (from x in context.Users where x.Id == this.User.Claims.First().Value
+                    select x.AccountType).FirstOrDefault();
+        }
+        #endregion
 
         #region Get Engagements
         public IActionResult GetEngagements()
