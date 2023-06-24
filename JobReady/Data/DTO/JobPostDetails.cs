@@ -13,7 +13,7 @@ public class JobPostDetails
     public UserAccountDetails CreatedBy { get; set; }
     public DateTime CreatedOn { get; set; }
     public string PostedOn { get; set; }
-
+    public bool HasApplied { get; set; }
     public string Validate()
     {
         if (string.IsNullOrEmpty(Title))

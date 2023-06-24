@@ -8,8 +8,9 @@ public class JobApplicationDetails
     public string ApplicantId { get; set; }
     public UserAccountDetails Applicant { get; set; }
     public long JobPostId { get; set; }
-    public JobPost JobPost { get; set; }
+    public JobPostDetails JobPost { get; set; }
     public string LetterOfMotivation { get; set; }
     public DateTime AppliedOn { get; set; }
+    public bool IsCompany { get; set; }
     public IEnumerable<SkillDetails> Skills { get; set;}
 }

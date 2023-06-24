@@ -20,7 +20,9 @@
 
                             <p>Engagements</p>
                         </a>
-                <a class="btn d-flex flex-row filter-news-item align-items-center @if(Model.Partial == "_RecommendationView"){var active="active";
+                @if (Model.UserAccountType != UserAccountType.Company)
+                {
+                    <a class="btn d-flex flex-row filter-news-item align-items-center @if(Model.Partial == "_RecommendationView"){var active="active";
                 @active
 ;}" asp-controller="Notifications" asp-action="GetRecommendations">
                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +33,10 @@
 
                              <p class="text-capitalize">my recommendations</p>
                         </a>
-                <a class="btn d-flex flex-row filter-news-item align-items-center @if(Model.Partial == "_ApplicationView"){var active="active";
+                }
+                @if(Model.UserAccountType != UserAccountType.Instructor)
+                {
+                    <a class="btn d-flex flex-row filter-news-item align-items-center @if(Model.Partial == "_ApplicationView"){var active="active";
                 @active
 ;}" asp-controller="Notifications" asp-action="GetApplications">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +48,8 @@
                             </svg>
                              <p class="text-capitalize">my applications</p>
                         </a>
+                }
+                
                     </div>
                 </div>
             </div>
