@@ -71,7 +71,7 @@ namespace JobReady.Controllers
         #region Get Recommendations
         public IActionResult GetRecommendations()
         {
-            return Index("_RecommendationView");
+            return RedirectToAction("Index","Notifications",new { view = "_RecommendationView" });
         }
 
         private IEnumerable<RecommendationDetails> GetAllRecommendations()
@@ -96,6 +96,7 @@ namespace JobReady.Controllers
                                        {
                                            Id = x.Student.Id,
                                            Username = x.Student.UserName,
+                                           FullName = x.Student.FullName,
                                            Headline = x.Student.Headline,
                                        },
                                        InstructorId = x.InstructorId,
@@ -103,6 +104,7 @@ namespace JobReady.Controllers
                                        {
                                            Id = x.Instructor.Id,
                                            Username = x.Instructor.UserName,
+                                           FullName = x.Instructor.FullName,
                                            Headline = x.Instructor.Headline,
                                        },
                                        RequestDate = x.RequestDate,

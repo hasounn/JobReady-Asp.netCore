@@ -1,20 +1,22 @@
 ﻿@model IEnumerable<RecommendationDetails>;
 
     @if(Model.All(t=>t.IsStudent)){
-    <table class="table table-hover">
-        <thead class="table-dark">
+    <table class="table table-hover ">
+        <thead class="light-blue-thead">
             <tr>
-                <th scope="col" width="40%">DateTime Sent</th>
-                <th scope="col">Send To</th>
+                <th scope="col" width="40%">Sent On</th>
+                <th scope="col">Instructor</th>
                 <th scope="col">Status</th>
+                <th scope="col">Replied On</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider">
+        <tbody class="table-group-divider table-light">
             @foreach(var recommendation in Model){
             <tr>
                 <th scope="row">@recommendation.RequestDate?.ToString("ddd dd MMMM yyyy")</th>
-                <td>@recommendation.Instructor.Username</td>
-                <td>@recommendation.Status</td>
+                <td>@recommendation.Instructor.FullName</td>
+                    <td>@recommendation.Status</td>
+                    <td>@recommendation.ResponseDate?.ToString("ddd dd MMMM yyyy")</td>
             </tr>
             }
         </tbody>
@@ -23,17 +25,17 @@
     <table class="table table-hover">
         <thead class="light-blue-thead">
             <tr>
-                <th scope="col" width="40%">DateTime Sent</th>
-                <th scope="col">Send By</th>
+                <th scope="col" width="40%">Requested On</th>
+                <th scope="col">Requested By</th>
                 <th scope="col">Response</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider">
+        <tbody class="table-group-divider  table-light">
             @foreach (var recommendation in Model)
             {
                 <tr>
                     <th scope="row">@recommendation.RequestDate?.ToString("ddd dd MMMM yyyy")</th>
-                    <td>@recommendation.Instructor.Username</td>
+                    <td>@recommendation.Student.FullName</td>
                     <td>
                         <div class="d-flex flex-row gap-3">
                             <button type="button" class="btn btn-outline-danger  d-flex flex-row align-items-center text-center">&times;</button>
