@@ -13,6 +13,15 @@ namespace JobReady.Controllers
         [HttpPost]
         public IActionResult AddRecommendation([FromBody] string instructorId)
         {
+            var askForRecommendation = new Recommendation()
+            {
+                StudentId = this.User.Claims.First().Value,
+                InstructorId = instructorId,
+                Status = RecommendationStatus.Pending,
+                RequestDate = DateTime.Now
+            };
+            context.Recommendation.Add(askForRecommendation);
+            context.SaveChanges();
 
             var image = "/icons/tick-white.svg";
             return Ok(new {image});
