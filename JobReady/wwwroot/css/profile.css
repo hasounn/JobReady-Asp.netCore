@@ -18,6 +18,7 @@ body{
     padding: 8px 20px;
     background: var(--snow-white);
     filter: drop-shadow(0px 4px 9px #232C31);
+    font-size:13px;
 }
 
 .fullname-p{
@@ -278,6 +279,11 @@ body{
     border-radius:15px;
     padding:1em;
     padding-right:20px;
+}
+
+.askrecoms{
+    width:40px;
+    height:40px;
 }
 
 @media (max-width:1168px) {

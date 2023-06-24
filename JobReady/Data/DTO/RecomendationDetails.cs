@@ -7,7 +7,6 @@ public class RecommendationDetails
     public string InstructorId { get; set; }
     public UserAccountDetails Instructor { get; set; }
     public RecommendationStatus Status { get; set; }
-    public string StudentRequest { get; set; }
     public string InstructorReply { get; set; }
     public DateTime? RequestDate { get; set; }
     public DateTime? ResponseDate { get; set; }

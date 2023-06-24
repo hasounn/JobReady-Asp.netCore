@@ -16,7 +16,7 @@
                         <p class="company-time fw-bold">
                             <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">
                                 @{
-                                    var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM YYYY");
+                                    var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM yyyy");
                                     @endDate
                                 }
                             </span>
