@@ -14,7 +14,6 @@ public class Education
     public long? SchoolId { get; set; }
     public University School { get; set; }
 
-    [Required]
     public string SchoolName { get; set; }
 
     public DegreeType? Degree { get; set; }

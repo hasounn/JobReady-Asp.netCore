@@ -87,10 +87,13 @@ namespace JobReady.Controllers
             userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
             userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
+            userDetails.Universities = (from x in context.University select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
             userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
             userDetails.Followers = GetFollowers(userId);
             userDetails.Experiences = GetExperiences(userId);
             userDetails.Experience = new ExperienceDetails();
+            userDetails.Educations = GetEducations(userId);
+            userDetails.Education = new EducationDetails();
             return userDetails;
         }
 
@@ -334,6 +337,74 @@ namespace JobReady.Controllers
                                }
                                ).ToArray();
             return experiences;
+        }
+        #endregion
+
+        #region Add Education
+        [HttpPost]
+        public IActionResult AddEducation(UserAccountDetails details)
+        {
+            if (ModelState.IsValid)
+            {
+                var education = new Education()
+                { 
+                    SchoolId = details.Education.SchoolId,
+                    FieldOfStudy = details.Education.FieldOfStudy,
+                    Degree = details.Education.Degree,
+                    StartDate = details.Education.StartDate,
+                    EndDate = details.Education.EndDate,
+                    Description = details.Education.Description,
+                    UserId = this.User.Claims.First().Value,
+                };
+                context.Education.Add(education);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
+        #region Update Education
+        [HttpPost]
+        public IActionResult UpdateEducation(UserAccountDetails details)
+        {
+            if (ModelState.IsValid)
+            {
+                var target = (from x in context.Education
+                              where x.Id == details.Education.Id
+                              select x).FirstOrDefault();
+
+                target.SchoolId = details.Education.SchoolId; 
+                target.FieldOfStudy = details.Education.FieldOfStudy;
+                target.Degree = details.Education.Degree;
+                target.Description = details.Education.Description;
+                target.StartDate = details.Education.StartDate;
+                target.EndDate = details.Education.EndDate;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
+        #region Get Educations
+        public IEnumerable<EducationDetails> GetEducations(string userId = null)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var educations = (from x in context.Education
+                               where x.UserId == userId
+                               orderby x.StartDate descending
+                               select new EducationDetails()
+                               {
+                                   Id = x.Id,
+                                   SchoolId = x.SchoolId,
+                                   School = new UniversityDetails() { Name = x.School.Name},
+                                   FieldOfStudy = x.FieldOfStudy,
+                                   Degree = x.Degree,
+                                   Description = x.Description,
+                                   StartDate = x.StartDate,
+                                   EndDate = x.EndDate,
+                               }
+                               ).ToArray();
+            return educations;
         }
         #endregion
     }

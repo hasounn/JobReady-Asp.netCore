@@ -10,7 +10,7 @@ public class EducationDetails
     public UserAccountDetails User { get; set; }
 
     public long? SchoolId { get; set; }
-    public University School { get; set; }
+    public UniversityDetails School { get; set; }
 
     [Display(Name ="School Name")]
     public string SchoolName { get; set; }
