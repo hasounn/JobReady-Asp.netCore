@@ -1,6 +1,8 @@
 ﻿
 const maindiv = document.querySelector(".height-fix"),
-    notificationList = document.getElementById("notification-list");
+    notificationList = document.getElementById("notification-list"),
+    items = document.querySelectorAll('[data-bs-target="#replyModal"]'),
+    recommendationId = document.getElementById("recommendationId");
 
 window.addEventListener("load", () => {
 
@@ -30,3 +32,11 @@ $(".letter").each(function () {
         }, 0);
     }
 });
+
+items.forEach(item => {
+    item.addEventListener("click", () => {
+        const requestId = item.querySelector("#requestId").value;
+        recommendationId.value = requestId;
+        console.log(requestId);
+    })
+})

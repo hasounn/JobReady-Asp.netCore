@@ -112,6 +112,11 @@ namespace JobReady.Controllers
                                        Status = x.Status,
                                        InstructorReply = x.InstructorReply,
                                        IsStudent = isStudent,
+                                       Reply = new RecommendationReply()
+                                       {
+                                           Id = x.Id,
+                                           Reply = x.InstructorReply
+                                       }
                                    }).AsQueryable();
             return recommendations;
         }

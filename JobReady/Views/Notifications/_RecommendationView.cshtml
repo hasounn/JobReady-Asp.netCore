@@ -41,10 +41,11 @@
                             <a role="button" asp-controller="Recommendation" asp-action="RejectRecommendation" asp-route-id="@recommendation.Id"
                                 class="btn btn-outline-danger  d-flex flex-row align-items-center text-center">&times;</a>
                             <button type="button" class="btn btn-outline-success d-flex flex-row align-items-center justify-content-center" 
-                            data-bs-toggle="modal" data-bs-target="#replyModal-@recommendation.Id">
+                            data-bs-toggle="modal" data-bs-target="#replyModal">
                                 <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 3.82996L3.83 6.65996L9.5 1" stroke="#8FFD39" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
+                                <input type="hidden" value="@recommendation.Id" id="requestId"/>
                             </button>
                         </div>
                     </td>
