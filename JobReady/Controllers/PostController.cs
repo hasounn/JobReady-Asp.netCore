@@ -24,7 +24,12 @@ namespace JobReady.Controllers
                             FullName = x.FullName,
                             Username = x.UserName,
                             Headline = x.Headline,
+                            AccountType = x.AccountType,
                         }).FirstOrDefault();
+            var userType = (from x in context.UserAccount
+                            where x.Id == this.User.Claims.First().Value
+                            select x.AccountType).FirstOrDefault();
+            ViewData["User"] = userType;
 
             return View(new PostDetails() { CreatedBy = user});
         }

@@ -15,6 +15,11 @@ namespace JobReady.Controllers
         }
         public IActionResult Index()
         {
+            var userId = this.User.Claims.First().Value;
+            var userType = (from x in context.UserAccount
+                            where x.Id == userId
+                            select x.AccountType).FirstOrDefault();
+            ViewData["User"] = userType;
             return View();
         }
 

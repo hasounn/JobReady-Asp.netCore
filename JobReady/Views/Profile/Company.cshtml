@@ -105,19 +105,25 @@
             <p class="fw-light fs-5 white-space">@Model.About</p>
         </div>
     }
+
     <div class="all-divs d-flex flex-column gap-4">
+    @if(Model.JobPosts.Count() >0 || Model.JobPosts != null){
         <div class="d-flex flex-column gap-4">
             <p class="yourjobs-title">Your Jobs</p>
             <div class="jobs d-flex flex-column gap-3">
                 <partial name="_Jobs" model="@Model.JobPosts"/>
             </div>
         </div>
+    }
+
+    @if(Model.Posts.Count() >0 || Model.Posts != null){
         <div class="d-flex flex-column gap-4">
             <p class="yourposts-title">Your Posts</p>
             <div class="posts d-flex flex-column gap-3">
                 <partial name="_Posts" model="@Model.Posts" />
             </div>
         </div>
+    }
     </div>
 </div>
 

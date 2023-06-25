@@ -29,13 +29,14 @@ namespace JobReady.Controllers
         public IActionResult Company(string userId = null)
         {
             var userDetails = GetUserAccount(userId);
-            userDetails.JobPosts = Enumerable.Empty<JobPostDetails>();
+            userDetails.JobPosts = GetJobPosts(userId);
             if (!IsCompany(userId))
             {
                 return RedirectToAction("Index","Company", new { userId});
             }
             else
             {
+                ViewData["User"] = UserAccountType.Company;
                 return View(userDetails);
             }
         }
@@ -458,6 +459,26 @@ namespace JobReady.Controllers
             context.UserSkill.Remove(skill);
             context.SaveChanges();
             return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
+        #region Get Job Posts
+        private IEnumerable<JobPostDetails> GetJobPosts(string userId = null)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var jobPosts = (from x in context.JobPost
+                            where x.CreatedById == userId
+                            select new JobPostDetails()
+                            {
+                                Id = x.Id,
+                                CreatedById = userId,
+                                Title = x.Title,
+                                Description = x.Description,
+                                CreatedOn = x.CreatedOn,
+                                IsRemote = x.IsRemote,
+                                PostedOn = x.CreatedOn.ToString("ddd dd MMMM yyyy"),
+                            }).AsQueryable();
+            return jobPosts;
         }
         #endregion
 

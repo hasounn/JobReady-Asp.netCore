@@ -1,0 +1,36 @@
+﻿@model IEnumerable<JobApplicationDetails>;
+@{
+    ViewData["Title"] = "See Applicants";
+}
+<link rel="stylesheet" href="~/css/applicants.css"/>
+<div class="w-100 d-flex flex-column gap-3 p-5">
+    <div class="d-flex flex-row align-items-center gap-2">
+        <a role="button" asp-controller="Profile" asp-action="Company">
+            <svg class="back-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#38434F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M13.26 15.53L9.73999 12L13.26 8.46997" stroke="#38434F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+        <p class="color-light-blue fs-4 fw-bold">@Model.FirstOrDefault().JobPost.Title</p>
+    </div>
+    <div id="applicants-list" class="h-auto">
+        <div class="accordion" id="accordions">
+                @foreach(var applicant in Model)
+            {
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button d-flex flex-row gap-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@applicant.Id" aria-expanded="false" aria-controls="collapseTwo">
+                        <img src="@Url.Action("GetProfilePicture","Profile", new {userId = applicant.ApplicantId})" class="applicant-img rounded-circle"/>
+                        <p>@applicant.Applicant.FullName</p>
+                    </button>
+                </h2>
+                <div id="collapse-@applicant.Id" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p class="white-space">@applicant.LetterOfMotivation</p> 
+                        </div>
+                </div>
+            </div>
+                }
+        </div>
+    </div>
+</div>

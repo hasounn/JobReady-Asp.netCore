@@ -15,86 +15,87 @@
             <p class="color-light-blue fs-4 fw-bold">@Model.Title</p>
         </div>
         @if(Model.CreatedBy.AccountType == UserAccountType.Company){
-        
+        <input type="hidden" value="@Model.Id" id="jobPostId"/>
         <div class="form-switch d-flex flex-row align-items-center gap-3">
             <p class="color-light-white">Deactivate</p>
             <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
+                    <input type="checkbox"@if(Model.IsActive){
+                        var active = "checked"; 
+                        @active
+                    }
+                    id="activeJob"
+                    >
+                    <span class="slider"></span>
             </label>
             <p class="color-light-white">Activate</p>
         </div>
         }
     </div>
-    <div class="d-flex flex-column flex-lg-row align-items-center w-100 gap-3">
-        <img src="@Url.Action("GetProfilePicture","Profile", new{userId = Model.CreatedById})" class="rounded-circle logo-resizing" />
-        <div class="d-flex flex-column gap-3 ">
-            <p class="company-name color-light-white fs-5 fw-bold text-lg-start text-center">Company:<br /><span class="name fs-6 fw-normal">@Model.CreatedBy.Username</span></p>
-            @if(Model.CreatedBy.AccountType == UserAccountType.Student && !Model.HasApplied){
-                <a role="button" class="apply-btn">
-                    <div class="d-flex flex-row align-items-center p-1 gap-2" data-bs-toggle="modal" data-bs-target="#applyLetterModal">
-                        <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="color-light-white">Apply</p>
-                    </div>
-                </a>
-            }
-            else if (Model.CreatedBy.AccountType == UserAccountType.Company)
-            {
-                <a role="button" class="apply-btn pe-2" asp-controller="Applicants" asp-action="Index">
-                    <div class="d-flex flex-row align-items-center p-1 gap-1">
-                        <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="color-light-white">See Applicants</p>
-                    </div>
-                </a>
-            }
-        </div>
-    </div>
-    <div class="d-flex flex-row flex-lg-column w-100 justify-content-around justify-content-lg-start gap-3">
-        <div class="country d-flex flex-row align-items-center color-light-white gap-4">
-            <p class="fw-bold">Country:</p>
-            <p class="fw-light">Lebanon</p>
-        </div>
-        <div class="remote d-flex flex-row align-items-center color-light-white gap-4">
-            <p class="fw-bold">Remote:</p>
-            <div class="fw-light d-flex flex-row gap-1">
-                @if(Model.IsRemote == true){
-                <img src="~/icons/tick-circle-green.svg" width="20px"/>
-                    <p>Yes</p>
-                }
-                else
-                {
-                    <img src="~/icons/close-circle-red.svg" width="20px" />
-                    <p>No</p>
-                }
+            <div class="d-flex flex-column flex-lg-row align-items-center w-100 gap-3">
+                <img src="@Url.Action("GetProfilePicture","Profile", new{userId = Model.CreatedById})" class="rounded-circle logo-resizing" />
+                <div class="d-flex flex-column gap-3 ">
+                    <p class="company-name color-light-white fs-5 fw-bold text-lg-start text-center">Company:<br /><span class="name fs-6 fw-normal">@Model.CreatedBy.Username</span></p>
+                    @if(Model.CreatedBy.AccountType == UserAccountType.Student && !Model.HasApplied){
+                        <a role="button" class="apply-btn">
+                            <div class="d-flex flex-row align-items-center p-1 gap-2" data-bs-toggle="modal" data-bs-target="#applyLetterModal">
+                                <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p class="color-light-white">Apply</p>
+                            </div>
+                        </a>
+                    }
+                    else if (Model.CreatedBy.AccountType == UserAccountType.Company)
+                    {
+                        <a role="button" class="apply-btn pe-2" asp-controller="Applicants" asp-action="Index" asp-route-jobId="@Model.Id">
+                            <div class="d-flex flex-row align-items-center p-1 gap-1">
+                                <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M5.44 12H10.84" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <p class="color-light-white">See Applicants</p>
+                            </div>
+                        </a>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="posted d-flex flex-row align-items-center color-light-white gap-4">
-            <p class="fw-bold">Posted:</p>
-            <p class="fw-bold text-center">@Model.CreatedOn</p>
-        </div>
-    </div>
-    <div class="d-flex flex-column gap-3 mt-2">
-       <p class="color-light-white fs-4 fw-bold">Skills</p>
-       <div class="d-flex flex-row flex-wrap gap-3 w-100">
-           @foreach(SkillDetails skill in Model.Skills){
-                <p class="skill" id="skill-@skill.Id">@skill.Name</p>
-            }
-       </div>
-    </div>
-    <div class="d-flex flex-column gap-3 mt-2">
-        <p class="color-light-white fs-4 fw-bold">Job Overview</p>
-        <p class="fs-6 color-light-white fw-light">@Model.Description</p>
-    @if (Model.CreatedBy.AccountType == UserAccountType.Company)
-    {
-        <a role="button" class="btn btn-danger rounded-pill w-100 color-light-white" asp-controller="JobApplication" asp-action="Delete">Delete</a>
-    }
-    </div>
+            <div class="d-flex flex-row flex-lg-column w-100 justify-content-around justify-content-lg-start gap-3">
+                <div class="country d-flex flex-row align-items-center color-light-white gap-4">
+                    <p class="fw-bold">Country:</p>
+                    <p class="fw-light">Lebanon</p>
+                </div>
+                <div class="remote d-flex flex-row align-items-center color-light-white gap-4">
+                    <p class="fw-bold">Remote:</p>
+                    <div class="fw-light d-flex flex-row gap-1">
+                        @if(Model.IsRemote == true){
+                        <img src="~/icons/tick-circle-green.svg" width="20px"/>
+                            <p>Yes</p>
+                        }
+                        else
+                        {
+                            <img src="~/icons/close-circle-red.svg" width="20px" />
+                            <p>No</p>
+                        }
+                    </div>
+                </div>
+                <div class="posted d-flex flex-row align-items-center color-light-white gap-4">
+                    <p class="fw-bold">Posted:</p>
+                    <p class="fw-bold text-center">@Model.CreatedOn</p>
+                </div>
+            </div>
+            <div class="d-flex flex-column gap-3 mt-2">
+               <p class="color-light-white fs-4 fw-bold">Skills</p>
+               <div class="d-flex flex-row flex-wrap gap-3 w-100">
+                   @foreach(SkillDetails skill in Model.Skills){
+                        <p class="skill" id="skill-@skill.Id">@skill.Name</p>
+                    }
+               </div>
+            </div>
+            <div class="d-flex flex-column gap-3 mt-2">
+                <p class="color-light-white fs-4 fw-bold">Job Overview</p>
+                <p class="fs-6 color-light-white fw-light">@Model.Description</p>
+                    </div>
 </div>
 
 <div class="modal fade" id="applyLetterModal" tabindex="-1" aria-labelledby="applyLetterModal" aria-hidden="true">
@@ -119,6 +120,19 @@
                 <button type="submit" role="button" class="btn btn-primary rounded-pill">Send Letter</button>
             </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast text-bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="~/favicon.svg" class="rounded me-2" alt="jobReady" width="20px"/>
+            <strong class="me-auto">JobReady Notification</strong>
+            <button id="closeButton" type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <p>Job Post Status Updated Successfully!</p>
         </div>
     </div>
 </div>
