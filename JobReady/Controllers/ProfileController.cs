@@ -86,6 +86,9 @@ namespace JobReady.Controllers
                                         select x.AccountType).FirstOrDefault();
             userDetails.Posts = GetUserPosts(userId ?? this.User.Claims.First().Value);
             userDetails.Skills = GetUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.UserSkills = GetAllUserSkills(userId ?? this.User.Claims.First().Value);
+            userDetails.AllSkills = GetAllSkills();
+            userDetails.Skill = new SkillDetails();
             userDetails.Industries = (from x in context.Industry select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
             userDetails.Universities = (from x in context.University select new SelectListItem() { Value = x.Id.ToString() , Text = x.Name}).AsQueryable();
             userDetails.HasFollowed = userId != null ? HasFollowed(userId) : false;
@@ -133,6 +136,28 @@ namespace JobReady.Controllers
                           join y in context.Skill on x.SkillId equals y.Id
                           where x.UserAccountId == userId
                           select y.Name).ToArray();
+            return skills;
+        }
+        public IEnumerable<SkillDetails> GetAllUserSkills(string userId)
+        {
+            var skills = (from x in context.UserSkill
+                          join y in context.Skill on x.SkillId equals y.Id
+                          where x.UserAccountId == userId
+                          select new SkillDetails()
+                          {
+                              Id = x.Skill.Id,
+                              Name = x.Skill.Name
+                          }).ToArray();
+            return skills;
+        }
+        public IEnumerable<SkillDetails> GetAllSkills()
+        {
+            var skills = (from x in context.Skill
+                          select new SkillDetails()
+                          {
+                              Id = x.Id,
+                              Name = x.Name
+                          }).ToArray();
             return skills;
         }
         public long GetTotalLikesCount(long postId)
@@ -407,5 +432,34 @@ namespace JobReady.Controllers
             return educations;
         }
         #endregion
+
+        #region  Add Skill in Edit
+        public IActionResult AddSkillInEdit(UserAccountDetails details)
+        {
+            var skill = new UserSkill()
+            {
+                SkillId = details.Skill.Id,
+                UserAccountId = this.User.Claims.First().Value,
+            };
+            context.UserSkill.Add(skill);
+            context.SaveChanges();
+            return RedirectToAction("Edit","Profile");
+        }
+        #endregion
+
+        #region  Delete Skill in Edit
+        public IActionResult DeleteSkill(UserAccountDetails details)
+        {
+            var skill = (from x in context.UserSkill
+                         where x.SkillId == details.Skill.Id &&
+                         x.UserAccountId == this.User.Claims.First().Value
+                         select x).FirstOrDefault();
+
+            context.UserSkill.Remove(skill);
+            context.SaveChanges();
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
     }
 }

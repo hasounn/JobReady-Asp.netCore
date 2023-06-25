@@ -285,6 +285,48 @@ body{
     width:40px;
     height:40px;
 }
+#skillInput {
+    all: unset;
+    background: var(--lightblue);
+    color: var(--lightwhite);
+    padding: 5px 8px 5px 12px;
+    border-radius: 50px;
+    width: calc(100% - 50px);
+}
+.skills {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+    .skills img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 25px;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+#addSkillModal > .modal-content {
+    border-radius: 1.3em;
+    overflow: hidden;
+}
+
+#addSkillModal.modal-dialog-addSkill {
+    height: 100px;
+    max-height: 100px !important;
+}
+
+.skill-grid{
+    background:var(--snow-white);
+    color:var(--lightblue);
+    border-radius:15px;
+    width:fit-content;
+    padding: 0.5em 0.25em 0.5em 1.025em;
+}
 
 @media (max-width:1168px) {
     .width-fix {

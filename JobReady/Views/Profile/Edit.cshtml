@@ -66,7 +66,7 @@
         {
             <div class="d-flex flex-column gap-4">
                 <p class="about-title">About</p>
-                <p class="fw-light fs-5">@Model.About</p>
+                <p class="fw-light fs-5 white-space">@Model.About</p>
             </div>
         }
         <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
@@ -78,6 +78,7 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
+                @if (Model.Experiences.Count() > 0 || Model.Experiences != null){
                 @foreach (var experience in Model.Experiences)
                 {
                     <li class="w-100">
@@ -106,6 +107,7 @@
                         </section>
                     </li>
                 }
+                }
             </ul>
         </div>
         <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
@@ -117,36 +119,59 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
-                @foreach (var education in Model.Educations)
+                
+                @if (Model.Educations.Count() > 0 || Model.Educations !=null)
                 {
-                    <li class="w-100">
-                        <div class="bullet">
-                            <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                                <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                    @foreach (var education in Model.Educations)
+                    {
+                        <li class="w-100">
+                            <div class="bullet">
+                                <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                                    <circle stroke="none" cx="16" cy="16" r="10"></circle>
 
-                            </svg>
-                        </div>
-                        <section class="d-flex flex-row gap-3 w-100 justify-content-between">
-                            <div class="d-flex flex-column gap-1">
-                                <h6 class="fw-bold"><span class="uni-name">@education.School.Name</span> | <span class="uni-location">@education.FieldOfStudy</span></h6>
-                                <p class="uni-time fw-bold">
-                                    <span class="uni-start">@education.StartDate?.ToString("MMMM yyyy")</span> - <span class="uni-end">@education.EndDate?.ToString("MMMM yyyy")</span> &#8226;
-                                    <span class="fw-light">@education.Degree.ToString()</span>
-                                </p>
-                                <p class="fw-light ps-1">@education.Description</p>
+                                </svg>
                             </div>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
-                        </section>
-                    </li>
+                            <section class="d-flex flex-row gap-3 w-100 justify-content-between">
+                                <div class="d-flex flex-column gap-1">
+                                    <h6 class="fw-bold"><span class="uni-name">@education.School.Name</span> | <span class="uni-location">@education.FieldOfStudy</span></h6>
+                                    <p class="uni-time fw-bold">
+                                        <span class="uni-start">@education.StartDate?.ToString("MMMM yyyy")</span> - <span class="uni-end">@education.EndDate?.ToString("MMMM yyyy")</span> &#8226;
+                                        <span class="fw-light">@education.Degree.ToString()</span>
+                                    </p>
+                                    <p class="fw-light ps-1">@education.Description</p>
+                                </div>
+                                <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                            </section>
+                        </li>
+                    }
                 }
             </ul>
         </div>
-        @if (Model.Skills.Count() != 0)
-        {
-            <div class="d-flex flex-column flex-lg-row gap-3">
-                <partial name="_Skills" />
+        <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
+            <div class="d-flex flex-row justify-content-between w-100">
+                <p class="fw-bold section-title">Skills</p>
+                <svg class="pointer" data-bs-toggle="modal" data-bs-target="#addSkillModal" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12H18" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 18V6" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
             </div>
-        }
+            <div class="d-flex flex-row gap-3">
+                @if (Model.UserSkills.Count() > 0 || Model.UserSkills != null)
+                {
+                    @foreach (var skill in Model.UserSkills)
+                    {
+                        <div class="d-flex flex-row justify-content-between align-items-center gap-3 skill-grid">
+                            <p>@skill.Name</p>
+
+                            <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
+                                    <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
+                                <button type="submit" class="btn pe-0 me-1"><img src="~/icons/close-circle-red.svg"/></button>
+                            </form>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
 </div>
 
@@ -315,7 +340,14 @@
                             <textarea asp-for="@experience.Description" class="p-1 textarea-description w-100 color-black">@experience.Description</textarea>
                         </div>
                         <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
-                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        <div class="d-flex flex-row gap-2">
+                            <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
+
+                                <input type="hidden" value="@experience.Id" asp-for="@experience.Id" />
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Experience</button>
+                            </form>
+                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -438,12 +470,54 @@
                             <p>Description</p>
                             <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description w-100">@education.Description</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        <div class="d-flex flex-row gap-2">
+                            <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
+
+                                <input type="hidden" value="@education.Id" asp-for="@education.Id" />
+                                <button type="submit" class="btn btn-danger rounded-pill">Remove Education</button>
+                            </form>
+                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
         </div>
     </div>
 }
+
+<!-- Add Skill Modal -->
+<div class="modal fade color-black" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <button type="button" class="btn close" data-bs-dismiss="modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9.16998 14.83L14.83 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-addSkill modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Add a Skill</h4>
+            </div>
+            <form asp-controller="Profile" asp-action="AddSkillInEdit" method="post">
+            <div class="modal-body h-auto p-3">
+                <div class="d-flex flex-row skills">
+                <select asp-for="Skill.Id" id="skillInput" class="addSkillText m-3">
+                    @foreach (SkillDetails skill in Model.AllSkills)
+                    {
+                        <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
+                    }
+                </select>
+                        <img src="~/icons/arrow-bottom.svg" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/editprofile.js"></script>

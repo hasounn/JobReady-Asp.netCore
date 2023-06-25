@@ -71,12 +71,15 @@
                 <h4>Add a Skill</h4>
             </div>
             <div class="modal-body p-3">
+                <div class="d-flex flex-row skills">
                 <select id="skillInput" class="addSkillText m-3">
                     @foreach(SkillDetails skill in Model.Skills)
                     {
                         <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
                     }
-                </select>
+                    </select>
+                    <img src="~/icons/arrow-bottom.svg" />
+                </div>
             </div>
             <div class="modal-footer">
                 <a role="button" class="btn btn-primary rounded-pill addSkillBtn">Add Skill</a>
