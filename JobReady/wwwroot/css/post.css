@@ -186,6 +186,17 @@
     width: calc(100% - 50px);
 }
 
+.skills img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    z-index: 2;
+}
+
     @media (max-width:580px) {
         .create-post-div {
         max-width: 100%;

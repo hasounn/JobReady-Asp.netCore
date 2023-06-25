@@ -66,7 +66,7 @@
         {
             <div class="d-flex flex-column gap-4">
                 <p class="about-title">About</p>
-                <p class="fw-light fs-5">@Model.About</p>
+                <p class="fw-light fs-5 white-space">@Model.About</p>
             </div>
         }
         <div class="glass-box d-flex flex-column p-4 gap-2 w-100">
@@ -78,7 +78,7 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
-                @if (Model.Experiences.Count() > 0 || Model.Experiences != null)
+                @if (Model.Experiences.Count() > 0 || Model.Experiences != null){
                 @foreach (var experience in Model.Experiences)
                 {
                     <li class="w-100">
@@ -160,12 +160,12 @@
                 {
                     @foreach (var skill in Model.UserSkills)
                     {
-                        <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-row justify-content-between align-items-center gap-3 skill-grid">
                             <p>@skill.Name</p>
 
                             <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
                                     <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
-                                <button type="submit" class="btn"><img src="~/icons/close-circle-red.svg"/></button>
+                                <button type="submit" class="btn pe-0 me-1"><img src="~/icons/close-circle-red.svg"/></button>
                             </form>
                         </div>
                     }
@@ -495,19 +495,22 @@
             <path d="M14.83 14.83L9.16998 9.17004" stroke="#F4FAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <div class="modal-dialog modal-dialog-addSkill h-100 modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-addSkill modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4>Add a Skill</h4>
             </div>
             <form asp-controller="Profile" asp-action="AddSkillInEdit" method="post">
-            <div class="modal-body p-3">
+            <div class="modal-body h-auto p-3">
+                <div class="d-flex flex-row skills">
                 <select asp-for="Skill.Id" id="skillInput" class="addSkillText m-3">
                     @foreach (SkillDetails skill in Model.AllSkills)
                     {
                         <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
                     }
                 </select>
+                        <img src="~/icons/arrow-bottom.svg" />
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>

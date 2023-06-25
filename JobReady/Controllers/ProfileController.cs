@@ -145,7 +145,7 @@ namespace JobReady.Controllers
                           where x.UserAccountId == userId
                           select new SkillDetails()
                           {
-                              Id = x.Id,
+                              Id = x.Skill.Id,
                               Name = x.Skill.Name
                           }).ToArray();
             return skills;
@@ -434,11 +434,11 @@ namespace JobReady.Controllers
         #endregion
 
         #region  Add Skill in Edit
-        public IActionResult AddSkillInEdit(long id)
+        public IActionResult AddSkillInEdit(UserAccountDetails details)
         {
             var skill = new UserSkill()
             {
-                SkillId = id,
+                SkillId = details.Skill.Id,
                 UserAccountId = this.User.Claims.First().Value,
             };
             context.UserSkill.Add(skill);
@@ -448,10 +448,10 @@ namespace JobReady.Controllers
         #endregion
 
         #region  Delete Skill in Edit
-        public IActionResult DeleteSkill(long id)
+        public IActionResult DeleteSkill(UserAccountDetails details)
         {
             var skill = (from x in context.UserSkill
-                         where x.SkillId == id &&
+                         where x.SkillId == details.Skill.Id &&
                          x.UserAccountId == this.User.Claims.First().Value
                          select x).FirstOrDefault();
 
