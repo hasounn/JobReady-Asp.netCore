@@ -28,7 +28,6 @@ activeJob.addEventListener("click", () => {
         data: JSON.stringify($("#jobPostId").val()),
         dataType: "json",
         success: (response) => {
-            console.log(response);
             $("#liveToast").toast("show");
             setTimeout(function() {
               $("#closeButton").click();
