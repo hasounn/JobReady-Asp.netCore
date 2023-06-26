@@ -19,13 +19,13 @@ class MailJetProvider : SendProvider
     public override async Task SendMessage(ReportMessage source, CancellationToken cancel)
     {
         TransactionalEmail mailMessage;
-        mailMessage = await CreateMailJetMessage(source, cancel);
+        mailMessage = CreateMailJetMessage(source, cancel);
         await SendMailJetMessage(mailMessage);
     }
 
     #region Create MailJet Message
     //https://dev.mailjet.com/email/reference/send-emails#v3_1_post_send
-    async Task<TransactionalEmail> CreateMailJetMessage(ReportMessage source, CancellationToken cancel)
+    TransactionalEmail CreateMailJetMessage(ReportMessage source, CancellationToken cancel)
     {
 
         var email = new TransactionalEmailBuilder()
