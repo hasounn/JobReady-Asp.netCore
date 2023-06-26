@@ -221,7 +221,6 @@ items.forEach(post => {
             url: '/Post/GetPostComments?postId=' + postIdComment,
             success: function (response) {
                 if (response.length > 0) {
-                        console.log(response)
                     response.forEach(c => {
                         // Check if the comment already exists before appending
                         const existingComment = allComments.querySelector(`.user-comment .the-comment[data-comment-id="${c.id}"]`);
@@ -301,6 +300,7 @@ items.forEach(post => {
                         ptime.textContent = response.postedOn;
                         usercDiv.appendChild(innerDiv);
                         usercDiv.appendChild(ptime);
+                        inputComment.value = "";
                         allComments.appendChild(usercDiv);
                     },
                     error: function (res) {
