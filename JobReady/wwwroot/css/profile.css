@@ -273,6 +273,7 @@ body{
 .textarea-description{
     all:unset;
     height:40px;
+    width:calc(100% - 10px);
     max-height:140px;
     overflow-y:scroll;
     border:1px solid var(--black);

@@ -78,35 +78,42 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
-                @if (Model.Experiences.Count() > 0 || Model.Experiences != null){
-                @foreach (var experience in Model.Experiences)
+                @if (Model.Experiences.Count() > 0 || Model.Experiences != null)
                 {
-                    <li class="w-100">
-                        <div class="bullet">
-                            <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
-                                <circle stroke="none" cx="16" cy="16" r="10"></circle>
-                            </svg>
-                        </div>
-                        <section class="d-flex flex-row justify-content-between gap-3 w-100">
-                            <div class="d-flex flex-column gap-1">
-                                <h6 class="fw-bold"><span class="company-name">@experience.CompanyName</span> | <span class="company-location">@experience.Title</span></h6>
-                                <p class="company-time fw-bold">
-                                    <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">
-                                        @{
-                                            var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM yyyy");
-                                            @endDate
-                                        }
-                                    </span>
-                                    @*<span class="fw-light"><span class="calculated-time">4</span> mos.</span>*@
-                                </p>
-                                @* <p>
+                    @foreach (var experience in Model.Experiences)
+                    {
+                        <li class="w-100">
+                            <div class="bullet">
+                                <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
+                                    <circle stroke="none" cx="16" cy="16" r="10"></circle>
+                                </svg>
+                            </div>
+                            <section class="d-flex flex-row justify-content-between gap-3 w-100">
+                                <div class="d-flex flex-column gap-1">
+                                    <h6 class="fw-bold"><span class="company-name">@experience.CompanyName</span> | <span class="company-location">@experience.Title</span></h6>
+                                    <p class="company-time fw-bold">
+                                        <span class="company-start">@experience.StartDate.ToString("MMMM yyyy")</span> - <span class="company-end">
+                                            @{
+                                                var endDate = experience.EndDate == null ? "Present" : experience.EndDate?.ToString("MMMM yyyy");
+                                                @endDate
+                                            }
+                                        </span>
+                                        @*<span class="fw-light"><span class="calculated-time">4</span> mos.</span>*@
+                                    </p>
+                                    @* <p>
                             @experience.Title
                             </p>*@
-                            </div>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal-@experience.Id"><img src="~/icons/edit-2.svg" /></button>
-                        </section>
-                    </li>
-                }
+                                </div>
+                                <div class="d-flex flex-row gap-3 align-items-center">
+                                    <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal-@experience.Id"><img src="~/icons/edit-2.svg" /></button>
+                                    <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
+                                        <input type="hidden" value="@experience.Id" asp-for="Experience.Id" />
+                                        <button type="submit" class="btn btn-danger rounded-circle">&times;</button>
+                                    </form>
+                                </div>
+                            </section>
+                        </li>
+                    }
                 }
             </ul>
         </div>
@@ -119,8 +126,8 @@
                 </svg>
             </div>
             <ul class="joined-custom-list w-100">
-                
-                @if (Model.Educations.Count() > 0 || Model.Educations !=null)
+
+                @if (Model.Educations.Count() > 0 || Model.Educations != null)
                 {
                     @foreach (var education in Model.Educations)
                     {
@@ -140,7 +147,13 @@
                                     </p>
                                     <p class="fw-light ps-1">@education.Description</p>
                                 </div>
-                                <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                                <div class="d-flex flex-row gap-3 align-items-center">
+                                    <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                                    <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
+                                        <input type="hidden" value="@education.Id" asp-for="Education.Id" />
+                                        <button type="submit" class="btn btn-danger rounded-circle">&times;</button>
+                                    </form>
+                                </div>
                             </section>
                         </li>
                     }
@@ -164,8 +177,8 @@
                             <p>@skill.Name</p>
 
                             <form asp-controller="Profile" asp-action="DeleteSkill" method="post">
-                                    <input type="hidden" value="@skill.Id" asp-for="@skill.Id"/>
-                                <button type="submit" class="btn pe-0 me-1"><img src="~/icons/close-circle-red.svg"/></button>
+                                <input type="hidden" value="@skill.Id" asp-for="@skill.Id" />
+                                <button type="submit" class="btn pe-0 me-1"><img src="~/icons/close-circle-red.svg" /></button>
                             </form>
                         </div>
                     }
@@ -272,84 +285,84 @@
                 <div class="modal-header p-4">
                     <h4 class="h4">Edit  Experience</h4>
                 </div>
+                <form asp-controller="Profile" asp-action="UpdateExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
                 <div class="modal-body">
-                    <form asp-controller="Profile" asp-action="UpdateExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Title  <span class="text-danger">*</span></p>
-                            <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Company  <span class="text-danger">*</span></p>
-                            <input value="@experience.CompanyName" asp-for="Experience.CompanyName" type="text" class="p-1 rounded-pill fixed-width" required />
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Industry <span class="text-danger">*</span></p>
-                            <select asp-for="Experience.IndustryId">
-                                @foreach (var industry in Model.Industries)
-                                {
-                                    var selected = industry.Value == experience.IndustryId.ToString();
-                                    if (selected)
-                                    {
-                                        <option value="@industry.Value" selected>@industry.Text</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@industry.Value">@industry.Text</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Employment Type  <span class="text-danger">*</span></p>
-                            <select asp-for="Experience.EmploymentType">
-                                @foreach (var jobType in Enum.GetValues(typeof(JobType)))
-                                {
-                                    var jobSelected = jobType.Equals(experience.EmploymentType);
-                                    if (jobSelected)
-                                    {
-                                        <option value="@jobType" selected>@jobType</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@jobType">@jobType</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="remote d-flex flex-row align-items-center gap-1">
+                    <div class="d-flex flex-column align-items-start gap-2 w-100">
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Title  <span class="text-danger">*</span></p>
+                                    <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Company  <span class="text-danger">*</span></p>
+                                    <input value="@experience.CompanyName" asp-for="Experience.CompanyName" type="text" class="p-1 rounded-pill fixed-width" required />
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Industry <span class="text-danger">*</span></p>
+                                    <select asp-for="Experience.IndustryId">
+                                        @foreach (var industry in Model.Industries)
+                                        {
+                                            var selected = industry.Value == experience.IndustryId.ToString();
+                                            if (selected)
+                                            {
+                                                <option value="@industry.Value" selected>@industry.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@industry.Value">@industry.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Employment Type  <span class="text-danger">*</span></p>
+                                    <select asp-for="Experience.EmploymentType">
+                                        @foreach (var jobType in Enum.GetValues(typeof(JobType)))
+                                        {
+                                            var jobSelected = jobType.Equals(experience.EmploymentType);
+                                            if (jobSelected)
+                                            {
+                                                <option value="@jobType" selected>@jobType</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@jobType">@jobType</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="remote d-flex flex-row align-items-center gap-1">
 
-                            <input type="checkbox" id="remote" @if (experience.IsCurrentlyWorking)
-                            {
-                                var s = "checked";
-                                @s
-                                ;
-                            } onclick="isWorking(this)" />
-                            <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="@experience.IsCurrentlyWorking" />
-                            <label>Currently Working</label>
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Start Date <span class="text-danger">*</span></p>
-                            <input value="@experience.StartDate" asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>End Date </p>
-                            <input value="@experience.EndDate" id="endDate" asp-for="Experience.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
-                        </div>
-                        <div class="d-flex flex-column align-items-start gap-2 w-100">
-                            <p>Describe Your Experience...</p>
-                            <textarea asp-for="@experience.Description" class="p-1 textarea-description w-100 color-black">@experience.Description</textarea>
-                        </div>
-                        <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
-                        <div class="d-flex flex-row gap-2">
-                            <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
-
-                                <input type="hidden" value="@experience.Id" asp-for="@experience.Id" />
-                                <button type="submit" class="btn btn-danger rounded-pill">Remove Experience</button>
-                            </form>
-                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
-                        </div>
-                    </form>
+                                    <input type="checkbox" id="remote" @if (experience.IsCurrentlyWorking)
+                                    {
+                                        var s = "checked";
+                                        @s
+                                        ;
+                                    } onclick="isWorking(this)" />
+                                    <input asp-for="Experience.IsCurrentlyWorking" type="hidden" id="isCurrentlyWorking" value="@experience.IsCurrentlyWorking" />
+                                    <label>Currently Working</label>
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Start Date <span class="text-danger">*</span></p>
+                                    <input value="@experience.StartDate" asp-for="Experience.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>End Date </p>
+                                    <input value="@experience.EndDate" id="endDate" asp-for="Experience.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
+                                </div>
+                                <div class="d-flex flex-column align-items-start gap-2 w-100">
+                                    <p>Describe Your Experience...</p>
+                                    <textarea asp-for="@experience.Description" class="p-1 textarea-description color-black">@experience.Description</textarea>
+                                </div>
+                                <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
+                            
+                    </div>
                 </div>
+                <div class="modal-footer w-100">
+                    <div class="d-flex flex-row align-items-center justify-content-end gap-2 w-100">
+                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -417,70 +430,66 @@
                 <div class="modal-header p-4">
                     <h4 class="h4">Edit Education</h4>
                 </div>
+                            <form asp-controller="Profile" asp-action="UpdateEducation" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
                 <div class="modal-body">
-                    <form asp-controller="Profile" asp-action="UpdateEducation" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <input type="hidden" value="@education.Id" asp-for="Education.Id"/>
-                            <p>University <span class="text-danger">*</span></p>
-                            <select asp-for="Education.SchoolId">
-                                @foreach (var uni in Model.Universities)
-                                {
-                                    var selected = uni.Value == education.SchoolId.ToString();
-                                    if (selected)
-                                    {
-                                        <option value="@uni.Value" selected>@uni.Text</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@uni.Value">@uni.Text</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Field Of Study <span class="text-danger">*</span></p>
-                            <input asp-for="Education.FieldOfStudy" value="@education.FieldOfStudy" type="text" class="p-1 rounded-pill fixed-width" />
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Degree Pursued <span class="text-danger">*</span></p>
-                            <select asp-for="Education.Degree">
-                                @foreach (var degreeType in Enum.GetValues(typeof(DegreeType)))
-                                {
-                                    var degreeSelected = degreeType.Equals(education.Degree);
-                                    if (degreeSelected)
-                                    {
-                                        <option value="@degreeType" selected>@degreeType</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@degreeType">@degreeType</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>Start Date <span class="text-danger">*</span></p>
-                            <input asp-for="Education.StartDate" value="@education.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                            <p>End Date (Or Expected)</p>
-                            <input asp-for="Education.EndDate" value="@education.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
-                        </div>
-                        <div class="d-flex flex-column align-items-start gap-2 w-100">
-                            <p>Description</p>
-                            <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description w-100">@education.Description</textarea>
-                        </div>
-                        <div class="d-flex flex-row gap-2">
-                            <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
-
-                                <input type="hidden" value="@education.Id" asp-for="@education.Id" />
-                                <button type="submit" class="btn btn-danger rounded-pill">Remove Education</button>
-                            </form>
-                            <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
-                        </div>
-                        
-                    </form>
+                    <div class="d-flex flex-column align-items-start gap-3">
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <input type="hidden" value="@education.Id" asp-for="Education.Id" />
+                                    <p>University <span class="text-danger">*</span></p>
+                                    <select asp-for="Education.SchoolId">
+                                        @foreach (var uni in Model.Universities)
+                                        {
+                                            var selected = uni.Value == education.SchoolId.ToString();
+                                            if (selected)
+                                            {
+                                                <option value="@uni.Value" selected>@uni.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@uni.Value">@uni.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Field Of Study <span class="text-danger">*</span></p>
+                                    <input asp-for="Education.FieldOfStudy" value="@education.FieldOfStudy" type="text" class="p-1 rounded-pill fixed-width" />
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Degree Pursued <span class="text-danger">*</span></p>
+                                    <select asp-for="Education.Degree">
+                                        @foreach (var degreeType in Enum.GetValues(typeof(DegreeType)))
+                                        {
+                                            var degreeSelected = degreeType.Equals(education.Degree);
+                                            if (degreeSelected)
+                                            {
+                                                <option value="@degreeType" selected>@degreeType</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@degreeType">@degreeType</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>Start Date <span class="text-danger">*</span></p>
+                                    <input asp-for="Education.StartDate" value="@education.StartDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" required />
+                                </div>
+                                <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                                    <p>End Date (Or Expected)</p>
+                                    <input asp-for="Education.EndDate" value="@education.EndDate" type="text" onclick="this.type='date'" onblur="this.type='text'" class="p-1 rounded-pill fixed-width" />
+                                </div>
+                                <div class="d-flex flex-column align-items-start gap-2 w-100">
+                                    <p>Description</p>
+                                    <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description">@education.Description</textarea>
+                                </div>
+                    </div>
                 </div>
+                <div class="modal-footer w-100 d-flex flex-row align-items-end">
+                    <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                </div>
+                            </form>
             </div>
         </div>
     </div>
@@ -501,19 +510,19 @@
                 <h4>Add a Skill</h4>
             </div>
             <form asp-controller="Profile" asp-action="AddSkillInEdit" method="post">
-            <div class="modal-body h-auto p-3">
-                <div class="d-flex flex-row skills">
-                <select asp-for="Skill.Id" id="skillInput" class="addSkillText m-3">
-                    @foreach (SkillDetails skill in Model.AllSkills)
-                    {
-                        <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
-                    }
-                </select>
+                <div class="modal-body h-auto p-3">
+                    <div class="d-flex flex-row skills">
+                        <select asp-for="Skill.Id" id="skillInput" class="addSkillText m-3">
+                            @foreach (SkillDetails skill in Model.AllSkills)
+                            {
+                                <option value="@skill.Id" data-value-text="@skill.Name">@skill.Name</option>
+                            }
+                        </select>
                         <img src="~/icons/arrow-bottom.svg" />
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary rounded-pill">Add Skill</button>
                 </div>
             </form>
         </div>
