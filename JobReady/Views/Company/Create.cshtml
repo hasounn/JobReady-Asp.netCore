@@ -1,0 +1,67 @@
+﻿@model JobReady.UserAccountDetails
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>University</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="IndustryId">Industry</label>
+                <select class="form-control" asp-for="IndustryId" id="IndustryId" required>
+                    <option value="">Select an industry</option>
+                    @foreach (var industry in Model.Industries)
+                    {
+                        <option value="@industry.Id">@industry.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="IndustryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label for="Headline">Headline</label>
+                <input id="Headline" type="text" class="form-control" asp-for="Headline" maxlength="200">
+            </div>
+            <div class="form-group">
+                <label for="UserDate">Founded On</label>
+                <input id="UserDate" type="date" class="form-control" asp-for="UserDate" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Founded On</label>
+                <input id="UserDate" type="date" class="form-control" asp-for="P" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
