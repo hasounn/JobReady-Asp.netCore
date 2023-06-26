@@ -112,6 +112,7 @@ namespace JobReady.Controllers
         public IEnumerable<JobPostDetails> GetJobPosts()
         {
             var jobPosts = (from x in context.JobPost
+                            where x.IsActive == true
                             orderby x.CreatedOn descending
                             select new JobPostDetails()
                             {

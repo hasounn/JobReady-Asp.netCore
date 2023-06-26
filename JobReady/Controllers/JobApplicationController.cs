@@ -17,9 +17,6 @@ namespace JobReady.Controllers
         public IActionResult Index(long jobId)
         {
             var jobApp = (from x in context.JobPost
-                          join z in context.UserAccount on x.CreatedById equals z.Id
-                          join js in context.JobSkill on x.Id equals js.Id
-                          join s in context.Skill on js.SkillId equals s.Id
                           where x.Id == jobId
                           select new JobPostDetails()
                           {
@@ -27,27 +24,57 @@ namespace JobReady.Controllers
                               CreatedById = x.CreatedById,
                               CreatedBy = new UserAccountDetails()
                               {
-                                  Username = z.UserName,
-                                  AccountType = z.AccountType,
+                                  Username = x.CreatedBy.UserName,
+                                  Type = x.CreatedBy.AccountType == UserAccountType.Student ? "student" :
+                                          x.CreatedBy.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          x.CreatedBy.AccountType == UserAccountType.Company ? "company" : "admin",
                               },
                               Description = x.Description,
                               CreatedOn = x.CreatedOn,
                               Title = x.Title,
                               IsRemote = x.IsRemote,
-                              Skills = new List<SkillDetails>()
-                                      {
-                                            new SkillDetails()
-                                            {
-                                                      Id = s.Id,
-                                                      Name = s.Name
-                                            }
-                                      }.AsEnumerable() ,
-                              HasApplied = (from x in context.JobApplication 
-                                            where x.JobPostId == jobId 
-                                            && x.ApplicantId == this.User.Claims.First().Value
-                                            select x).Any() 
+                              IsActive = x.IsActive,
+                              HasApplied = (from y in context.JobApplication 
+                                            where y.JobPostId == jobId 
+                                            && y.ApplicantId == this.User.Claims.First().Value
+                                            select y).Any() ,
+                              IsOwned = x.CreatedById == this.User.Claims.First().Value,
                           }).FirstOrDefault();
+            jobApp.Skills = GetJobSkills(jobId);
+            var userType = (from x in context.UserAccount
+                            where x.Id == this.User.Claims.First().Value
+                            select x.AccountType).FirstOrDefault();
+            ViewData["User"] = userType;
             return View(jobApp);
+        }
+        #endregion
+
+        #region Update Job Post Status
+        [HttpPost]
+        public IActionResult UpdateStatus([FromBody]long jobId)
+        {
+            var target = (from x in context.JobPost
+                          where x.Id == jobId
+                          select x).FirstOrDefault();
+            target.IsActive = !target.IsActive;
+            context.SaveChanges();
+            var toast = "toast";
+            return Ok(new {toast});
+        }
+        #endregion
+
+        #region Get Job Skills
+        private IEnumerable<SkillDetails> GetJobSkills(long jobId)
+        {
+            var skills = (from x in context.JobSkill
+                          join y in context.Skill on x.SkillId equals y.Id
+                          where x.JobPostId == jobId
+                          select new SkillDetails()
+                          {
+                              Id = x.Id,
+                              Name = y.Name
+                          }).AsEnumerable();
+            return skills;
         }
         #endregion
 

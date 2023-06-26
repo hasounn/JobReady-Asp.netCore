@@ -2,6 +2,7 @@
     search = document.querySelector("#search-nav"),
     notifs = document.querySelector("#notifs-nav"),
     post = document.querySelector("#post-nav"),
+    postText = document.querySelector(".post-text"),
     settings = document.querySelector("#settings-nav"),
     profile = document.querySelector("#profile-nav"),
     navItems = document.querySelectorAll(".nav-item"),
@@ -23,12 +24,15 @@ window.addEventListener("load", () => {
         notifs.classList.add("active");
     } else if (url.includes("post") && !url.includes("job")) {
         post.classList.add("active");
+        postText.textContent = "Post";
     } else if (url.includes("jobpost")) {
         post.classList.add("active");
+        postText.textContent = "Job Post";
     } else if (url.includes("settings")) {
         settings.classList.add("active");
     } else if ((url.includes("profile") || url.includes("profile/company")) && !(url.includes("profile?userid") || url.includes("profile/company?userid"))) {
         profile.classList.add("active");
+
     } else if (url.includes("industry")) {
         industry.classList.add("active");
     } else if (url.includes("skill")) {

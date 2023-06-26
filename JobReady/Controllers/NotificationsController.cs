@@ -20,6 +20,10 @@ namespace JobReady.Controllers
                 UserAccountType = GetUserType(),
                 Partial = view,
             };
+            var userType = (from x in context.UserAccount
+                            where x.Id == this.User.Claims.First().Value
+                            select x.AccountType).FirstOrDefault();
+            ViewData["User"] = userType;
             return View(notification);
         }
 
@@ -34,7 +38,7 @@ namespace JobReady.Controllers
         #region Get Engagements
         public IActionResult GetEngagements()
         {
-            return Index("_Engagement");
+            return RedirectToAction("Index", "Notifications");
         }
 
         private IEnumerable<NotificationEngagementDetails> GetAllEngagements()

@@ -21,14 +21,19 @@ namespace JobReady.Controllers
         }
         public IActionResult Create()
         {
-            var user = (from x in context.Users
-                        where x.UserName == this.User.Identity.Name
+            var user = (from x in context.UserAccount
+                        where x.Id == this.User.Claims.First().Value
                         select new UserAccountDetails()
                         {
                             Id = x.Id,
                             Username = x.UserName,
                             Headline = x.Headline,
+                            AccountType = x.AccountType,
                         }).FirstOrDefault();
+            var userType = (from x in context.UserAccount
+                           where x.Id == this.User.Claims.First().Value
+                           select x.AccountType).FirstOrDefault();
+            ViewData["User"] = userType;
             jobSkills.Clear();
             return View(new JobPostDetails() { Skills = GetSkills(), CreatedBy = user});
         }
