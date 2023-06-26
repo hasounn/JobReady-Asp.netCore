@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
         private readonly JobReadyContext _context;
@@ -23,20 +25,7 @@ namespace JobReady.Controllers
         public async Task<IActionResult> Index()
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            return View(await _context.UserAccount.Where(t=>t.AccountType == UserAccountType.Company).Select( t => new CompanyDetails()
-            {
-                Id = t.Id,
-                Username = t.UserName,
-                FullName = t.FullName,
-                Headline = t.Headline,
-                Email = t.Email,
-                Industry = new IndustryDetails() { Id = t.Industry.Id, Name = t.Industry.Name},
-                UserDate = t.UserDate,
-                Location = t.Location,
-                PhoneNumber = t.PhoneNumber,
-                Industries = (from x in _context.Industry select new SelectListItem(x.Id.ToString(), x.Name)),
-
-            }).ToListAsync());
+            return View(await _context.UserAccount.Where(t=>t.AccountType == UserAccountType.Company).ToListAsync());
         }
 
         // GET: University/Details/5

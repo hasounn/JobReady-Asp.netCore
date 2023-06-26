@@ -32,7 +32,7 @@
                             </div></a>
                     </li>
                     <li class="nav-item" id="users-nav">
-                        <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">
                             <div class="d-flex flex-row gap-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path class="path" d="M9.16006 10.87C9.06006 10.86 8.94006 10.86 8.83006 10.87C6.45006 10.79 4.56006 8.84 4.56006 6.44C4.56006 3.99 6.54006 2 9.00006 2C11.4501 2 13.4401 3.99 13.4401 6.44C13.4301 8.84 11.5401 10.79 9.16006 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -41,7 +41,7 @@
                                     <path class="path" d="M18.3401 20C19.0601 19.85 19.7401 19.56 20.3001 19.13C21.8601 17.96 21.8601 16.03 20.3001 14.86C19.7501 14.44 19.0801 14.16 18.3701 14" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
 
-                                <p>Manage Users</p>
+                                <p>Users</p>
                             </div>
                         </a>
                     </li>
@@ -53,7 +53,7 @@
                                     <path class="path" d="M8 12H16" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     <path class="path" d="M12 16V8" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <p>Create Company</p>
+                                <p>Companies</p>
                             </div>
                         </a>
                     </li>
@@ -70,7 +70,7 @@
                                     <path class="path" d="M12 22V19" stroke="#535657" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
 
-                                <p>Manage Industries</p>
+                                <p>Industries</p>
                             </div>
                         </a>
                     </li>
@@ -86,7 +86,7 @@
                                 </svg>
 
 
-                                <p>Manage Skills</p>
+                                <p>Skills</p>
                             </div>
                         </a>
                     </li>
@@ -107,13 +107,13 @@
 
 
 
-                                <p>Manage Universities</p>
+                                <p>Universities</p>
                             </div>
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav d-flex flex-column gap-3 w-100">
-                    <li class="nav-item" id="settings-nav">
+@*                    <li class="nav-item" id="settings-nav">
                         <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Admin">
                             <div class="d-flex flex-row align-items-center gap-3">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +122,7 @@
                                 <p>Settings</p>
                             </div>
                         </a>
-                    </li>
+                    </li>*@
                         <li>
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-between justify-content-start list-unstyled">
                             <li class="nav-item" id="profile-nav">
@@ -131,7 +131,7 @@
                                             <path class="path" d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             <path class="path" d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" stroke="#535657" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
-                                        <p>Admin Name</p>
+                                        <p>Admin</p>
                                     </div>
                             </li>
                             <li class="nav-item logout" id="logout-nav">

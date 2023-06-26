@@ -20,7 +20,7 @@
                 Full Name
             </th>
             <th>
-                Industry
+                Account Type
             </th>
             <th>
                 Email
@@ -32,8 +32,11 @@
                 Location
             </th>
             <th>
-                Founded On
+                BirthDate
             </th>   
+            <th>
+
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -48,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Industry)
+                    @item.AccountType.ToString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
@@ -60,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.Location)
                 </td>
                 <td>
-                    @item.UserDate.ToString("MMM yyy")
+                    @item.UserDate.ToString("dd MMM yyy")
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
