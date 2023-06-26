@@ -104,7 +104,13 @@
                             @experience.Title
                             </p>*@
                                 </div>
-                                <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal-@experience.Id"><img src="~/icons/edit-2.svg" /></button>
+                                <div class="d-flex flex-row gap-3 align-items-center">
+                                    <button class="btn" data-bs-toggle="modal" data-bs-target="#editExperienceModal-@experience.Id"><img src="~/icons/edit-2.svg" /></button>
+                                    <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
+                                        <input type="hidden" value="@experience.Id" asp-for="Experience.Id" />
+                                        <button type="submit" class="btn btn-danger rounded-circle">&times;</button>
+                                    </form>
+                                </div>
                             </section>
                         </li>
                     }
@@ -141,7 +147,13 @@
                                     </p>
                                     <p class="fw-light ps-1">@education.Description</p>
                                 </div>
-                                <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                                <div class="d-flex flex-row gap-3 align-items-center">
+                                    <button class="btn" data-bs-toggle="modal" data-bs-target="#editEducationModal-@education.Id"><img src="~/icons/edit-2.svg" /></button>
+                                    <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
+                                        <input type="hidden" value="@education.Id" asp-for="Education.Id" />
+                                        <button type="submit" class="btn btn-danger rounded-circle">&times;</button>
+                                    </form>
+                                </div>
                             </section>
                         </li>
                     }
@@ -273,9 +285,9 @@
                 <div class="modal-header p-4">
                     <h4 class="h4">Edit  Experience</h4>
                 </div>
+                <form asp-controller="Profile" asp-action="UpdateExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
                 <div class="modal-body">
-                    <div class="d-flex flex-column flex-md-row align-items-start gap-2 w-1000">
-                            <form asp-controller="Profile" asp-action="UpdateExperience" method="post" class="d-flex flex-column p-5 h-100 align-items-start gap-3">
+                    <div class="d-flex flex-column align-items-start gap-2 w-100">
                                 <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                                     <p>Title  <span class="text-danger">*</span></p>
                                     <input value="@experience.Title" asp-for="Experience.Title" type="text" class="p-1 rounded-pill fixed-width" required />
@@ -339,21 +351,18 @@
                                 </div>
                                 <div class="d-flex flex-column align-items-start gap-2 w-100">
                                     <p>Describe Your Experience...</p>
-                                    <textarea asp-for="@experience.Description" class="p-1 textarea-description w-100 color-black">@experience.Description</textarea>
+                                    <textarea asp-for="@experience.Description" class="p-1 textarea-description color-black">@experience.Description</textarea>
                                 </div>
                                 <input type="hidden" asp-for="Experience.Id" value="@experience.Id" />
-                                <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
-                            </form>
-                        <div class="d-flex flex-column flex-md-row align-items-end gap-2 w-100">
-                                <form asp-controller="Profile" asp-action="DeleteExperience" method="post">
-
-                                    <input type="hidden" value="@experience.Id" asp-for="Experience.Id" />
-                                    <button type="submit" class="btn btn-danger rounded-pill">Delete</button>
-                                </form>
-                            </div>
+                            
                     </div>
                 </div>
-                <div class="modal-footer w-100"></div>
+                <div class="modal-footer w-100">
+                    <div class="d-flex flex-row align-items-center justify-content-end gap-2 w-100">
+                        <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -421,10 +430,9 @@
                 <div class="modal-header p-4">
                     <h4 class="h4">Edit Education</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
-                        <div class="d-flex flex-row gap-2">
                             <form asp-controller="Profile" asp-action="UpdateEducation" method="post" class="d-flex flex-column p-5 h-100 align-items-start    gap-5">
+                <div class="modal-body">
+                    <div class="d-flex flex-column align-items-start gap-3">
                                 <div class="d-flex flex-column flex-md-row align-items-start gap-2">
                                     <input type="hidden" value="@education.Id" asp-for="Education.Id" />
                                     <p>University <span class="text-danger">*</span></p>
@@ -474,20 +482,14 @@
                                 </div>
                                 <div class="d-flex flex-column align-items-start gap-2 w-100">
                                     <p>Description</p>
-                                    <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description w-100">@education.Description</textarea>
+                                    <textarea asp-for="@education.Description" type="text" class="p-1 textarea-description">@education.Description</textarea>
                                 </div>
-                            </form>
-                            <div class="d-flex flex-row gap-2">
-                                <form asp-controller="Profile" asp-action="DeleteEducation" method="post">
-
-                                    <input type="hidden" value="@education.Id" asp-for="Education.Id" />
-                                    <button type="submit" class="btn btn-danger rounded-pill">Remove Education</button>
-                                </form>
-                                <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div class="modal-footer w-100 d-flex flex-row align-items-end">
+                    <button type="submit" class="btn btn-primary rounded-pill align-self-end">Save</button>
+                </div>
+                            </form>
             </div>
         </div>
     </div>
