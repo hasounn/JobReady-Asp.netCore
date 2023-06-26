@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class NotificationsController : Controller
     {
         private readonly JobReadyContext context;

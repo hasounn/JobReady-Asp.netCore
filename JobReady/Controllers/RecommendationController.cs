@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class RecommendationController : Controller
     {
         private readonly JobReadyContext context;

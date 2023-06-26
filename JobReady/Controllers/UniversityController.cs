@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobReady;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobReady.Controllers
 {
+    [Authorize]
     public class UniversityController : Controller
     {
         private readonly JobReadyContext _context;

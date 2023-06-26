@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using JobReady;
-using Microsoft.AspNetCore.Authorization;
 
 namespace JobReady.Controllers
 {
     [Authorize]
-    public class SkillController : Controller
+    public class CompanyController : Controller
     {
         private readonly JobReadyContext _context;
 
-        public SkillController(JobReadyContext context)
+        public CompanyController(JobReadyContext context)
         {
             _context = context;
         }
-
         private bool IsAdmin()
         {
             var userType = (from x in _context.Users
@@ -27,80 +21,79 @@ namespace JobReady.Controllers
                             select x.AccountType).FirstOrDefault();
             return (userType == UserAccountType.Admin);
         }
-        // GET: Skill
+        // GET: Company
         public async Task<IActionResult> Index()
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            return View(await _context.Skill.ToListAsync());
+            return View(await _context.UserAccount.Where(t=>t.AccountType == UserAccountType.Company).ToListAsync());
         }
 
-        // GET: Skill/Details/5
-        public async Task<IActionResult> Details(long? id)
+        // GET: University/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || _context.Skill == null)
+            if (id == null || _context.UserAccount == null)
             {
                 return NotFound();
             }
 
-            var skill = await _context.Skill
+            var company = await _context.UserAccount
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (skill == null)
+            if (company == null)
             {
                 return NotFound();
             }
 
-            return View(skill);
+            return View(company);
         }
 
-        // GET: Skill/Create
+        // GET: University/Create
         public IActionResult Create()
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
             return View();
         }
 
-        // POST: Skill/Create
+        // POST: University/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Skill skill)
+        public async Task<IActionResult> Create([Bind("Id,Username,HeadQuarterLocation,BranchesCount")] UserAccount company)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(skill);
+                _context.Add(company);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(skill);
+            return View(company);
         }
 
-        // GET: Skill/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        // GET: University/Edit/5
+        public async Task<IActionResult> Edit(string? id)
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || _context.Skill == null)
+            if (id == null || _context.UserAccount == null)
             {
                 return NotFound();
             }
 
-            var skill = await _context.Skill.FindAsync(id);
-            if (skill == null)
+            var company = await _context.UserAccount.FindAsync(id);
+            if (company == null)
             {
                 return NotFound();
             }
-            return View(skill);
+            return View(company);
         }
 
-        // POST: Skill/Edit/5
+        // POST: University/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name")] Skill skill)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,HeadQuarterLocation,BranchesCount")] UserAccount company)
         {
-            if (id != skill.Id)
+            if (id != company.Id)
             {
                 return NotFound();
             }
@@ -109,12 +102,12 @@ namespace JobReady.Controllers
             {
                 try
                 {
-                    _context.Update(skill);
+                    _context.Update(company);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SkillExists(skill.Id))
+                    if (!CompanyExists(company.Id))
                     {
                         return NotFound();
                     }
@@ -125,50 +118,50 @@ namespace JobReady.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(skill);
+            return View(company);
         }
 
-        // GET: Skill/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        // GET: University/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (!IsAdmin()) return RedirectToAction("Index", "Home");
-            if (id == null || _context.Skill == null)
+            if (id == null || _context.UserAccount == null)
             {
                 return NotFound();
             }
 
-            var skill = await _context.Skill
+            var company = await _context.UserAccount
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (skill == null)
+            if (company == null)
             {
                 return NotFound();
             }
 
-            return View(skill);
+            return View(company);
         }
 
-        // POST: Skill/Delete/5
+        // POST: University/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Skill == null)
+            if (_context.University == null)
             {
-                return Problem("Entity set 'JobReadyContext.Skill'  is null.");
+                return Problem("Entity set 'JobReadyContext.UserAccount'  is null.");
             }
-            var skill = await _context.Skill.FindAsync(id);
-            if (skill != null)
+            var company = await _context.UserAccount.FindAsync(id);
+            if (company != null)
             {
-                _context.Skill.Remove(skill);
+                _context.UserAccount.Remove(company);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SkillExists(long id)
+        private bool CompanyExists(string id)
         {
-          return _context.Skill.Any(e => e.Id == id);
+            return _context.UserAccount.Any(e => e.Id == id && e.AccountType == UserAccountType.Company);
         }
     }
 }
