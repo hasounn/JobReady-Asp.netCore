@@ -350,6 +350,22 @@ namespace JobReady.Controllers
         }
         #endregion
 
+        #region Delete Experience
+        [HttpPost]
+        public IActionResult DeleteExperience(UserAccountDetails details)
+        {
+            var target = (from x in context.Experience
+                          where x.Id == details.Experience.Id && x.UserId == this.User.Claims.First().Value
+                          select x).FirstOrDefault();
+            if(target != null)
+            {
+                context.Experience.Remove(target);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
+
         #region Get Experiences
         public IEnumerable<ExperienceDetails> GetExperiences(string userId = null)
         {
@@ -419,6 +435,21 @@ namespace JobReady.Controllers
         }
         #endregion
 
+        #region Delete Education
+        [HttpPost]
+        public IActionResult DeleteEducation(UserAccountDetails details)
+        {
+            var target = (from x in context.Education
+                          where x.Id == details.Education.Id && x.UserId == this.User.Claims.First().Value
+                          select x).FirstOrDefault();
+            if (target != null)
+            {
+                context.Education.Remove(target);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Profile");
+        }
+        #endregion
         #region Get Educations
         public IEnumerable<EducationDetails> GetEducations(string userId = null)
         {
