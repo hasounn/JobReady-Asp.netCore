@@ -32,11 +32,11 @@ namespace JobReady.Controllers
             userDetails.JobPosts = GetJobPosts(userId);
             if (!IsCompany(userId))
             {
-                return RedirectToAction("Index","Company", new { userId});
+                return RedirectToAction("Index","Profile", new { userId});
             }
             else
             {
-                ViewData["User"] = UserAccountType.Company;
+                ViewData["User"] = GetType(this.User.Claims.First().Value);
                 return View(userDetails);
             }
         }
@@ -56,6 +56,14 @@ namespace JobReady.Controllers
                         where x.Id == userId
                         select x.AccountType).FirstOrDefault();
             return type == UserAccountType.Company;
+        }
+        private UserAccountType GetType(string userId)
+        {
+            userId ??= this.User.Claims.First().Value;
+            var type = (from x in context.UserAccount
+                        where x.Id == userId
+                        select x.AccountType).FirstOrDefault();
+            return type;
         }
         #endregion
 
@@ -467,7 +475,8 @@ namespace JobReady.Controllers
         {
             userId ??= this.User.Claims.First().Value;
             var jobPosts = (from x in context.JobPost
-                            where x.CreatedById == userId
+                            where (x.CreatedById == userId && x.IsActive)
+                            || (x.CreatedById == this.User.Claims.First().Value)
                             select new JobPostDetails()
                             {
                                 Id = x.Id,

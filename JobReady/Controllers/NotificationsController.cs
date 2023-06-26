@@ -38,7 +38,7 @@ namespace JobReady.Controllers
         #region Get Engagements
         public IActionResult GetEngagements()
         {
-            return Index("_Engagement");
+            return RedirectToAction("Index", "Notifications");
         }
 
         private IEnumerable<NotificationEngagementDetails> GetAllEngagements()

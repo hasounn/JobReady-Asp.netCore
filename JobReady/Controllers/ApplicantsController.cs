@@ -13,29 +13,33 @@ namespace JobReady.Controllers
         }
         public ActionResult Index(long jobId)
         {
-            var applicants = (from x in context.JobApplication
-                              where x.JobPostId == jobId
-                              select new JobApplicationDetails()
-                              {
-                                  Id = jobId,
-                                  ApplicantId = x.ApplicantId,
-                                  Applicant = new UserAccountDetails()
-                                  {
-                                      Id = x.Applicant.Id,
-                                      FullName = x.Applicant.FullName,
-                                      Username = x.Applicant.UserName,
-                                  },
-                                  JobPost = new JobPostDetails()
-                                  {
-                                      Title = x.JobPost.Title,
-                                  },
-                                  LetterOfMotivation = x.LetterOfMotivation,
-                              }).AsQueryable();
+
+            var applications = (from x in context.JobPost
+                                join y in context.JobApplication on x.Id equals y.JobPostId into apps
+                                from a in apps.DefaultIfEmpty()
+                                where x.Id == jobId
+                                select new JobApplicationDetails()
+                                {
+                                    Id = x.Id,
+                                    ApplicantId = a.ApplicantId,
+                                    Applicant = new UserAccountDetails()
+                                    {
+                                        Id = a.Applicant.Id,
+                                        FullName = a.Applicant.FullName,
+                                        Username = a.Applicant.UserName,
+                                    },
+                                    JobPost = new JobPostDetails()
+                                    {
+                                        Title = x.Title,
+                                    },
+                                    LetterOfMotivation = a.LetterOfMotivation,
+                                }).AsQueryable();
             var userType = (from x in context.UserAccount
                             where x.Id == this.User.Claims.First().Value
                             select x.AccountType).FirstOrDefault();
             ViewData["User"] = userType;
-            return View(applicants);
+
+            return View(applications);
         }
     }
 }

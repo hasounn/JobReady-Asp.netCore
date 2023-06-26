@@ -14,6 +14,7 @@ public class JobPostDetails
     public DateTime CreatedOn { get; set; }
     public string PostedOn { get; set; }
     public bool HasApplied { get; set; }
+    public bool IsOwned { get; set; } 
     public string Validate()
     {
         if (string.IsNullOrEmpty(Title))

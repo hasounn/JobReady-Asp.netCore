@@ -87,15 +87,15 @@
     <div class="d-flex flex-column gap-2">
         <div class="industry d-flex flex-column gap-1">
             <p class="fs-6 fw-bold">Industry</p>
-            <p class="fw-light lower-fs-6">IT Services and IT Consulting</p>
+            <p class="fw-light lower-fs-6">@Model.Industry.Name</p>
         </div>
-        <div class="compsize d-flex flex-column gap-1">
+        @*<div class="compsize d-flex flex-column gap-1">
             <p class="fs-6 fw-bold">Company Size</p>
-            <p class="fw-light lower-fs-6">2 - 10 Employees</p>
-        </div>
+            <p class="fw-light lower-fs-6"></p>
+        </div>*@
         <div class="founded d-flex flex-column gap-1">
             <p class="fs-6 fw-bold">Founded</p>
-            <p class="fw-light lower-fs-6">2019</p>
+            <p class="fw-light lower-fs-6">@Model.UserDate.ToString("yyyy")</p>
         </div>
     </div>
     @if (Model.About != null)

@@ -37,7 +37,8 @@ namespace JobReady.Controllers
                               HasApplied = (from y in context.JobApplication 
                                             where y.JobPostId == jobId 
                                             && y.ApplicantId == this.User.Claims.First().Value
-                                            select y).Any() 
+                                            select y).Any() ,
+                              IsOwned = x.CreatedById == this.User.Claims.First().Value,
                           }).FirstOrDefault();
             jobApp.Skills = GetJobSkills(jobId);
             var userType = (from x in context.UserAccount
@@ -61,6 +62,7 @@ namespace JobReady.Controllers
             return Ok(new {toast});
         }
         #endregion
+
         #region Get Job Skills
         private IEnumerable<SkillDetails> GetJobSkills(long jobId)
         {
@@ -75,6 +77,7 @@ namespace JobReady.Controllers
             return skills;
         }
         #endregion
+
         #region Apply
         public IActionResult Apply(JobPostDetails details)
         {

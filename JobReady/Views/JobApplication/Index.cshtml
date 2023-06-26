@@ -1,4 +1,4 @@
-﻿@using JobReady.Data.DTO;
+﻿@using JobReady;
 @model JobPostDetails;
 @{
     ViewData["Title"] = "Job Application";
@@ -14,7 +14,7 @@
             </a>
             <p class="color-light-blue fs-4 fw-bold">@Model.Title</p>
         </div>
-        @if(Model.CreatedBy.AccountType == UserAccountType.Company){
+        @if((ViewData["User"] as UserAccountType?) == UserAccountType.Company && Model.IsOwned){
         <input type="hidden" value="@Model.Id" id="jobPostId"/>
         <div class="form-switch d-flex flex-row align-items-center gap-3">
             <p class="color-light-white">Deactivate</p>
@@ -35,7 +35,8 @@
                 <img src="@Url.Action("GetProfilePicture","Profile", new{userId = Model.CreatedById})" class="rounded-circle logo-resizing" />
                 <div class="d-flex flex-column gap-3 ">
                     <p class="company-name color-light-white fs-5 fw-bold text-lg-start text-center">Company:<br /><span class="name fs-6 fw-normal">@Model.CreatedBy.Username</span></p>
-                    @if(Model.CreatedBy.AccountType == UserAccountType.Student && !Model.HasApplied){
+            @if ((ViewData["User"] as UserAccountType?) == UserAccountType.Student && !Model.HasApplied)
+            {
                         <a role="button" class="apply-btn">
                             <div class="d-flex flex-row align-items-center p-1 gap-2" data-bs-toggle="modal" data-bs-target="#applyLetterModal">
                                 <svg class="mx-2" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +47,7 @@
                             </div>
                         </a>
                     }
-                    else if (Model.CreatedBy.AccountType == UserAccountType.Company)
+            else if ((ViewData["User"] as UserAccountType?) == UserAccountType.Company && Model.IsOwned)
                     {
                         <a role="button" class="apply-btn pe-2" asp-controller="Applicants" asp-action="Index" asp-route-jobId="@Model.Id">
                             <div class="d-flex flex-row align-items-center p-1 gap-1">
@@ -94,7 +95,7 @@
             </div>
             <div class="d-flex flex-column gap-3 mt-2">
                 <p class="color-light-white fs-4 fw-bold">Job Overview</p>
-                <p class="fs-6 color-light-white fw-light">@Model.Description</p>
+                <p class="fs-6 color-light-white fw-light white-space">@Model.Description</p>
                     </div>
 </div>
 
