@@ -29,11 +29,12 @@ class MailJetProvider : SendProvider
     {
 
         var email = new TransactionalEmailBuilder()
-                       .WithFrom(new SendContact(FromAddress))
+                       .WithFrom(new SendContact(FromAddress, "JobReady"))
                        .WithSubject(source.Subject)
                        .WithTo(new SendContact(source.Recipient))
                        .WithTextPart(source.Body)
                        .Build();
+
         return email;
     }
     #endregion
@@ -45,8 +46,8 @@ class MailJetProvider : SendProvider
     {
         var client = new MailjetClient(publicApiKey, privateApiKey);
         var response = await client.SendTransactionalEmailAsync(message, isTestMode);
-
-        if (response.Messages.Length != 1)
+        
+        if (response.Messages?.Length != 1)
         {
             throw new Exception("Unexpected Error,Response for one message returned more than one,Suspending all messages..");
         }
