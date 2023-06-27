@@ -52,8 +52,10 @@ namespace JobReady.Controllers
 
 
             var jobPosts = (from j in context.JobPost
-                            where j.Title.Contains(searchText) ||
+                            where (j.Title.Contains(searchText) ||
                             j.Skills.Any(t => skills.Contains(t.Id))
+                            || j.CreatedBy.Industry.Name.Contains(searchText))
+                            && j.IsActive
                             select new JobPostDetails()
                             {
                                 Id = j.Id,
