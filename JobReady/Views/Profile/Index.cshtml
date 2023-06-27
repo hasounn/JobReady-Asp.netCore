@@ -99,6 +99,10 @@
                 <p class="fw-light fs-5 white-space">@Model.About</p>
             </div>
         }
+        @if (Model.Recommendations.Count() > 0)
+        {
+            <partial name="_Recommendation" model="@Model.Recommendations" />
+        }
         @if (Model.Experiences.Count() > 0)
         {
             <partial name="_Experience" model="@Model.Experiences" />
