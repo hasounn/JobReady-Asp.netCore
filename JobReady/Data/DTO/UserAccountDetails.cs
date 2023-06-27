@@ -77,6 +77,7 @@ public class UserAccountDetails
     public IEnumerable<SkillDetails> UserSkills { get; set; }
     public IEnumerable<SkillDetails> AllSkills { get; set; }
     public SkillDetails Skill { get; set; }
+    public IEnumerable<RecommendationDetails> Recommendations { get; set; }
     public void Validate()
     {
         if(AccountType == UserAccountType.Company && IndustryId == null)
