@@ -86,6 +86,11 @@ namespace JobReady.Controllers
                                    FullName = x.FullName,
                                    UserDate = x.UserDate,
                                    IndustryId = x.IndustryId,
+                                   Industry = x.AccountType == UserAccountType.Company ? new IndustryDetails()
+                                   {
+                                       Id = x.Industry.Id,
+                                       Name = x.Industry.Name,
+                                   } : null, 
                                    Email = x.Email,
                                    Location = x.Location,
                                    IsVerified = x.IsVerified,
