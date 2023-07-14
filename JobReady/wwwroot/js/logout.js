@@ -1,3 +1,3 @@
 ﻿window.onload = ()=>{
-    window.location.href = "Login/";
+    window.location.href = window.location.href.split"Login/";
 }
