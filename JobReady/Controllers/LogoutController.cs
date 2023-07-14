@@ -26,7 +26,7 @@ namespace JobReady.Controllers
         {
             var test = this.User;
             await signInManager.SignOutAsync();
-            return View();
+            return RedirectToAction("Index", "Login");
         }
     }
 }
