@@ -24,10 +24,10 @@ namespace JobReady.Controllers
         [HttpPost]
         public IActionResult Index(UserAccountDetails model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
-                return RedirectToAction("Index","Login");
+
+                return RedirectToAction("Index", "Login");
             }
             return View(model);
 
@@ -39,7 +39,6 @@ namespace JobReady.Controllers
             if (ModelState.IsValid)
             {
                 details.Validate(); // Validate custom business rules
-
                 var newUser = new UserAccount
                 {
                     UserName = details.Username,
@@ -57,15 +56,15 @@ namespace JobReady.Controllers
                     CreatedOn = DateTime.Now,
                     ModifiedOn = DateTime.Now
                 };
-                
+
                 var result = await userManager.CreateAsync(newUser, details.Password);
-               
+
                 if (result.Succeeded)
                 {
                     // Optionally, you can sign in the user after registration
                     await signInManager.SignInAsync(newUser, isPersistent: false);
 
-                    if (details.ProfileImage!=null && details.ProfileImage.Length > 0)
+                    if (details.ProfileImage != null && details.ProfileImage.Length > 0)
                     {
                         using (var memoryStream = new MemoryStream())
                         {
@@ -84,6 +83,8 @@ namespace JobReady.Controllers
                                 };
                                 context.FileLink.Add(newPhoto);
                                 context.SaveChanges();
+
+
                             }
                             else
                             {
@@ -91,6 +92,7 @@ namespace JobReady.Controllers
                             }
                         }
                     }
+                    MailJetTest();
                     return RedirectToAction("Index", "Home"); // Replace with your desired action and controller
                 }
 
@@ -101,6 +103,34 @@ namespace JobReady.Controllers
             }
 
             return View(details);
+        }
+        private async void MailJetTest()
+        {
+            var config = (from x in context.Configuration
+                          where x.Id == 1
+                          select new MessageConfiguration()
+                          {
+                              PrivateApiKey = x.PrivateKey,
+                              PublicApiKey = x.PublicKey,
+                              FromAddress = "marilyn.haber@st.ul.edu.lb",
+                              FromDisplayName = "JobReady",
+                              IsTestMode = false
+                          }).First();
+
+            var sendProvider = new MailJetProvider(config.PublicApiKey, config.PrivateApiKey, config.FromAddress, config.FromDisplayName, config.IsTestMode);
+
+            var message = new ReportMessage()
+            {
+                Subject = "Welcome to JobReady - Your Path to Success Starts Here!",
+                Body = @"
+
+                           You just logged in! Enjoy the platform!
+
+                            The JobReady Team",
+
+                Recipient = "mh.marilynhaber@gmail.com",
+            };
+            await sendProvider.SendMessage(message, CancellationToken.None);
         }
     }
 }

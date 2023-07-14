@@ -28,6 +28,7 @@ public class JobReadyContext : IdentityDbContext<UserAccount>
     public DbSet<FileLink> FileLink { get; set; }
     public DbSet<Education> Education { get; set; }
     public DbSet<Experience> Experience { get; set; }
+    public DbSet<Configuration> Configuration { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
