@@ -1,8 +1,11 @@
 ﻿@model SearchDetails
 <div class="d-flex flex-row gap-3">
+    <form method="get">
     @foreach(SearchType s in Enum.GetValues(typeof(SearchType))){
     <a role="button" class="btn btn-outline-primary rounded-pill filter-btn" asp-controller="Search" asp-action="@{var url= $"Search{s.ToString()}"; @url}">@s.ToString()</a>
-    }
+        }
+        <input type="hidden" asp-for="SearchText" value="@{var search=Model.SearchText == null ? "":Model.SearchText; @search}"/>
+    </form>
 </div>
 @if (Model?.Users.Count() > 0)
 {
