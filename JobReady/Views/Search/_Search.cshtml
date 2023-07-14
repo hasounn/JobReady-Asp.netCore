@@ -1,7 +1,7 @@
 ﻿@model SearchDetails
 <div class="d-flex flex-row gap-3">
     @foreach(SearchType s in Enum.GetValues(typeof(SearchType))){
-    <a role="button" class="btn btn-outline-primary rounded-pill" asp-controller="Search" asp-action="@{var url= $"Search{s.ToString()}"; @url}">@s.ToString()</a>
+    <a role="button" class="btn btn-outline-primary rounded-pill filter-btn" asp-controller="Search" asp-action="@{var url= $"Search{s.ToString()}"; @url}">@s.ToString()</a>
     }
 </div>
 @if (Model?.Users.Count() > 0)

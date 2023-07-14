@@ -13,7 +13,8 @@ namespace JobReady.Controllers
             this.context = context;
             postController = new PostController(context);
         }
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(SearchDetails details)
         {
             var userId = this.User.Claims.First().Value;
             var userType = (from x in context.UserAccount
@@ -24,7 +25,8 @@ namespace JobReady.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(SearchDetails request)
+        [ActionName("Index")]
+        public IActionResult Search(SearchDetails request)
         {
             var searchText = request.SearchText;
 
@@ -78,6 +80,11 @@ namespace JobReady.Controllers
                 JobPosts = jobPosts
             };
             return View(response);
+        }
+        [HttpPost]
+        public IActionResult ApplyFilter(SearchDetails request)
+        {
+            return RedirectToAction("Index", "Search", new { request }); ;
         }
     }
 }
