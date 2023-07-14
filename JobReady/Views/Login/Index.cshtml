@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JobReady.styles.css" asp-append-version="true" />
     <title>@ViewData["Title"] - JobReady</title>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
 </head>
 <body>
     <div class="d-flex flex-lg-row flex-column vw-100 vh-100">
