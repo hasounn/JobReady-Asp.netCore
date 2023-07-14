@@ -22,6 +22,7 @@ namespace JobReady.Controllers
             else
             {
                 var userDetails = GetUserAccount(userId);
+                userDetails.Recommendations = GetRecommendations(userId);
                 return View(userDetails);
             }
         }
@@ -85,6 +86,11 @@ namespace JobReady.Controllers
                                    FullName = x.FullName,
                                    UserDate = x.UserDate,
                                    IndustryId = x.IndustryId,
+                                   Industry = x.AccountType == UserAccountType.Company ? new IndustryDetails()
+                                   {
+                                       Id = x.Industry.Id,
+                                       Name = x.Industry.Name,
+                                   } : null, 
                                    Email = x.Email,
                                    Location = x.Location,
                                    IsVerified = x.IsVerified,
@@ -522,5 +528,25 @@ namespace JobReady.Controllers
         }
         #endregion
 
+        #region Get Useer Recommendation
+        public IEnumerable<RecommendationDetails> GetRecommendations(string userId)
+        {
+            var recommendations = (from x in context.Recommendation
+                                   where x.StudentId == userId && x.Status == RecommendationStatus.Accepted
+                                   select new RecommendationDetails()
+                                   {
+                                       Id = x.Id,
+                                       InstructorId = x.InstructorId,
+                                       Instructor = new UserAccountDetails()
+                                       {
+                                           FullName = x.Instructor.FullName,
+                                           Headline = x.Instructor.Headline,
+                                       },
+                                       InstructorReply = x.InstructorReply,
+                                       ResponseDate = x.ResponseDate,
+                                   }).AsQueryable();
+            return recommendations;
+        }
+        #endregion
     }
 }

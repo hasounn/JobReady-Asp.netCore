@@ -28,8 +28,15 @@ namespace JobReady.Controllers
                             Id = x.Id,
                             Username = x.UserName,
                             Headline = x.Headline,
-                            AccountType = x.AccountType,
+                            Type = x.AccountType == UserAccountType.Company ? "company" :
+                                          x.AccountType == UserAccountType.Student ? "student" :
+                                          x.AccountType == UserAccountType.Instructor ? "instructor" :
+                                          "admin",
                         }).FirstOrDefault();
+            if (user.AccountType != UserAccountType.Company)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var userType = (from x in context.UserAccount
                            where x.Id == this.User.Claims.First().Value
                            select x.AccountType).FirstOrDefault();

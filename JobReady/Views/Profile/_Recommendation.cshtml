@@ -1,0 +1,19 @@
+﻿@model IEnumerable<RecommendationDetails>
+
+    <div class="glass-box d-flex flex-column p-4 gap-2">
+        <p class="fw-bold section-title">Recommendations</p>
+        <div class="d-flex flex-column gap-3 mt-3">
+            @foreach (var recommendation in Model){
+                <section class="d-flex flex-row gap-3 w-100">
+                    <img src="@Url.Action("GetProfilePicture","Profile",new {userId = recommendation.InstructorId})" class="recommendation-img rounded-circle"/>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex flex-column gap-1">
+                            <p class="fw-bold">@recommendation.Instructor.FullName</p>
+                        <p class="fw-light company-time">@recommendation.ResponseDate?.ToString("MMMM yyyy")</p>
+                        </div>
+                        <p class="color-light-white white-space">@recommendation.InstructorReply</p>
+                    </div>
+                </section>
+            }
+            </div>
+    </div>

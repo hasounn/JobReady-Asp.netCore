@@ -22,7 +22,7 @@ namespace JobReady.Controllers
                                 where x.Id == jobId
                                 select new JobApplicationDetails()
                                 {
-                                    Id = x.Id,
+                                    Id = a.Id,
                                     ApplicantId = a.ApplicantId,
                                     Applicant = new UserAccountDetails()
                                     {

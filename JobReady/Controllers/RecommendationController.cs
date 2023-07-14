@@ -66,6 +66,7 @@ namespace JobReady.Controllers
                           where x.Id == details.Id
                           select x).FirstOrDefault();
             target.Status = RecommendationStatus.Accepted;
+            target.InstructorReply = details.Reply;
             target.ResponseDate = DateTime.Now;
             context.SaveChanges();
             return RedirectToAction("Index", "Notifications", new { view = "_RecommendationView" });
