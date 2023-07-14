@@ -1,7 +1,6 @@
 const maindiv = document.querySelector(".height-fix"),
     searchDiv = document.querySelector(".searchDiv"),
-    filterBtns = document.querySelectorAll(".filter-btn"),
-    ;
+    filterBtns = document.querySelectorAll(".filter-btn");
 
 
 window.addEventListener("load", () => {

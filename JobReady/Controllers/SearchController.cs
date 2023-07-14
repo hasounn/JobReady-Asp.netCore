@@ -30,30 +30,52 @@ namespace JobReady.Controllers
         {
             var searchText = request.SearchText;
 
-            var users = (from x in context.UserAccount
-                         where x.UserName.Contains(searchText)
-                         || x.FullName.Contains(searchText)
-                         || x.Industry.Name.Contains(searchText)
-                         select new UserAccountDetails()
-                         {
-                             Id = x.Id,
-                             FullName = x.FullName,
-                             Username = x.UserName,
-                             Headline = x.Headline,
-                         }).ToArray();
-
             var postIds = (from y in context.Post
                            where y.Content.Contains(searchText)
                            select y.Id);
 
             var posts = postController.GetPosts(postIds, this.User.Claims.First().Value);
 
+            var response = new SearchDetails()
+            {
+                SearchText = searchText,
+                Users = (request.Type == "Users" || string.IsNullOrEmpty(request.Type)) ? GetUsers(searchText) : null,
+                Posts = (request.Type == "Posts" || string.IsNullOrEmpty(request.Type)) ? posts : null,
+                JobPosts = (request.Type == "JobPosts" || string.IsNullOrEmpty(request.Type)) ? GetJobPosts(searchText) : null
+            };
+            return View(response);
+        }
+
+        [HttpGet]
+        public IActionResult SearchPosts(SearchDetails request)
+        {
+            request.ResponseType = SearchType.Posts;
+            return Search(request);
+        }
+
+        IEnumerable<UserAccountDetails> GetUsers(string searchText)
+        {
+            return (from x in context.UserAccount
+             where x.UserName.Contains(searchText)
+             || x.FullName.Contains(searchText)
+             || x.Industry.Name.Contains(searchText)
+             select new UserAccountDetails()
+             {
+                 Id = x.Id,
+                 FullName = x.FullName,
+                 Username = x.UserName,
+                 Headline = x.Headline,
+             }).ToArray();
+        }
+
+        IEnumerable<JobPostDetails> GetJobPosts(string searchText)
+        {
             var skills = (from s in context.Skill
                           where s.Name == searchText
                           select s.Id).ToArray();
 
 
-            var jobPosts = (from j in context.JobPost
+            return (from j in context.JobPost
                             where (j.Title.Contains(searchText) ||
                             j.Skills.Any(t => skills.Contains(t.Id))
                             || j.CreatedBy.Industry.Name.Contains(searchText))
@@ -71,15 +93,6 @@ namespace JobReady.Controllers
                                 },
                                 PostedOn = $"{j.CreatedOn.Date} - {j.CreatedOn.ToShortTimeString()}",
                             }).ToArray();
-
-            var response = new SearchDetails()
-            {
-                SearchText = searchText,
-                Users = users,
-                Posts = posts,
-                JobPosts = jobPosts
-            };
-            return View(response);
         }
         [HttpPost]
         public IActionResult ApplyFilter(SearchDetails request)
